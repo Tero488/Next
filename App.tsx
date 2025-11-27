@@ -1,0 +1,59 @@
+import React from 'react';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import { LanguageProvider } from './context/LanguageContext';
+
+// Pages
+import Home from './pages/Home';
+import NextHome from './pages/NextHome';
+import SpaceMagic, { SpaceMagicDetail } from './pages/SpaceMagic';
+import IdealYou from './pages/IdealYou';
+import Cases, { CaseDetail } from './pages/Cases';
+import MealTime from './pages/MealTime';
+import News from './pages/News';
+import Contact from './pages/Contact';
+import JoinUs from './pages/JoinUs';
+
+// ScrollToTop Helper
+const ScrollToTop = () => {
+  const { pathname } = React.useMemo(() => new URL(window.location.href), []);
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
+
+const App: React.FC = () => {
+  return (
+    <LanguageProvider>
+      <Router>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            
+            {/* NextHome & Sub-routes */}
+            <Route path="/nexthome" element={<NextHome />} />
+            <Route path="/nexthome/space-magic" element={<SpaceMagic />} />
+            <Route path="/nexthome/space-magic/:id" element={<SpaceMagicDetail />} />
+            <Route path="/nexthome/ideal-you" element={<IdealYou />} />
+            
+            {/* Cases */}
+            <Route path="/cases" element={<Cases />} />
+            <Route path="/cases/:id" element={<CaseDetail />} />
+            
+            <Route path="/mealtime" element={<MealTime />} />
+            
+            {/* News (Using same detail pattern as dummy) */}
+            <Route path="/news" element={<News />} />
+            <Route path="/news/:id" element={<div className="pt-40 text-center">News Detail Placeholder</div>} />
+            
+            <Route path="/join-us" element={<JoinUs />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </Layout>
+      </Router>
+    </LanguageProvider>
+  );
+};
+
+export default App;
