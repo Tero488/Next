@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowLeft, Compass, Hammer, Layers, PenTool } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Compass, Hammer, PenTool } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { SectionTitle, Button, Reveal, StaggerContainer, StaggerItem, ParallaxImage } from '../components/UIComponents';
+import { SectionTitle, Button, StaggerContainer, StaggerItem, ParallaxImage } from '../components/UIComponents';
 import { useLanguage } from '../context/LanguageContext';
 
 const ServiceCard: React.FC<{ icon: React.ReactNode; title: string; desc: string }> = ({ icon, title, desc }) => (

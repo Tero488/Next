@@ -1,6 +1,3 @@
-
-import { Case, Product, NewsItem, Stat, Designer, JobPosition } from '../types';
-
 export const statsData = {
   zh: [
     { id: 1, label: "完成项目", value: "3500+" },

@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { SectionTitle } from '../components/UIComponents';
 import { useLanguage } from '../context/LanguageContext';
 

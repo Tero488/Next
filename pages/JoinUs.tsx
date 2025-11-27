@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { StaggerContainer, Reveal } from '../components/UIComponents';
 import { getJobs } from '../data';
 import { useLanguage } from '../context/LanguageContext';
@@ -10,7 +10,7 @@ const JoinUs: React.FC = () => {
   const jobs = getJobs(language);
 
   // Custom animation variants
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     show: { 
       opacity: 1, 
@@ -22,7 +22,7 @@ const JoinUs: React.FC = () => {
     }
   };
 
-  const lineVariants = {
+  const lineVariants: Variants = {
     hidden: { scaleX: 0 },
     show: { 
       scaleX: 1, 

@@ -1,8 +1,7 @@
 
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { SectionTitle, ProductCard, Reveal, StaggerContainer, StaggerItem, ParallaxImage } from '../components/UIComponents';
+import { ProductCard, Reveal, StaggerContainer, StaggerItem, ParallaxImage } from '../components/UIComponents';
 import { getProducts } from '../data';
 import { useLanguage } from '../context/LanguageContext';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Layout from './components/Layout';
 import { LanguageProvider } from './context/LanguageContext';
 
@@ -16,7 +16,7 @@ import JoinUs from './pages/JoinUs';
 
 // ScrollToTop Helper
 const ScrollToTop = () => {
-  const { pathname } = React.useMemo(() => new URL(window.location.href), []);
+  const { pathname } = useLocation();
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
@@ -27,6 +27,7 @@ const App: React.FC = () => {
   return (
     <LanguageProvider>
       <Router>
+        <ScrollToTop />
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />

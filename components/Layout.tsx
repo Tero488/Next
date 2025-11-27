@@ -20,27 +20,6 @@ export const BrandLogo: React.FC<{ className?: string; lightMode?: boolean }> = 
   </div>
 );
 
-// Simplified Logo for clearer usage
-const LogoText: React.FC<{ scrolled: boolean, isHome: boolean }> = ({ scrolled, isHome }) => {
-  const isDark = !scrolled && isHome;
-  
-  return (
-    <div className="flex items-center tracking-tighter">
-      <span className={`text-3xl font-sans font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
-        NΣXT
-      </span>
-      <div className="w-8 h-8 ml-1 relative flex items-center justify-center">
-         {/* Vertical Bar - Standard Geometric */}
-         <svg viewBox="0 0 100 100" className="w-full h-full absolute" fill="none">
-             <rect x="34" y="0" width="32" height="100" rx="2" fill="#84cc16" />
-         </svg>
-         {/* Horizontal Bar */}
-         <div className={`absolute w-full h-3 rounded-sm ${isDark ? 'bg-white' : 'bg-slate-900'}`} style={{ top: '34%', height: '32%' }}></div>
-      </div>
-    </div>
-  );
-};
-
 // A specific SVG component for the Plus to exactly match the "curved" look in the second crop
 const StylizedPlus: React.FC<{ className?: string; horizontalColor?: string }> = ({ className, horizontalColor = "white" }) => (
   <svg viewBox="0 0 100 100" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
