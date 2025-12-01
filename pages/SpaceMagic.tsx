@@ -1,9 +1,10 @@
 
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ProductCard, Reveal, StaggerContainer, StaggerItem, ParallaxImage } from '../components/UIComponents';
+import { ProductCard, Reveal, StaggerContainer, StaggerItem, ParallaxImage, SafeImage } from '../components/UIComponents';
 import { getProducts } from '../data';
 import { useLanguage } from '../context/LanguageContext';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const SpaceMagicDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,8 +17,8 @@ export const SpaceMagicDetail: React.FC = () => {
     <div className="pt-32 pb-24 max-w-7xl mx-auto px-4">
        <Reveal width="100%">
          <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
-            <div className="rounded-lg overflow-hidden shadow-2xl h-[600px]">
-               <img src={product.image} alt={product.title} className="w-full h-full object-cover" />
+            <div className="rounded-lg overflow-hidden shadow-2xl h-[600px] bg-slate-200">
+               <SafeImage src={product.image} alt={product.title} className="w-full h-full object-cover" />
             </div>
             <div className="flex flex-col justify-center">
                <span className="bg-accent/10 text-accent px-5 py-2.5 rounded-full text-sm font-bold uppercase w-fit mb-8 tracking-widest">{product.category}</span>
@@ -98,74 +99,101 @@ const SpaceMagic: React.FC = () => {
            </button>
         </div>
 
-        {activeTab === 'rd' ? (
-           <div className="text-center py-8 flex flex-col items-center w-full">
-              <Reveal width="100%">
-                <div className="max-w-4xl mx-auto text-center">
-                   <h2 className="text-5xl font-serif font-bold mb-10 text-slate-900">{t('spacemagic.rd.title')}</h2>
-                   <p className="text-slate-600 mb-10 text-xl leading-relaxed">
-                     {t('spacemagic.rd.desc')}
-                   </p>
-                </div>
-              </Reveal>
-              
-              <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20 max-w-6xl w-full mx-auto px-4 items-stretch">
-                 <StaggerItem className="h-full">
-                    <div className="bg-white p-12 shadow-lg border-t-4 border-slate-900 h-full hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center justify-center text-center">
-                      <h3 className="font-bold text-3xl mb-6 text-slate-900">{t('spacemagic.rd.mat')}</h3>
-                      <p className="text-slate-500 text-lg">{t('spacemagic.rd.mat.desc')}</p>
+        <div className="min-h-[400px]">
+            {activeTab === 'rd' ? (
+               <div className="text-center py-8 flex flex-col items-center w-full">
+                  <Reveal width="100%">
+                    <div className="max-w-4xl mx-auto text-center">
+                       <h2 className="text-5xl font-serif font-bold mb-10 text-slate-900">{t('spacemagic.rd.title')}</h2>
+                       <p className="text-slate-600 mb-10 text-xl leading-relaxed">
+                         {t('spacemagic.rd.desc')}
+                       </p>
                     </div>
-                 </StaggerItem>
-                 <StaggerItem className="h-full relative z-10">
-                    {/* Middle card: Dark theme, popped up via transform */}
-                    <div className="bg-slate-900 text-white p-12 shadow-2xl border-t-4 border-accent h-full hover:shadow-2xl transition-all duration-300 transform md:-translate-y-12 flex flex-col items-center justify-center text-center scale-105">
-                      <h3 className="font-bold text-3xl mb-6 text-white">{t('spacemagic.rd.struct')}</h3>
-                      <p className="text-slate-400 text-lg">{t('spacemagic.rd.struct.desc')}</p>
-                    </div>
-                 </StaggerItem>
-                 <StaggerItem className="h-full">
-                    <div className="bg-white p-12 shadow-lg border-t-4 border-slate-900 h-full hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center justify-center text-center">
-                      <h3 className="font-bold text-3xl mb-6 text-slate-900">{t('spacemagic.rd.smart')}</h3>
-                      <p className="text-slate-500 text-lg">{t('spacemagic.rd.smart.desc')}</p>
-                    </div>
-                 </StaggerItem>
-              </StaggerContainer>
-           </div>
-        ) : (
-           <div>
-              {/* Sub-Category Filter */}
-              <div className="flex flex-wrap justify-center gap-4 mb-12">
-                 {categoryMap.map(catItem => {
-                    const isActive = activeCategory === catItem.key;
-                    const label = language === 'zh' ? catItem.zh : catItem.en;
-                    return (
-                       <button
-                          key={catItem.key}
-                          onClick={() => setActiveCategory(catItem.key)}
-                          className={`px-6 py-2 rounded-full border transition-all duration-300 text-sm md:text-base font-medium
-                             ${isActive 
-                                ? 'bg-slate-900 text-white border-slate-900' 
-                                : 'bg-white text-slate-600 border-slate-200 hover:border-accent hover:text-accent'}`}
-                       >
-                          {label}
-                       </button>
-                    )
-                 })}
-              </div>
-
-              <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                  {filteredProducts.length > 0 ? (
-                    filteredProducts.map(p => (
-                      <ProductCard key={p.id} {...p} />
-                    ))
-                  ) : (
-                    <div className="col-span-full text-center py-20 text-slate-400 text-lg">
-                       {language === 'zh' ? '该分类下暂无产品。' : 'No products found in this category.'}
-                    </div>
-                  )}
-              </StaggerContainer>
-           </div>
-        )}
+                  </Reveal>
+                  
+                  <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20 max-w-6xl w-full mx-auto px-4 items-stretch">
+                     <StaggerItem className="h-full">
+                        <div className="bg-white p-12 shadow-lg border-t-4 border-slate-900 h-full hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center justify-center text-center">
+                          <h3 className="font-bold text-3xl mb-6 text-slate-900">{t('spacemagic.rd.mat')}</h3>
+                          <p className="text-slate-500 text-lg">{t('spacemagic.rd.mat.desc')}</p>
+                        </div>
+                     </StaggerItem>
+                     <StaggerItem className="h-full relative z-10">
+                        {/* Middle card: Dark theme, popped up via transform */}
+                        <div className="bg-slate-900 text-white p-12 shadow-2xl border-t-4 border-accent h-full hover:shadow-2xl transition-all duration-300 transform md:-translate-y-12 flex flex-col items-center justify-center text-center scale-105">
+                          <h3 className="font-bold text-3xl mb-6 text-white">{t('spacemagic.rd.struct')}</h3>
+                          <p className="text-slate-400 text-lg">{t('spacemagic.rd.struct.desc')}</p>
+                        </div>
+                     </StaggerItem>
+                     <StaggerItem className="h-full">
+                        <div className="bg-white p-12 shadow-lg border-t-4 border-slate-900 h-full hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center justify-center text-center">
+                          <h3 className="font-bold text-3xl mb-6 text-slate-900">{t('spacemagic.rd.smart')}</h3>
+                          <p className="text-slate-500 text-lg">{t('spacemagic.rd.smart.desc')}</p>
+                        </div>
+                     </StaggerItem>
+                  </StaggerContainer>
+               </div>
+            ) : (
+               <motion.div
+                 initial={{ opacity: 0 }}
+                 animate={{ opacity: 1 }}
+                 transition={{ duration: 0.5 }}
+               >
+                  {/* Sub-Category Filter */}
+                  <div className="flex flex-wrap justify-center gap-4 mb-12">
+                     {categoryMap.map(catItem => {
+                        const isActive = activeCategory === catItem.key;
+                        const label = language === 'zh' ? catItem.zh : catItem.en;
+                        return (
+                           <button
+                              key={catItem.key}
+                              onClick={() => setActiveCategory(catItem.key)}
+                              className={`px-6 py-2 rounded-full border transition-all duration-300 text-sm md:text-base font-medium
+                                 ${isActive 
+                                    ? 'bg-slate-900 text-white border-slate-900' 
+                                    : 'bg-white text-slate-600 border-slate-200 hover:border-accent hover:text-accent'}`}
+                           >
+                              {label}
+                           </button>
+                        )
+                     })}
+                  </div>
+                  
+                  {/* 
+                     Updated to motion.div with direct 'animate="show"' prop.
+                     This fixes the blank screen issue when switching categories by ensuring 
+                     animations trigger immediately on mount, rather than waiting for scroll events.
+                     Added min-h-[500px] to preserve layout structure ("preset framework").
+                  */}
+                  <motion.div 
+                    key={activeCategory}
+                    variants={{
+                      hidden: { opacity: 0 },
+                      show: {
+                        opacity: 1,
+                        transition: {
+                          staggerChildren: 0.05, // Faster stagger for better responsiveness
+                          delayChildren: 0.05
+                        }
+                      }
+                    }}
+                    initial="hidden"
+                    animate="show"
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 min-h-[500px]"
+                  >
+                      {filteredProducts.length > 0 ? (
+                        filteredProducts.map(p => (
+                          <ProductCard key={p.id} {...p} />
+                        ))
+                      ) : (
+                        <div className="col-span-full text-center py-20 text-slate-400 text-lg">
+                           {language === 'zh' ? '该分类下暂无产品。' : 'No products found in this category.'}
+                        </div>
+                      )}
+                  </motion.div>
+               </motion.div>
+            )}
+        </div>
       </div>
     </div>
   );

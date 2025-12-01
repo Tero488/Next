@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { SectionTitle, Button } from '../components/UIComponents';
 import { MapPin, Phone, Mail } from 'lucide-react';
@@ -5,18 +6,17 @@ import { useLanguage } from '../context/LanguageContext';
 
 const Contact: React.FC = () => {
   const { t } = useLanguage();
+  
   return (
     <div className="pt-20">
-       {/* Map Placeholder */}
-       <div className="w-full h-[500px] bg-slate-200 relative">
+       {/* Map Section: Embedded Baidu Map */}
+       <div className="w-full h-[500px] bg-slate-200 relative group border-b border-slate-200">
           <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113407.96570624022!2d112.93134025!3d28.2352905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x342eaef8dd85f26f%3A0x39c2449eb6115456!2sChangsha%2C%20Hunan%2C%20China!5e0!3m2!1sen!2sus!4v1655184234567!5m2!1sen!2sus" 
-            width="100%" 
-            height="100%" 
-            style={{ border: 0 }} 
-            allowFullScreen={true} 
-            loading="lazy"
-            className="filter grayscale opacity-80"
+             src="https://api.map.baidu.com/marker?location=28.196,112.986&title=NEXT%2B%20HEADQUARTERS&content=%E9%95%BF%E6%B2%99%E5%B8%82%E8%8A%99%E8%93%89%E5%8C%BA%E9%9F%AD%E8%8F%9C%E5%9B%AD%E8%B7%AF058%E5%8F%B7&output=html&src=webapp.baidu.openAPIdemo"
+             className="w-full h-full border-0 filter grayscale hover:grayscale-0 transition-all duration-700 block"
+             allowFullScreen
+             loading="lazy"
+             title="Baidu Map Location"
           ></iframe>
        </div>
 

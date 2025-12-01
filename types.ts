@@ -1,9 +1,11 @@
+
 export interface Case {
   id: string;
   title: string;
   category: string;
   image: string;
   description: string;
+  gallery?: string[];
 }
 
 export interface Product {

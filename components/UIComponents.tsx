@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from 'react';
+
+import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ImageOff } from 'lucide-react';
 import { motion, useScroll, useTransform, useInView, Variants, useMotionValue, animate } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -68,6 +69,43 @@ export const StaggerItem: React.FC<{ children: React.ReactNode; className?: stri
   );
 };
 
+// --- Safe Image Component ---
+export const SafeImage: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({ src, alt, className, ...props }) => {
+  const [error, setError] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+
+  // Reset error state if src changes
+  useEffect(() => {
+    setError(false);
+    setLoaded(false);
+  }, [src]);
+
+  if (error) {
+    return (
+      <div className={`bg-slate-200 flex flex-col items-center justify-center text-slate-400 p-4 ${className}`}>
+        <ImageOff size={24} className="mb-2 opacity-50" />
+        <span className="text-xs text-center font-medium opacity-75 truncate w-full">{alt || 'Image Unavailable'}</span>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {!loaded && <div className={`absolute inset-0 bg-slate-200 animate-pulse ${className}`} />}
+      <img
+        src={src}
+        alt={alt}
+        className={`${className} ${loaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`}
+        onError={() => setError(true)}
+        onLoad={() => setLoaded(true)}
+        loading="lazy"
+        decoding="async"
+        {...props}
+      />
+    </>
+  );
+};
+
 export const ParallaxImage: React.FC<{ src: string; alt: string; className?: string; heightClass?: string }> = ({ src, alt, className, heightClass = "h-full" }) => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -80,14 +118,12 @@ export const ParallaxImage: React.FC<{ src: string; alt: string; className?: str
   return (
     <div ref={ref} className={`overflow-hidden relative ${heightClass} ${className}`}>
       <motion.div 
-        style={{ y, willChange: "transform" }} // Keep willChange here as it updates every frame
+        style={{ y, willChange: "transform" }}
         className="w-full h-[120%] -mt-[10%] relative"
       >
-        <img 
+        <SafeImage 
           src={src} 
           alt={alt} 
-          loading="lazy"
-          decoding="async"
           className="w-full h-full object-cover" 
         />
       </motion.div>
@@ -163,14 +199,12 @@ export const Button: React.FC<{ children: React.ReactNode; to?: string; variant?
 export const CaseCard: React.FC<{ id: string; image: string; title: string; category: string }> = ({ id, image, title, category }) => (
   <StaggerItem className="group cursor-pointer block h-full">
     <Link to={`/cases/${id}`} className="block h-full">
-      <div className="relative overflow-hidden aspect-[4/3] mb-5 shadow-md group-hover:shadow-xl transition-all duration-500">
+      <div className="relative overflow-hidden aspect-[4/3] mb-5 shadow-md group-hover:shadow-xl transition-all duration-500 bg-slate-200">
         <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/10 z-10 transition-colors duration-500" />
-        <img 
+        <SafeImage 
           src={image} 
           alt={title} 
-          loading="lazy"
-          decoding="async"
-          className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 transform-gpu" // GPU accelerated transition without memory bloat
+          className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 transform-gpu" 
         />
       </div>
       <div className="flex flex-col">
@@ -185,12 +219,10 @@ export const ProductCard: React.FC<{ id: string; image: string; title: string; d
   const { t } = useLanguage();
   return (
     <StaggerItem className="bg-slate-50 p-8 hover:shadow-xl transition-all duration-300 border border-slate-100 cursor-pointer hover:-translate-y-2 h-full flex flex-col">
-      <div className="h-56 mb-8 overflow-hidden">
-        <img 
+      <div className="h-56 mb-8 overflow-hidden bg-slate-200 relative group-hover:shadow-inner">
+        <SafeImage 
           src={image} 
           alt={title} 
-          loading="lazy"
-          decoding="async"
           className="w-full h-full object-cover transition-transform duration-700 hover:scale-110 transform-gpu" 
         />
       </div>

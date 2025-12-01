@@ -197,6 +197,7 @@ export const translations = {
     'join.subtitle': '成为 NEXT+ 的一员，共创未来。',
     'join.contact.name': '匡先生',
     'join.contact.phone': '电话',
+    'join.contact.phone.val': '186-7373-1199',
     'join.contact.address': '地址',
     'join.contact.address.val': '长沙市芙蓉区韭菜园路058号',
 
@@ -393,6 +394,7 @@ export const translations = {
     'join.subtitle': 'Become a part of NEXT+ and build the future.',
     'join.contact.name': 'Mr. Kuang',
     'join.contact.phone': 'Tel',
+    'join.contact.phone.val': '186-7373-1199',
     'join.contact.address': 'Add',
     'join.contact.address.val': 'No. 058, Jiucaiyuan Road, Furong District, Changsha',
 
