@@ -25,7 +25,8 @@ const FeatureSection: React.FC<{
   align: 'left' | 'right'; 
   dark?: boolean;
   accentColor?: boolean;
-}> = ({ number, icon, title, desc, tag, image, align, dark, accentColor }) => {
+  to?: string;
+}> = ({ number, icon, title, desc, tag, image, align, dark, accentColor, to }) => {
   
   const textContent = (
     <motion.div 
@@ -65,7 +66,7 @@ const FeatureSection: React.FC<{
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 1 }}
-      className="h-[500px] lg:h-auto relative overflow-hidden group"
+      className="h-[700px] relative overflow-hidden group"
     >
       <img 
         src={image} 
@@ -76,7 +77,7 @@ const FeatureSection: React.FC<{
     </motion.div>
   );
 
-  return (
+  const content = (
     <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[700px]">
       {align === 'left' ? (
         <>
@@ -91,6 +92,12 @@ const FeatureSection: React.FC<{
       )}
     </div>
   );
+
+  return to ? (
+    <Link to={to} className="block">
+      {content}
+    </Link>
+  ) : content;
 };
 
 const MealTime: React.FC = () => {
@@ -156,8 +163,9 @@ const MealTime: React.FC = () => {
             title={t('mealtime.coffee.title')}
             desc={t('mealtime.coffee.desc')}
             tag="Premium Beans"
-            image="https://picsum.photos/800/800?random=coffee"
+            image="/images/mealtime/coffee/coffee-01.jpg"
             align="left"
+            to="/mealtime/coffee"
           />
           
           <FeatureSection 
@@ -166,10 +174,11 @@ const MealTime: React.FC = () => {
             title={t('mealtime.dining.title')}
             desc={t('mealtime.dining.desc')}
             tag="Social Space"
-            image="https://picsum.photos/800/800?random=food"
+            image="/images/mealtime/dining/dining-01.jpg"
             align="right"
             dark={true}
             accentColor={true}
+            to="/mealtime/dining"
           />
 
           <FeatureSection 
@@ -178,8 +187,9 @@ const MealTime: React.FC = () => {
             title={t('mealtime.lifestyle.title')}
             desc={t('mealtime.lifestyle.desc')}
             tag="Trendsetter"
-            image="https://picsum.photos/800/800?random=party"
+            image="/images/mealtime/lifestyle/lifestyle-01.jpg"
             align="left"
+            to="/mealtime/lifestyle"
           />
        </section>
 

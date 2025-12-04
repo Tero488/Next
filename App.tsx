@@ -8,8 +8,10 @@ import Home from './pages/Home';
 import NextHome from './pages/NextHome';
 import SpaceMagic, { SpaceMagicDetail } from './pages/SpaceMagic';
 import IdealYou from './pages/IdealYou';
+import DesignerDetail from './pages/DesignerDetail';
 import Cases, { CaseDetail } from './pages/Cases';
 import MealTime from './pages/MealTime';
+import MealTimeDetail from './pages/MealTimeDetail';
 import News from './pages/News';
 import Contact from './pages/Contact';
 import JoinUs from './pages/JoinUs';
@@ -37,12 +39,14 @@ const App: React.FC = () => {
             <Route path="/nexthome/space-magic" element={<SpaceMagic />} />
             <Route path="/nexthome/space-magic/:id" element={<SpaceMagicDetail />} />
             <Route path="/nexthome/ideal-you" element={<IdealYou />} />
+            <Route path="/nexthome/ideal-you/designers/:id" element={<DesignerDetail />} />
             
             {/* Cases */}
             <Route path="/cases" element={<Cases />} />
             <Route path="/cases/:id" element={<CaseDetail />} />
             
             <Route path="/mealtime" element={<MealTime />} />
+            <Route path="/mealtime/:id" element={<MealTimeDetail />} />
             
             {/* News (Using same detail pattern as dummy) */}
             <Route path="/news" element={<News />} />

@@ -12,6 +12,8 @@
 // 4. 在下方引用路径: "/images/cases/my-new-case.jpg"
 // ==========================================
 
+import type { Designer } from '../types';
+
 // ------------------------------------------
 // 1. 图片资源库 (Image Library)
 // ------------------------------------------
@@ -52,78 +54,86 @@ const CONFIG_IMAGES = {
 export const casesData = {
   zh: [
     {
-      id: "xiangjiang-one", // 唯一ID (网址上会显示这个，不能重复，只能用英文)
-      title: "湘江壹号·天际私宅",
+      id: "jiangshan-one", // 唯一ID (网址上会显示这个，不能重复，只能用英文)
+      title: "江山一号",
       category: "住宅", // 分类: "住宅" 或 "商业"
-      image: CONFIG_IMAGES.cases.xiangjiang_main, // 封面图
-      description: "位于湘江之畔的顶级豪宅项目。设计团队打破传统界限，以现代极简语言重构空间秩序。全景落地窗将一线江景引入室内，黑白灰的主色调点缀暖色灯光，配合B&B Italia、Poliform等国际一线品牌家居，营造出静谧而极致奢华的居住氛围。空间流动性与私密性完美平衡，重新定义了当代精英的生活方式。",
-      gallery: CONFIG_IMAGES.cases.xiangjiang_gallery // 详情页相册
+      image: "/images/cases/jiangshan-one/cover.jpg", // 封面图
+      description: "项目位于江景核心地段，高区俯瞰城市与江岸全景。空间以克制的留白与大面积石材、木饰面为主线，弱化风格标签，强调尺度与光的变化。客餐厅、旋梯与通高落地窗形成开放的生活场景，搭配艺术装置与定制家具，让居住者在日常起居中感受城市天际线的张力与秩序。",
+      gallery: Array.from({ length: 7 }, (_, i) => `/images/cases/gallery/jiangshan-one/jiangshan-one-${String(i + 1).padStart(2, '0')}.jpg`)
     },
     {
-      id: "c1",
-      title: "天际奢华公馆",
+      id: "bgy-shuilantian-9",
+      title: "碧桂园水蓝天9号栋",
       category: "住宅",
-      image: CONFIG_IMAGES.cases.skyline,
-      description: "俯瞰城市天际线的现代杰作。"
+      image: "/images/cases/bgy-shuilantian-9/cover.jpg",
+      description: "位于岳麓核心区的湖景大宅，以现代东方的线条与材质诠释宁静、轻奢的生活质感。",
+      gallery: Array.from({ length: 7 }, (_, i) => `/images/cases/gallery/bgy-shuilantian-9/bgy-shuilantian-9-${String(i + 1).padStart(2, '0')}.jpg`)
     },
     {
       id: "c2",
       title: "NEPTUNE MUMBAI 2025",
       category: "商业",
-      image: CONFIG_IMAGES.cases.neptune,
-      description: "位于印度孟买的NEPTUNE品牌展厅，集成了灯光与空气系统的现代化商业空间。"
+      image: "/images/cases/neptune-mumbai-2025-cover.png",
+      description: "位于印度孟买的NEPTUNE品牌展厅，集成灯光与空气系统的现代商业空间，以沉浸式体验诠释品牌未来感。",
+      gallery: Array.from({ length: 21 }, (_, i) => `/images/cases/gallery/neptune-mumbai-2025-${String(i + 1).padStart(2, '0')}.png`)
     },
     {
-      id: "c3",
-      title: "禅意花园别墅",
+      id: "xiangjiang-one",
+      title: "湘江壹号·天际私宅",
       category: "住宅",
-      image: CONFIG_IMAGES.cases.zen,
-      description: "融合自然元素的宁静居所。"
+      image: "/images/cases/xiangjiang-one/cover.jpg",
+      description: "位于湘江之畔的顶级豪宅项目。设计团队打破传统界限，以现代极简语言重构空间秩序。全景落地窗将一线江景引入室内，黑白灰的主色调点缀暖色灯光，配合B&B Italia、Poliform等国际一线品牌家居，营造出静谧而极致奢华的居住氛围。空间流动性与私密性完美平衡，重新定义了当代精英的生活方式。",
+      gallery: Array.from({ length: 24 }, (_, i) => `/images/cases/gallery/xiangjiang-one/xiangjiang-one-${String(i + 1).padStart(2, '0')}.jpg`)
     },
     {
-      id: "c4",
-      title: "未来科技办公室",
-      category: "商业",
-      image: CONFIG_IMAGES.cases.office,
-      description: "激发创新的灵动办公空间。"
+      id: "beichen-hanjiangfu",
+      title: "北辰翰江府",
+      category: "住宅",
+      image: "/images/cases/beichen-hanjiangfu/cover.jpg",
+      description: "位于长沙核心地段的现代精品住宅，以简约线条与高级材质诠释都市生活美学，打造低调而精致的居住体验。",
+      gallery: Array.from({ length: 4 }, (_, i) => `/images/cases/gallery/beichen-hanjiangfu/beichen-hanjiangfu-${String(i + 1).padStart(2, '0')}.jpg`)
     }
   ],
   en: [
     {
-      id: "xiangjiang-one",
-      title: "Xiangjiang One Residence",
+      id: "jiangshan-one",
+      title: "Jiangshan One",
       category: "Residential", // Category: "Residential" or "Commercial"
-      image: CONFIG_IMAGES.cases.xiangjiang_main,
-      description: "A top-tier private residence located by the Xiangjiang River. The design team breaks away from traditional boundaries, reconstructing spatial order with modern minimalist language. Panoramic floor-to-ceiling windows introduce the river view, while the monochrome palette accented with warm lighting and premium furniture brands creates a serene and ultra-luxurious atmosphere.",
-      gallery: CONFIG_IMAGES.cases.xiangjiang_gallery
+      image: "/images/cases/jiangshan-one/cover.jpg",
+      description: "Located on a prime riverfront site, Jiangshan One commands a full panorama of the city skyline and Xiangjiang River. The design deliberately downplays overt styling, using calm stone and timber surfaces, generous negative space and a sculptural stair to organize the home. Panoramic glazing, open living–dining areas and curated art pieces together create a serene yet powerful stage for contemporary urban life.",
+      gallery: Array.from({ length: 7 }, (_, i) => `/images/cases/gallery/jiangshan-one/jiangshan-one-${String(i + 1).padStart(2, '0')}.jpg`)
     },
     {
-      id: "c1",
-      title: "Skyline Luxury Residence",
+      id: "bgy-shuilantian-9",
+      title: "Country Garden Azure Sky Tower 9",
       category: "Residential",
-      image: CONFIG_IMAGES.cases.skyline,
-      description: "A modern masterpiece overlooking the city skyline."
+      image: "/images/cases/bgy-shuilantian-9/cover.jpg",
+      description: "A lakefront residence in Changsha where calm modern lines blend with refined oriental materials for a serene luxury lifestyle.",
+      gallery: Array.from({ length: 7 }, (_, i) => `/images/cases/gallery/bgy-shuilantian-9/bgy-shuilantian-9-${String(i + 1).padStart(2, '0')}.jpg`)
     },
     {
       id: "c2",
       title: "NEPTUNE MUMBAI 2025",
       category: "Commercial",
-      image: CONFIG_IMAGES.cases.neptune,
-      description: "NEPTUNE brand showroom in Mumbai, India. A modern commercial space integrating lighting and air systems."
+      image: "/images/cases/neptune-mumbai-2025-cover.png",
+      description: "NEPTUNE's Mumbai flagship showroom, integrating immersive lighting and air systems to communicate a futuristic brand vision.",
+      gallery: Array.from({ length: 21 }, (_, i) => `/images/cases/gallery/neptune-mumbai-2025-${String(i + 1).padStart(2, '0')}.png`)
     },
     {
-      id: "c3",
-      title: "Zen Garden Villa",
+      id: "xiangjiang-one",
+      title: "Xiangjiang One Residence",
       category: "Residential",
-      image: CONFIG_IMAGES.cases.zen,
-      description: "A serene retreat blending natural elements."
+      image: "/images/cases/xiangjiang-one/cover.jpg",
+      description: "A top-tier private residence located by the Xiangjiang River. The design team breaks away from traditional boundaries, reconstructing spatial order with modern minimalist language. Panoramic glazing brings the river panorama indoors, while the monochrome palette and warm lighting create a calm yet ultra-luxurious ambience.",
+      gallery: Array.from({ length: 24 }, (_, i) => `/images/cases/gallery/xiangjiang-one/xiangjiang-one-${String(i + 1).padStart(2, '0')}.jpg`)
     },
     {
-      id: "c4",
-      title: "Future Tech Office",
-      category: "Commercial",
-      image: CONFIG_IMAGES.cases.office,
-      description: "Dynamic workspace inspiring innovation."
+      id: "beichen-hanjiangfu",
+      title: "Beichen Hanjiangfu",
+      category: "Residential",
+      image: "/images/cases/beichen-hanjiangfu/cover.jpg",
+      description: "A modern boutique residence in Changsha's core district, interpreting urban living aesthetics with minimalist lines and premium materials.",
+      gallery: Array.from({ length: 4 }, (_, i) => `/images/cases/gallery/beichen-hanjiangfu/beichen-hanjiangfu-${String(i + 1).padStart(2, '0')}.jpg`)
     }
   ]
 };
@@ -287,99 +297,99 @@ const productsData = [
     }
   },
 
-  // --- Smart Systems (Equipment) ---
+  // --- Smart Lighting (智能灯光) ---
   {
-    id: "smart-hvac",
-    category: "Smart Systems",
-    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=800&auto=format&fit=crop",
-    title: { zh: "全屋恒温恒湿系统", en: "Central Climate Control System" },
-    description: { 
-      zh: "集空调、地暖、新风于一体的智能环境控制系统，打造四季如春的居住体验。", 
-      en: "Integrated HVAC, floor heating, and fresh air system for a perfect indoor climate year-round." 
-    }
-  },
-  {
-    id: "smart-elevator",
-    category: "Smart Systems",
-    image: "https://images.unsplash.com/photo-1541123437860-bb9699413ec0?q=80&w=800&auto=format&fit=crop",
-    title: { zh: "家用静音电梯", en: "Silent Home Elevator" },
-    description: { 
-      zh: "无需底坑，自带井道，极致静音运行。定制化轿厢设计，完美融入别墅空间。", 
-      en: "Pitless, self-contained shaft, whisper-quiet operation. Customized cabin design to blend into villa spaces." 
-    }
-  },
-  {
-    id: "smart-lighting",
-    category: "Smart Systems",
+    id: "smart-lighting-01",
+    category: "Smart Lighting",
     image: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?q=80&w=800&auto=format&fit=crop",
-    title: { zh: "智能调光系统", en: "Intelligent Dimming System" },
+    title: { zh: "DALI智能调光系统", en: "DALI Smart Dimming System" },
     description: { 
-      zh: "DALI 2.0 协议，万级调光深度。根据人体节律自动调节色温与亮度。", 
+      zh: "DALI 2.0 协议，万级调光深度。根据人体节律自动调节色温与亮度，打造健康光环境。", 
       en: "DALI 2.0 protocol, 10,000-level dimming depth. Automatically adjusts color temp and brightness based on circadian rhythm." 
     }
   },
-
-  // --- Standard Materials ---
   {
-    id: "std-tile",
-    category: "Standard Materials",
+    id: "smart-lighting-02",
+    category: "Smart Lighting",
+    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=800&auto=format&fit=crop",
+    title: { zh: "智能场景照明系统", en: "Smart Scene Lighting System" },
+    description: { 
+      zh: "多场景智能切换，一键联动全屋灯光。支持语音控制与手机远程调节，营造理想氛围。", 
+      en: "Multi-scene intelligent switching, one-touch whole-house lighting control. Supports voice control and mobile remote adjustment." 
+    }
+  },
+  {
+    id: "smart-lighting-03",
+    category: "Smart Lighting",
+    image: "https://images.unsplash.com/photo-1541123437860-bb9699413ec0?q=80&w=800&auto=format&fit=crop",
+    title: { zh: "轨道磁吸灯系统", en: "Track Magnetic Lighting System" },
+    description: { 
+      zh: "无主灯设计，48V安全低压轨道。磁吸式灯具可随意调整位置与角度，灵活打造光影层次。", 
+      en: "Mainless design, 48V safe low-voltage track. Magnetic fixtures can be freely adjusted in position and angle." 
+    }
+  },
+
+  // --- Artistic Coatings (艺术涂料) ---
+  {
+    id: "coating-01",
+    category: "Artistic Coatings",
     image: "https://images.unsplash.com/photo-1615873968403-89e068629265?q=80&w=800&auto=format&fit=crop",
-    title: { zh: "意大利进口岩板", en: "Italian Imported Sintered Stone" },
+    title: { zh: "微水泥艺术涂料", en: "Microcement Artistic Coating" },
     description: { 
-      zh: "1200x2400mm 大规格连纹。耐磨耐高温，还原天然大理石的奢华质感。", 
-      en: "1200x2400mm large format continuous vein. Wear and heat resistant, replicating luxury marble texture." 
+      zh: "意大利进口微水泥系统，极简无缝质感。防水防霉，可应用于墙面、地面与家具表面。", 
+      en: "Italian imported microcement system, minimalist seamless texture. Waterproof and mold-resistant, applicable to walls, floors and furniture." 
     }
   },
   {
-    id: "std-floor",
-    category: "Standard Materials",
+    id: "coating-02",
+    category: "Artistic Coatings",
     image: "https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?q=80&w=800&auto=format&fit=crop",
-    title: { zh: "鱼骨拼实木地板", en: "Chevron Solid Wood Flooring" },
+    title: { zh: "肌理漆立体涂装", en: "Textured Paint 3D Coating" },
     description: { 
-      zh: "精选北美白橡木，德国欧诗木木蜡油涂装。环保E0级，脚感温润。", 
-      en: "Selected North American White Oak, finished with German Osmo wax oil. Eco-friendly E0 grade, warm foot feel." 
+      zh: "手工批刮工艺，打造独特肌理效果。环保零VOC配方，呈现丰富的光影层次与触感。", 
+      en: "Hand-applied technique creating unique textured effects. Eco-friendly zero-VOC formula with rich light and tactile depth." 
     }
   },
   {
-    id: "std-bath",
-    category: "Standard Materials",
+    id: "coating-03",
+    category: "Artistic Coatings",
     image: "https://images.unsplash.com/photo-1604014237800-1c9102c219da?q=80&w=800&auto=format&fit=crop",
-    title: { zh: "极简恒温花洒", en: "Minimalist Thermostatic Shower" },
+    title: { zh: "艺术硅藻泥涂料", en: "Artistic Diatomaceous Earth Coating" },
     description: { 
-      zh: "PVD枪灰色电镀，空气注入技术。精准控温，带来SPA级的沐浴享受。", 
-      en: "PVD Gunmetal finish, air injection technology. Precise temperature control for a SPA-like shower experience." 
+      zh: "天然硅藻土基底，调节室内湿度与净化空气。可塑性强，呈现哑光自然质感。", 
+      en: "Natural diatomaceous earth base, regulates humidity and purifies air. Highly moldable with matte natural texture." 
     }
   },
 
-  // --- Bespoke (Custom) ---
+  // --- Woodwork Custom (木作定制) ---
   {
-    id: "bespoke-closet",
-    category: "Bespoke",
+    id: "woodwork-01",
+    category: "Woodwork Custom",
     image: "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?q=80&w=800&auto=format&fit=crop",
-    title: { zh: "意式玻璃衣帽间", en: "Italian Glass Walk-in Closet" },
+    title: { zh: "全屋木饰面系统", en: "Whole House Wood Veneer System" },
     description: { 
-      zh: "铝框玻璃门搭配皮革背板。内置感应灯带系统，收纳与展示的完美平衡。", 
-      en: "Aluminum frame glass doors with leather back panels. Built-in sensor lighting system, perfect balance of storage and display." 
+      zh: "天然木皮贴面，隐形门与墙板一体化设计。精密工艺实现无缝拼接，呈现高级质感。", 
+      en: "Natural wood veneer with integrated hidden door and wall panel design. Precision craftsmanship for seamless joints." 
     }
   },
   {
-    id: "bespoke-wall",
-    category: "Bespoke",
+    id: "woodwork-02",
+    category: "Woodwork Custom",
     image: "https://images.unsplash.com/photo-1600566752355-35792bedcfea?q=80&w=800&auto=format&fit=crop",
-    title: { zh: "科技木皮护墙系统", en: "Tech Veneer Wall System" },
+    title: { zh: "定制原木衣帽间", en: "Custom Solid Wood Walk-in Closet" },
     description: { 
-      zh: "同色系隐形门设计，金属线条收口。实现墙门柜一体化的极致视觉效果。", 
-      en: "Same-color hidden door design with metal trim. Achieving the ultimate visual effect of integrated wall, door, and cabinet." 
+      zh: "北美进口白橡木或黑胡桃木，全榫卯结构。内置感应灯带与分区收纳系统，兼具美感与实用。", 
+      en: "Imported North American white oak or black walnut, full mortise-and-tenon structure with built-in sensor lighting." 
     }
   },
   {
-    id: "bespoke-kitchen",
-    category: "Bespoke",
+    id: "woodwork-03",
+    category: "Woodwork Custom",
     image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=800&auto=format&fit=crop",
-    title: { zh: "不锈钢整体厨房", en: "Stainless Steel Integrated Kitchen" },
+    title: { zh: "原木整体橱柜系统", en: "Solid Wood Integrated Cabinet System" },
     description: { 
-      zh: "食品级304不锈钢台面，无缝焊接。耐用抗菌，工业风与现代美学的结合。", 
-      en: "Food-grade 304 stainless steel countertop, seamless welding. Durable and antibacterial, combining industrial style with modern aesthetics." 
+      zh: "进口实木柜体，德系五金配件。隐藏把手设计，台面与门板无缝衔接，打造简约高级厨房空间。", 
+      en: "Imported solid wood cabinetry with German hardware. Hidden handle design, seamless connection between countertop and doors." 
     }
   }
 ];
@@ -394,16 +404,218 @@ export const getProducts = (lang: 'zh' | 'en') => {
   }));
 };
 
-export const designersData = {
+export const designersData: Record<'zh' | 'en', Designer[]> = {
   zh: [
-    { id: "d1", name: "Alex Lin", role: "首席架构师", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop" },
-    { id: "d2", name: "Sarah Chen", role: "软装设计总监", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop" },
-    { id: "d3", name: "Mike Wang", role: "商业策划顾问", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=600&auto=format&fit=crop" },
+    { 
+      id: "tang-guishu", 
+      name: "唐桂树", 
+      role: "湖南你好能量盒子装饰工程设计有限公司 创始人 / 设计总监", 
+      image: "/images/designers/tang-guishu.jpg",
+      sections: [
+        {
+          title: "设计理念",
+          variant: "paragraph",
+          items: ["以人为本，为居住者创造功能合理、舒适优美、兼具物质与精神需求的室内环境——有限空间，无限精彩。"]
+        },
+        {
+          title: "个人说明",
+          variant: "paragraph",
+          items: ["多次参与国内重要室内设计赛事并屡获大奖，持续推动室内空间品质的创新表达。"]
+        },
+        {
+          title: "荣誉见证",
+          items: [
+            "2011年湖南省第11届室内设计大赛 优秀奖；2012年湖南省第12届室内设计大赛 金奖；",
+            "2013年CIID中国室内设计大赛 铜奖、“居然杯”CIDA中国室内设计创新设计奖、湖南省第13届室内设计大赛 金奖；",
+            "2014年第10届中国国际室内设计大赛双年展 银奖、湖南省第14届室内设计大赛 银奖；",
+            "2016年双年展 银奖、湖南省第16届室内设计大赛 金奖；",
+            "2017年HIID顶峰设计大赛 银奖、上海金外滩国际设计大奖赛 最佳设计师；",
+            "2018年HIID顶峰设计大赛年度新锐建筑室内设计师、建筑室内一体化设计 银奖；",
+            "2019年第二届鲲鹏奖中国室内设计大赛别墅类 金鲲鹏奖；",
+            "2022年CIID中国室内设计大赛 铜奖；2023年CIID中国室内设计大赛 银奖、HIID顶峰设计大赛建筑室内一体化设计 金奖，获IHIDA北部十大先锋设计师、湖南室内设计封面人物。"
+          ]
+        }
+      ]
+    },
+    {
+      id: "peng-yi",
+      name: "彭毅",
+      role: "NEXT HOME 能量盒子联合创始人 / 设计总监",
+      image: "/images/designers/peng-yi.jpg",
+      sections: [
+        {
+          title: "设计理念",
+          variant: "paragraph",
+          items: ["不定义所谓风格，居住者才是风格。让空间忠于使用者的情绪、习惯与价值。"]
+        },
+        {
+          title: "职业身份",
+          variant: "paragraph",
+          items: ["NEXT HOME 能量盒子联合创始人，负责整体设计策略与作品标准化落地。"]
+        },
+        {
+          title: "专业荣誉",
+          items: [
+            "中国建筑室内设计协会会员",
+            "湖南建筑学会室内分会会员",
+            "中国2021年度 TOP100 设计师"
+          ]
+        },
+        {
+          title: "主要奖项",
+          items: [
+            "2018年筑巢奖 银奖；2019年顶峰设计住宅实例类 铜奖；",
+            "2020年顶峰设计公共空间类 银奖、中国室内设计大赛 铜奖；",
+            "2021年顶峰设计公共空间类 金奖、住宅类 优秀奖；",
+            "2021年湖南家居行业卓群奖；2021年金外滩办公空间 银奖；",
+            "2022年金案奖全国十二强、ICS最佳色彩空间设计奖、CIID商业空间类 铜奖、LHDA国际奢居大奖；",
+            "2022年金住奖中国（长沙）十大居住空间设计；",
+            "2023年湖南TOP100设计年鉴 银奖、CIID住宅类 银奖。"
+          ]
+        },
+        {
+          title: "擅长风格",
+          items: ["现代极简", "中古诧寂", "现代法式", "自然主义", "意式轻奢"]
+        },
+        {
+          title: "代表案例",
+          items: ["长房样板房", "京武浪琴山", "印长江", "北辰定江洋", "江山壹号", "湘江壹号", "明晟壹城"]
+        }
+      ]
+    },
+    {
+      id: "kuang-yingzhi",
+      name: "匡颖智",
+      role: "湖南你好能量盒子装饰工程设计有限公司 联合创始人 / 设计总监",
+      image: "/images/designers/kuang-yingzhi.jpg",
+      sections: [
+        {
+          title: "个人荣誉",
+          items: [
+            "中国注册高级室内设计师",
+            "中国室内设计年度十大封面人物（2021-2022）"
+          ]
+        },
+        {
+          title: "获奖情况",
+          items: [
+            "2014年第十届中国国际双年展大赛 金奖；2014中国湖南省室内设计大赛 金奖 / 铜奖；",
+            "2014“居然杯”中国室内设计大奖 金奖；2014中国“艾特奖”入围；",
+            "2015中国湖南省室内设计大赛 银奖；2015中国室内设计大奖赛 银奖；",
+            "2016年第十一届中国国际双年展大赛 2项金奖；2016中国“设计星”西安赛区10强及最佳人气；",
+            "2016中国“喜舍杯”年度最佳样板间 / 售楼处设计；2016 CIID中国室内大奖赛 银奖；",
+            "2016中国金堂奖 年度最佳样板间 / 售楼处设计；2016中国国际室内设计大赛 金奖；",
+            "2017湘西卫视特约设计单位 / 特聘设计师；2017 CIID中国室内设计大赛 金奖 / 银奖；",
+            "2017中国上海“金外滩”入围；2017“居然杯”中国室内设计新人奖；",
+            "2017湖南省室内设计大赛“顶峰设计奖”金奖 / 铜奖，并获最佳设计机构；",
+            "2018中国室内设计大奖赛 银奖；2018中国居然杯设计大奖赛 银奖；",
+            "2018中国室内TOP10设计机构；2018湖南顶峰设计大奖赛 6项金奖（企业）；",
+            "2019湖南顶峰设计大奖赛 4金 / 3银 / 3铜（企业）；",
+            "2020湖南家居行业青年领袖人物；2020湖南顶峰设计大奖赛 2金 / 4银 / 7铜（企业）；",
+            "2021-2022中国室内设计年度封面人物。"
+          ]
+        }
+      ]
+    }
   ],
   en: [
-    { id: "d1", name: "Alex Lin", role: "Chief Architect", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop" },
-    { id: "d2", name: "Sarah Chen", role: "Interior Director", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop" },
-    { id: "d3", name: "Mike Wang", role: "Commercial Consultant", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=600&auto=format&fit=crop" },
+    { 
+      id: "tang-guishu", 
+      name: "Tang Guishu", 
+      role: "Founder & Design Director, Hunan Nihao Energy Box Decoration Engineering Design Co., Ltd.", 
+      image: "/images/designers/tang-guishu.jpg",
+      sections: [
+        {
+          title: "Design Philosophy",
+          variant: "paragraph",
+          items: ["People-oriented interiors that harmonize function, comfort and aesthetics — limited space, infinite possibilities."]
+        },
+        {
+          title: "Profile",
+          variant: "paragraph",
+          items: ["Frequent winner at national interior design competitions, continually redefining contemporary luxury living."]
+        },
+        {
+          title: "Awards & Recognition",
+          items: [
+            "Multiple provincial gold awards (Hunan Interior Design Competition, 2012 & 2013).",
+            "CIID China Interior Design Awards Bronze (2013) & Silver (2023).",
+            "CIDA Innovation Award, HIID Summit Awards, and Golden Bund Best Designer.",
+            "HIID Integrated Design Silver (2018) and Gold (2023).",
+            "Kunpeng Award Gold for Villa Category (2019); IHIDA Top 10 Pioneer Designer."
+          ]
+        }
+      ]
+    },
+    {
+      id: "peng-yi",
+      name: "Peng Yi",
+      role: "Co-founder & Design Director, NEXT HOME Energy Box",
+      image: "/images/designers/peng-yi.jpg",
+      sections: [
+        {
+          title: "Design Philosophy",
+          variant: "paragraph",
+          items: ["Refuse rigid styles — the resident defines the aesthetic. Every project grows from real life."]
+        },
+        {
+          title: "Professional Accolades",
+          items: [
+            "Member, China Building Decoration Association Interior Design Committee.",
+            "Member, Hunan Architectural Society Interior Chapter.",
+            "Named one of China’s TOP100 Designers in 2021."
+          ]
+        },
+        {
+          title: "Key Awards",
+          items: [
+            "Silver, Nest Award 2018; Bronze, Summit Design (Residential) 2019.",
+            "Silver, Summit Design (Public Space) 2020; Bronze, China Interior Design Award 2020.",
+            "Gold, Summit Design (Public Space) 2021; Excellence, Summit Residential 2021.",
+            "Silver, Golden Bund Office Space 2021; Golden Case Award National Top 12 in 2022.",
+            "ICS Best Color Space 2022; CIID Commercial Space Bronze 2022; LHDA Luxury Living Award 2022.",
+            "Top 10 Residential Space Design, Golden Residence Award (Changsha) 2022.",
+            "Silver, Hunan TOP100 Design Yearbook 2023; Silver, CIID Residential 2023."
+          ]
+        },
+        {
+          title: "Specialties",
+          items: ["Modern Minimalism", "Mid-century & Wabi-sabi", "Modern French", "Biophilic Naturalism", "Italian Neo-luxe"]
+        },
+        {
+          title: "Representative Projects",
+          items: ["Changfang Show Flat", "Jingwu Langqinshan", "Yin Changjiang", "Beichen Dingjiangyang", "Jiangshan One", "Xiangjiang One", "Mingsheng Yicheng"]
+        }
+      ]
+    },
+    {
+      id: "kuang-yingzhi",
+      name: "Kuang Yingzhi",
+      role: "Co-founder & Design Director, Hunan Nihao Energy Box Decoration Engineering Design Co., Ltd.",
+      image: "/images/designers/kuang-yingzhi.jpg",
+      sections: [
+        {
+          title: "Honors",
+          items: [
+            "Certified Senior Interior Designer of China",
+            "China Interior Design Annual Top 10 Cover Figures (2021-2022)"
+          ]
+        },
+        {
+          title: "Major Awards",
+          items: [
+            "Gold, 10th China International Biennale 2014; Gold & Bronze, Hunan Interior Design Competition 2014.",
+            "Gold, CIDA Award 2014; Finalist, A' Design Award (IADF) 2014.",
+            "Silver, Hunan Interior Design Competition 2015; Silver, China Interior Design Award 2015.",
+            "Two Golds, 11th China International Biennale 2016; Top 10 & Popularity Award, Design Star Xi'an 2016.",
+            "Best Showflat/Sales Center, Xishe Cup 2016; Silver, CIID Interior Awards 2016; Gold, China International Interior Design Competition 2016.",
+            "Specially Appointed Designer, Xiangxi TV 2017; Gold & Silver, CIID Awards 2017; Finalist, Golden Bund 2017; New Designer Award, CIDA 2017.",
+            "Multiple Gold/Silver/Bronze honors at Hunan Summit Design Awards 2017-2020; Corporate TOP10 Interior Design Institution 2018.",
+            "Young Leader of Hunan Home Industry 2020; China Interior Design Cover Figure 2021-2022."
+          ]
+        }
+      ]
+    }
   ]
 };
 

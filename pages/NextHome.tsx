@@ -1,22 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowLeft, Compass, Hammer, PenTool } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Hammer, PenTool } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { SectionTitle, Button, StaggerContainer, StaggerItem, ParallaxImage } from '../components/UIComponents';
+import { SectionTitle, Button, StaggerContainer, StaggerItem } from '../components/UIComponents';
 import { useLanguage } from '../context/LanguageContext';
 
-const ServiceCard: React.FC<{ icon: React.ReactNode; title: string; desc: string }> = ({ icon, title, desc }) => (
-  <StaggerItem className="h-full">
+const ServiceCard: React.FC<{ icon: React.ReactNode; title: string; desc: string; to?: string }> = ({ icon, title, desc, to }) => {
+  const cardContent = (
     <motion.div 
       whileHover={{ y: -10, borderColor: '#84cc16' }}
-      className="bg-white p-12 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 h-full flex flex-col"
+      className="bg-white p-12 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 h-full flex flex-col cursor-pointer"
     >
       <div className="text-accent mb-8 p-5 bg-accent/5 w-fit rounded-lg">{icon}</div>
       <h3 className="text-2xl font-bold mb-6 text-slate-900">{title}</h3>
       <p className="text-slate-500 text-base leading-relaxed">{desc}</p>
     </motion.div>
-  </StaggerItem>
-);
+  );
+
+  return (
+    <StaggerItem className="h-full">
+      {to ? <Link to={to} className="block h-full">{cardContent}</Link> : cardContent}
+    </StaggerItem>
+  );
+};
 
 const NextHome: React.FC = () => {
   const { t } = useLanguage();
@@ -36,7 +42,14 @@ const NextHome: React.FC = () => {
       {/* Banner */}
       <div className="h-[700px] relative bg-slate-900 overflow-hidden">
          <div className="absolute inset-0">
-            <ParallaxImage src="https://picsum.photos/1920/1080?random=101" className="w-full h-full" alt="NextHome" />
+            <video 
+              src="/videos/hero-background.mp4" 
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+              className="w-full h-full object-cover"
+            />
             <div className="absolute inset-0 bg-black/50"></div>
          </div>
          <div className="relative z-10 max-w-7xl mx-auto px-4 w-full h-full flex flex-col justify-center">
@@ -98,21 +111,18 @@ const NextHome: React.FC = () => {
       <section className="py-32 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4">
           <SectionTitle title={t('nexthome.services.title')} subtitle={t('nexthome.services.subtitle')} centered />
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-10">
-             <ServiceCard 
-               icon={<Compass size={40}/>} 
-               title={t('nexthome.service.consult')} 
-               desc={t('nexthome.service.consult.desc')}
-             />
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
              <ServiceCard 
                icon={<PenTool size={40}/>} 
                title={t('nexthome.service.design')}
                desc={t('nexthome.service.design.desc')}
+               to="/nexthome/ideal-you?tab=designers"
              />
              <ServiceCard 
                icon={<Hammer size={40}/>} 
                title={t('nexthome.service.construct')}
                desc={t('nexthome.service.construct.desc')}
+               to="/nexthome/ideal-you?tab=construction"
              />
           </StaggerContainer>
         </div>

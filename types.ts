@@ -30,11 +30,19 @@ export interface Stat {
   value: string;
 }
 
+export interface DesignerSection {
+  title: string;
+  items: string[];
+  variant?: 'paragraph' | 'list';
+}
+
 export interface Designer {
   id: string;
   name: string;
   role: string;
   image: string;
+  bio?: string;
+  sections?: DesignerSection[];
 }
 
 export interface JobPosition {

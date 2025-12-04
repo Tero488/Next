@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link, useSearchParams } from 'react-router-dom';
 import { getDesigners, getCases, getConstructionTeam } from '../data';
 import { CaseCard, ParallaxImage, Reveal } from '../components/UIComponents';
 import { useLanguage } from '../context/LanguageContext';
 
 const IdealYou: React.FC = () => {
-  // Default to Gallery (cases) based on implied requirement or keep previous default
-  // Request says "Order: Gallery, Design Team, Construction Team"
-  const [activeTab, setActiveTab] = useState<'cases' | 'designers' | 'construction'>('cases');
+  const [searchParams] = useSearchParams();
+  const tabParam = searchParams.get('tab') as 'cases' | 'designers' | 'construction' | null;
+  
+  // Default to Gallery (cases) or use URL parameter
+  const [activeTab, setActiveTab] = useState<'cases' | 'designers' | 'construction'>(tabParam || 'cases');
+  
+  // Update tab when URL parameter changes
+  useEffect(() => {
+    if (tabParam && ['cases', 'designers', 'construction'].includes(tabParam)) {
+      setActiveTab(tabParam);
+    }
+  }, [tabParam]);
   const [filter, setFilter] = useState('All');
   const { language, t } = useLanguage();
 
@@ -92,20 +102,21 @@ const IdealYou: React.FC = () => {
         )}
 
         {activeTab === 'designers' && (
-           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
               {designersData.map(d => (
-                 <motion.div 
-                    key={d.id} 
-                    whileHover={{ y: -8 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                    className="text-center group cursor-pointer"
-                 >
-                    <div className="w-full aspect-[3/4] overflow-hidden mb-6 relative shadow-md group-hover:shadow-xl transition-shadow">
-                       <img src={d.image} alt={d.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
-                    </div>
-                    <h3 className="text-2xl font-serif font-bold text-slate-900 group-hover:text-accent transition-colors">{d.name}</h3>
-                    <p className="text-accent text-base uppercase tracking-wider mt-2 font-medium">{d.role}</p>
-                 </motion.div>
+                 <Link key={d.id} to={`/nexthome/ideal-you/designers/${d.id}`} className="block">
+                   <motion.div 
+                      whileHover={{ y: -8 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                      className="group cursor-pointer text-left w-full"
+                   >
+                      <div className="w-full aspect-[3/4] overflow-hidden mb-6 relative shadow-md group-hover:shadow-xl transition-shadow rounded-[2rem]">
+                         <img src={d.image} alt={d.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                      </div>
+                      <h3 className="text-2xl font-serif font-bold text-slate-900 group-hover:text-accent transition-colors">{d.name}</h3>
+                      <p className="text-accent text-sm mt-2 font-medium">{d.role}</p>
+                   </motion.div>
+                 </Link>
               ))}
            </div>
         )}

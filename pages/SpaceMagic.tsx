@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { ProductCard, Reveal, StaggerContainer, StaggerItem, ParallaxImage, SafeImage } from '../components/UIComponents';
 import { getProducts } from '../data';
 import { useLanguage } from '../context/LanguageContext';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export const SpaceMagicDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -58,10 +58,10 @@ const SpaceMagic: React.FC = () => {
   // Internal keys match the data/index.ts 'category' field (English keys)
   const categoryMap = [
     { key: 'All', zh: '全部', en: 'All' },
-    { key: 'Smart Systems', zh: '设备类', en: 'Smart Systems' },
-    { key: 'Standard Materials', zh: '标准品类', en: 'Standard Materials' },
-    { key: 'Bespoke', zh: '定制类', en: 'Bespoke' },
-    { key: 'Soft Furnishings', zh: '软装陈设类', en: 'Soft Furnishings' },
+    { key: 'Soft Furnishings', zh: '软装陈设', en: 'Soft Furnishings' },
+    { key: 'Woodwork Custom', zh: '木作定制', en: 'Woodwork Custom' },
+    { key: 'Artistic Coatings', zh: '艺术涂料', en: 'Artistic Coatings' },
+    { key: 'Smart Lighting', zh: '智能灯光', en: 'Smart Lighting' },
   ];
 
   const filteredProducts = activeCategory === 'All'
