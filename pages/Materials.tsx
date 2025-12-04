@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { Reveal } from '../components/UIComponents';
-import { useLanguage } from '../context/LanguageContext';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 
 const Materials: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'main' | 'auxiliary'>('main');
-  const { language } = useLanguage();
 
   // 主材品牌数据（对应你上传的36个logo）
   const mainMaterialBrands = [

@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { useParams, Link, Navigate } from 'react-router-dom';
-import { ProductCard, Reveal, StaggerContainer, StaggerItem, ParallaxImage, SafeImage } from '../components/UIComponents';
+import { useParams, Link } from 'react-router-dom';
+import { Reveal, StaggerContainer, StaggerItem, ParallaxImage, SafeImage } from '../components/UIComponents';
 import { getProducts } from '../data';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -47,7 +47,7 @@ export const SpaceMagicDetail: React.FC = () => {
 };
 
 const SpaceMagic: React.FC = () => {
-  const { language, t } = useLanguage();
+  const { t } = useLanguage();
 
   return (
     <div className="pt-20">

@@ -58,7 +58,7 @@ const Cases: React.FC = () => {
 
   // 根据type字段筛选案例
   const idealyouCases = casesData.filter(c => c.type === 'idealyou');
-  const spacemagicCases = casesData.filter(c => c.type === 'spacemagic');
+  const spacemagicCases = casesData.filter(c => c.type === 'spacemagic' || !c.type); // 包含未标记type的案例
 
   return (
     <div className="pt-20">
@@ -88,6 +88,12 @@ const Cases: React.FC = () => {
           {activeTab === 'idealyou' ? (
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                {idealyouCases.map(c => (
+                 <CaseCard key={c.id} {...c} />
+               ))}
+            </StaggerContainer>
+          ) : spacemagicCases.length > 0 ? (
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+               {spacemagicCases.map(c => (
                  <CaseCard key={c.id} {...c} />
                ))}
             </StaggerContainer>
