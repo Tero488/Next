@@ -105,17 +105,17 @@ const IdealYou: React.FC = () => {
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
               {designersData.map(d => (
                  <Link key={d.id} to={`/nexthome/ideal-you/designers/${d.id}`} className="block">
-                   <motion.div 
-                      whileHover={{ y: -8 }}
-                      transition={{ type: "spring", stiffness: 300 }}
+                 <motion.div 
+                    whileHover={{ y: -8 }}
+                    transition={{ type: "spring", stiffness: 300 }}
                       className="group cursor-pointer text-left w-full"
-                   >
+                 >
                       <div className="w-full aspect-[3/4] overflow-hidden mb-6 relative shadow-md group-hover:shadow-xl transition-shadow rounded-[2rem]">
-                         <img src={d.image} alt={d.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
-                      </div>
-                      <h3 className="text-2xl font-serif font-bold text-slate-900 group-hover:text-accent transition-colors">{d.name}</h3>
+                       <img src={d.image} alt={d.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                    </div>
+                    <h3 className="text-2xl font-serif font-bold text-slate-900 group-hover:text-accent transition-colors">{d.name}</h3>
                       <p className="text-accent text-sm mt-2 font-medium">{d.role}</p>
-                   </motion.div>
+                 </motion.div>
                  </Link>
               ))}
            </div>
