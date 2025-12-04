@@ -223,16 +223,11 @@ const Footer: React.FC = () => {
 
           <div>
             <h4 className="text-xl font-semibold mb-8">{t('footer.contact')}</h4>
-            <div className="mb-6">
-                 <div className="bg-white p-2 w-fit rounded-sm mb-4">
-                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=NEXT_PLUS" alt="QR Code" className="w-24 h-24" />
-                 </div>
-            </div>
             <ul className="space-y-4 text-base text-slate-400">
               <li>{t('contact.phone.value')}</li>
               <li>{t('contact.address.1')}</li>
               <li>{t('contact.address.2')}</li>
-              <li>contact@nextplus.com</li>
+              <li>264676456@qq.com</li>
             </ul>
           </div>
 

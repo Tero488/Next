@@ -29,6 +29,24 @@
         font-family: 'Inter', sans-serif;
         -webkit-font-smoothing: antialiased;
       }
+      
+      /* 品牌logo滚动动画 */
+      @keyframes scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+      
+      .animate-scroll {
+        animation: scroll 20s linear infinite;
+      }
+      
+      .animate-scroll:hover {
+        animation-play-state: paused;
+      }
     </style>
   <script type="importmap">
 {

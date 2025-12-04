@@ -7,6 +7,8 @@ import { LanguageProvider } from './context/LanguageContext';
 import Home from './pages/Home';
 import NextHome from './pages/NextHome';
 import SpaceMagic, { SpaceMagicDetail } from './pages/SpaceMagic';
+import Products from './pages/Products';
+import Materials from './pages/Materials';
 import IdealYou from './pages/IdealYou';
 import DesignerDetail from './pages/DesignerDetail';
 import Cases, { CaseDetail } from './pages/Cases';
@@ -38,6 +40,8 @@ const App: React.FC = () => {
             <Route path="/nexthome" element={<NextHome />} />
             <Route path="/nexthome/space-magic" element={<SpaceMagic />} />
             <Route path="/nexthome/space-magic/:id" element={<SpaceMagicDetail />} />
+            <Route path="/nexthome/space-magic/products" element={<Products />} />
+            <Route path="/nexthome/space-magic/materials" element={<Materials />} />
             <Route path="/nexthome/ideal-you" element={<IdealYou />} />
             <Route path="/nexthome/ideal-you/designers/:id" element={<DesignerDetail />} />
             

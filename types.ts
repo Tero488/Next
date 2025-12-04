@@ -3,6 +3,7 @@ export interface Case {
   id: string;
   title: string;
   category: string;
+  type?: 'idealyou' | 'spacemagic'; // 享你所想(空间案例) 或 百变空间(户型案例)
   image: string;
   description: string;
   gallery?: string[];

@@ -190,12 +190,6 @@ const JoinUs: React.FC = () => {
               </Reveal>
            </div>
            
-           {/* QR Code Placeholder */}
-           <div className="mt-12 flex justify-center md:justify-end">
-              <div className="bg-white p-2 rounded-lg">
-                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=NEXT_PLUS_RECRUITMENT" alt="QR Code" className="w-24 h-24 md:w-32 md:h-32" />
-              </div>
-           </div>
         </div>
       </section>
     </div>

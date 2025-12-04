@@ -1,8 +1,8 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCases } from '../data';
-import { CaseCard, SafeImage } from '../components/UIComponents';
+import { CaseCard, SafeImage, StaggerContainer } from '../components/UIComponents';
 import { useLanguage } from '../context/LanguageContext';
 
 export const CaseDetail: React.FC = () => {
@@ -52,8 +52,13 @@ export const CaseDetail: React.FC = () => {
 };
 
 const Cases: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<'idealyou' | 'spacemagic'>('idealyou');
   const { language, t } = useLanguage();
   const casesData = getCases(language);
+
+  // 根据type字段筛选案例
+  const idealyouCases = casesData.filter(c => c.type === 'idealyou');
+  const spacemagicCases = casesData.filter(c => c.type === 'spacemagic');
 
   return (
     <div className="pt-20">
@@ -61,10 +66,41 @@ const Cases: React.FC = () => {
           <h1 className="text-5xl font-serif font-bold text-slate-900">{t('cases.title')}</h1>
           <p className="text-slate-500 mt-4 text-xl">{t('cases.subtitle')}</p>
        </div>
+       
        <div className="max-w-7xl mx-auto px-4 py-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-             {casesData.map(c => <CaseCard key={c.id} {...c} />)}
+          {/* Tab切换 */}
+          <div className="flex justify-center gap-12 mb-16 border-b border-slate-200 pb-4">
+            <button 
+              onClick={() => setActiveTab('idealyou')}
+              className={`text-2xl font-medium pb-4 border-b-2 transition-colors ${activeTab === 'idealyou' ? 'border-accent text-slate-900' : 'border-transparent text-slate-400'}`}
+            >
+              享你所想
+            </button>
+            <button 
+              onClick={() => setActiveTab('spacemagic')}
+              className={`text-2xl font-medium pb-4 border-b-2 transition-colors ${activeTab === 'spacemagic' ? 'border-accent text-slate-900' : 'border-transparent text-slate-400'}`}
+            >
+              百变空间
+            </button>
           </div>
+
+          {/* 案例展示 */}
+          {activeTab === 'idealyou' ? (
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+               {idealyouCases.map(c => (
+                 <CaseCard key={c.id} {...c} />
+               ))}
+            </StaggerContainer>
+          ) : (
+            <div className="text-center py-20">
+              <p className="text-slate-400 text-xl mb-6">
+                {language === 'zh' ? '百变空间案例即将上线，敬请期待...' : 'Space Magic cases coming soon...'}
+              </p>
+              <div className="text-slate-300 text-sm">
+                {language === 'zh' ? '户型案例正在整理中' : 'Layout cases are being organized'}
+              </div>
+            </div>
+          )}
        </div>
     </div>
   );

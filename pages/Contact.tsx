@@ -18,7 +18,7 @@ const Contact: React.FC = () => {
        >
           <img 
             src="/images/map/location.png"
-            alt="NEXT+ 总部位置地图 - 湖南省长沙市开福区五矿live33栋3层"
+            alt="NEXT+ 总部位置地图 - 湖南省长沙市开福区五矿live33栋3层（NEXT+HOME）"
             className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
             onError={(e) => {
               // 如果本地地图图片不存在，显示带地址的占位
@@ -35,8 +35,8 @@ const Contact: React.FC = () => {
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
                     <h3 class="text-3xl font-bold text-slate-900 mb-3">NEXT+ 总部</h3>
-                    <p class="text-slate-600 text-lg mb-2">长沙市芙蓉区韭菜园路058号</p>
-                    <p class="text-slate-600 text-lg mb-6">湖南省长沙市开福区五矿live33栋3层</p>
+                    <p class="text-slate-600 text-lg mb-2">长沙市芙蓉区韭菜园路058号（NEXT+MEALTIME）</p>
+                    <p class="text-slate-600 text-lg mb-6">湖南省长沙市开福区五矿live33栋3层（NEXT+HOME）</p>
                     <span class="inline-flex items-center gap-2 px-8 py-3 bg-accent text-white rounded-full font-medium">
                       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
@@ -88,14 +88,14 @@ const Contact: React.FC = () => {
                       <Mail className="text-accent mr-6 mt-1 w-8 h-8" />
                       <div>
                          <h4 className="font-bold text-slate-900 text-xl mb-2">{t('contact.email')}</h4>
-                         <p className="text-slate-500 text-lg">contact@nextplus.com</p>
+                         <p className="text-slate-500 text-lg">264676456@qq.com</p>
                       </div>
                    </div>
                 </div>
 
                 <div className="mt-10 pt-10 border-t border-slate-100">
                    <div className="bg-white p-2 border border-slate-200 inline-block rounded-sm">
-                      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=NEXT_PLUS" alt="Official Account" className="w-32 h-32" />
+                      <img src="/images/qrcode.png" alt="NEXT+ 官方公众号" className="w-32 h-32" />
                    </div>
                    <p className="text-slate-400 text-sm mt-3">{t('contact.follow')}</p>
                 </div>
@@ -116,7 +116,7 @@ const Contact: React.FC = () => {
                    </div>
                    <div>
                       <label className="block text-base font-medium text-slate-700 mb-3">{t('contact.form.email')}</label>
-                      <input type="email" className="w-full px-5 py-4 bg-white border border-slate-200 rounded focus:outline-none focus:border-accent text-base" placeholder="john@example.com" />
+                      <input type="email" className="w-full px-5 py-4 bg-white border border-slate-200 rounded focus:outline-none focus:border-accent text-base" placeholder="your@email.com" />
                    </div>
                    <div>
                       <label className="block text-base font-medium text-slate-700 mb-3">{t('contact.form.req')}</label>

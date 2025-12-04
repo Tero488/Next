@@ -54,10 +54,29 @@ const CONFIG_IMAGES = {
 export const casesData = {
   zh: [
     {
-      id: "jiangshan-one", // 唯一ID (网址上会显示这个，不能重复，只能用英文)
+      id: "xiangjiang-one",
+      title: "湘江壹号·天际私宅",
+      category: "住宅",
+      type: "idealyou", // 享你所想-空间案例
+      image: "/images/cases/xiangjiang-one/cover.jpg",
+      description: "位于湘江之畔的顶级豪宅项目。设计团队打破传统界限，以现代极简语言重构空间秩序。全景落地窗将一线江景引入室内，黑白灰的主色调点缀暖色灯光，配合B&B Italia、Poliform等国际一线品牌家居，营造出静谧而极致奢华的居住氛围。空间流动性与私密性完美平衡，重新定义了当代精英的生活方式。",
+      gallery: Array.from({ length: 24 }, (_, i) => `/images/cases/gallery/xiangjiang-one/xiangjiang-one-${String(i + 1).padStart(2, '0')}.jpg`)
+    },
+    {
+      id: "c2",
+      title: "NEPTUNE MUMBAI 2025",
+      category: "商业",
+      type: "idealyou", // 享你所想-空间案例
+      image: "/images/cases/neptune-mumbai-2025-cover.png",
+      description: "位于印度孟买的NEPTUNE品牌展厅，集成灯光与空气系统的现代商业空间，以沉浸式体验诠释品牌未来感。",
+      gallery: Array.from({ length: 21 }, (_, i) => `/images/cases/gallery/neptune-mumbai-2025-${String(i + 1).padStart(2, '0')}.png`)
+    },
+    {
+      id: "jiangshan-one",
       title: "江山一号",
-      category: "住宅", // 分类: "住宅" 或 "商业"
-      image: "/images/cases/jiangshan-one/cover.jpg", // 封面图
+      category: "住宅",
+      type: "idealyou", // 享你所想-空间案例
+      image: "/images/cases/jiangshan-one/cover.jpg",
       description: "项目位于江景核心地段，高区俯瞰城市与江岸全景。空间以克制的留白与大面积石材、木饰面为主线，弱化风格标签，强调尺度与光的变化。客餐厅、旋梯与通高落地窗形成开放的生活场景，搭配艺术装置与定制家具，让居住者在日常起居中感受城市天际线的张力与秩序。",
       gallery: Array.from({ length: 7 }, (_, i) => `/images/cases/gallery/jiangshan-one/jiangshan-one-${String(i + 1).padStart(2, '0')}.jpg`)
     },
@@ -65,30 +84,16 @@ export const casesData = {
       id: "bgy-shuilantian-9",
       title: "碧桂园水蓝天9号栋",
       category: "住宅",
+      type: "idealyou", // 享你所想-空间案例
       image: "/images/cases/bgy-shuilantian-9/cover.jpg",
       description: "位于岳麓核心区的湖景大宅，以现代东方的线条与材质诠释宁静、轻奢的生活质感。",
       gallery: Array.from({ length: 7 }, (_, i) => `/images/cases/gallery/bgy-shuilantian-9/bgy-shuilantian-9-${String(i + 1).padStart(2, '0')}.jpg`)
     },
     {
-      id: "c2",
-      title: "NEPTUNE MUMBAI 2025",
-      category: "商业",
-      image: "/images/cases/neptune-mumbai-2025-cover.png",
-      description: "位于印度孟买的NEPTUNE品牌展厅，集成灯光与空气系统的现代商业空间，以沉浸式体验诠释品牌未来感。",
-      gallery: Array.from({ length: 21 }, (_, i) => `/images/cases/gallery/neptune-mumbai-2025-${String(i + 1).padStart(2, '0')}.png`)
-    },
-    {
-      id: "xiangjiang-one",
-      title: "湘江壹号·天际私宅",
-      category: "住宅",
-      image: "/images/cases/xiangjiang-one/cover.jpg",
-      description: "位于湘江之畔的顶级豪宅项目。设计团队打破传统界限，以现代极简语言重构空间秩序。全景落地窗将一线江景引入室内，黑白灰的主色调点缀暖色灯光，配合B&B Italia、Poliform等国际一线品牌家居，营造出静谧而极致奢华的居住氛围。空间流动性与私密性完美平衡，重新定义了当代精英的生活方式。",
-      gallery: Array.from({ length: 24 }, (_, i) => `/images/cases/gallery/xiangjiang-one/xiangjiang-one-${String(i + 1).padStart(2, '0')}.jpg`)
-    },
-    {
       id: "beichen-hanjiangfu",
       title: "北辰翰江府",
       category: "住宅",
+      type: "idealyou", // 享你所想-空间案例
       image: "/images/cases/beichen-hanjiangfu/cover.jpg",
       description: "位于长沙核心地段的现代精品住宅，以简约线条与高级材质诠释都市生活美学，打造低调而精致的居住体验。",
       gallery: Array.from({ length: 4 }, (_, i) => `/images/cases/gallery/beichen-hanjiangfu/beichen-hanjiangfu-${String(i + 1).padStart(2, '0')}.jpg`)
@@ -96,9 +101,28 @@ export const casesData = {
   ],
   en: [
     {
+      id: "xiangjiang-one",
+      title: "Xiangjiang One Residence",
+      category: "Residential",
+      type: "idealyou", // Ideal You - Spatial Cases
+      image: "/images/cases/xiangjiang-one/cover.jpg",
+      description: "A top-tier private residence located by the Xiangjiang River. The design team breaks away from traditional boundaries, reconstructing spatial order with modern minimalist language. Panoramic glazing brings the river panorama indoors, while the monochrome palette and warm lighting create a calm yet ultra-luxurious ambience.",
+      gallery: Array.from({ length: 24 }, (_, i) => `/images/cases/gallery/xiangjiang-one/xiangjiang-one-${String(i + 1).padStart(2, '0')}.jpg`)
+    },
+    {
+      id: "c2",
+      title: "NEPTUNE MUMBAI 2025",
+      category: "Commercial",
+      type: "idealyou", // Ideal You - Spatial Cases
+      image: "/images/cases/neptune-mumbai-2025-cover.png",
+      description: "NEPTUNE's Mumbai flagship showroom, integrating immersive lighting and air systems to communicate a futuristic brand vision.",
+      gallery: Array.from({ length: 21 }, (_, i) => `/images/cases/gallery/neptune-mumbai-2025-${String(i + 1).padStart(2, '0')}.png`)
+    },
+    {
       id: "jiangshan-one",
       title: "Jiangshan One",
-      category: "Residential", // Category: "Residential" or "Commercial"
+      category: "Residential",
+      type: "idealyou", // Ideal You - Spatial Cases
       image: "/images/cases/jiangshan-one/cover.jpg",
       description: "Located on a prime riverfront site, Jiangshan One commands a full panorama of the city skyline and Xiangjiang River. The design deliberately downplays overt styling, using calm stone and timber surfaces, generous negative space and a sculptural stair to organize the home. Panoramic glazing, open living–dining areas and curated art pieces together create a serene yet powerful stage for contemporary urban life.",
       gallery: Array.from({ length: 7 }, (_, i) => `/images/cases/gallery/jiangshan-one/jiangshan-one-${String(i + 1).padStart(2, '0')}.jpg`)
@@ -107,30 +131,16 @@ export const casesData = {
       id: "bgy-shuilantian-9",
       title: "Country Garden Azure Sky Tower 9",
       category: "Residential",
+      type: "idealyou", // Ideal You - Spatial Cases
       image: "/images/cases/bgy-shuilantian-9/cover.jpg",
       description: "A lakefront residence in Changsha where calm modern lines blend with refined oriental materials for a serene luxury lifestyle.",
       gallery: Array.from({ length: 7 }, (_, i) => `/images/cases/gallery/bgy-shuilantian-9/bgy-shuilantian-9-${String(i + 1).padStart(2, '0')}.jpg`)
     },
     {
-      id: "c2",
-      title: "NEPTUNE MUMBAI 2025",
-      category: "Commercial",
-      image: "/images/cases/neptune-mumbai-2025-cover.png",
-      description: "NEPTUNE's Mumbai flagship showroom, integrating immersive lighting and air systems to communicate a futuristic brand vision.",
-      gallery: Array.from({ length: 21 }, (_, i) => `/images/cases/gallery/neptune-mumbai-2025-${String(i + 1).padStart(2, '0')}.png`)
-    },
-    {
-      id: "xiangjiang-one",
-      title: "Xiangjiang One Residence",
-      category: "Residential",
-      image: "/images/cases/xiangjiang-one/cover.jpg",
-      description: "A top-tier private residence located by the Xiangjiang River. The design team breaks away from traditional boundaries, reconstructing spatial order with modern minimalist language. Panoramic glazing brings the river panorama indoors, while the monochrome palette and warm lighting create a calm yet ultra-luxurious ambience.",
-      gallery: Array.from({ length: 24 }, (_, i) => `/images/cases/gallery/xiangjiang-one/xiangjiang-one-${String(i + 1).padStart(2, '0')}.jpg`)
-    },
-    {
       id: "beichen-hanjiangfu",
       title: "Beichen Hanjiangfu",
       category: "Residential",
+      type: "idealyou", // Ideal You - Spatial Cases
       image: "/images/cases/beichen-hanjiangfu/cover.jpg",
       description: "A modern boutique residence in Changsha's core district, interpreting urban living aesthetics with minimalist lines and premium materials.",
       gallery: Array.from({ length: 4 }, (_, i) => `/images/cases/gallery/beichen-hanjiangfu/beichen-hanjiangfu-${String(i + 1).padStart(2, '0')}.jpg`)
@@ -196,16 +206,16 @@ export const newsData = {
 // ------------------------------------------
 export const statsData = {
   zh: [
-    { id: 1, label: "完成项目", value: "3500+" },
-    { id: 2, label: "合作品牌", value: "200+" },
+    { id: 1, label: "完成项目", value: "2000+" },
+    { id: 2, label: "合作品牌", value: "80+" },
     { id: 3, label: "覆盖城市", value: "50+" },
-    { id: 4, label: "签约设计师", value: "120+" },
+    { id: 4, label: "签约成员", value: "60+" },
   ],
   en: [
-    { id: 1, label: "Completed Projects", value: "3500+" },
-    { id: 2, label: "Brand Partners", value: "200+" },
+    { id: 1, label: "Completed Projects", value: "2000+" },
+    { id: 2, label: "Brand Partners", value: "80+" },
     { id: 3, label: "Cities Covered", value: "50+" },
-    { id: 4, label: "Signed Designers", value: "120+" },
+    { id: 4, label: "Signed Members", value: "60+" },
   ]
 };
 
@@ -621,14 +631,14 @@ export const designersData: Record<'zh' | 'en', Designer[]> = {
 
 export const constructionData = {
   zh: [
-    { id: "ct1", name: "工程一队", role: "商业空间精装", image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=600&auto=format&fit=crop" },
-    { id: "ct2", name: "工程二队", role: "别墅大宅施工", image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=600&auto=format&fit=crop" },
-    { id: "ct3", name: "技术支持组", role: "机电与智能系统", image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=600&auto=format&fit=crop" },
+    { id: "ct1", name: "工程一队", role: "住宅", image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=600&auto=format&fit=crop" },
+    { id: "ct2", name: "工程二队", role: "商业", image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=600&auto=format&fit=crop" },
+    { id: "ct3", name: "技术支持组", role: "机电、材料与智能系统", image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=600&auto=format&fit=crop" },
   ],
   en: [
-    { id: "ct1", name: "Team One", role: "Commercial Fit-out", image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=600&auto=format&fit=crop" },
-    { id: "ct2", name: "Team Two", role: "Luxury Villa Build", image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=600&auto=format&fit=crop" },
-    { id: "ct3", name: "Tech Support", role: "MEP & Smart Systems", image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=600&auto=format&fit=crop" },
+    { id: "ct1", name: "Team One", role: "Residential", image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=600&auto=format&fit=crop" },
+    { id: "ct2", name: "Team Two", role: "Commercial", image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=600&auto=format&fit=crop" },
+    { id: "ct3", name: "Tech Support", role: "MEP, Materials & Smart Systems", image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=600&auto=format&fit=crop" },
   ]
 };
 
