@@ -57,7 +57,7 @@ const Contact: React.FC = () => {
                 点击在高德地图中查看
               </span>
             </div>
-          </div>
+       </div>
        </a>
 
        <div className="max-w-7xl mx-auto px-4 py-24">

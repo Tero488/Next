@@ -20,8 +20,8 @@ const ServiceCard: React.FC<{ icon: React.ReactNode; title: string; desc: string
   return (
     <StaggerItem className="h-full">
       {to ? <Link to={to} className="block h-full">{cardContent}</Link> : cardContent}
-    </StaggerItem>
-  );
+  </StaggerItem>
+);
 };
 
 const NextHome: React.FC = () => {

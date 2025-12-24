@@ -56,7 +56,7 @@ export const casesData = {
     {
       id: "xiangjiang-one",
       title: "湘江壹号·天际私宅",
-      category: "住宅",
+      category: "别墅洋房",
       type: "idealyou", // 享你所想-空间案例
       image: "/images/cases/xiangjiang-one/cover.jpg",
       description: "位于湘江之畔的顶级豪宅项目。设计团队打破传统界限，以现代极简语言重构空间秩序。全景落地窗将一线江景引入室内，黑白灰的主色调点缀暖色灯光，配合B&B Italia、Poliform等国际一线品牌家居，营造出静谧而极致奢华的居住氛围。空间流动性与私密性完美平衡，重新定义了当代精英的生活方式。",
@@ -65,7 +65,7 @@ export const casesData = {
     {
       id: "c2",
       title: "NEPTUNE MUMBAI 2025",
-      category: "商业",
+      category: "工装",
       type: "idealyou", // 享你所想-空间案例
       image: "/images/cases/neptune-mumbai-2025-cover.png",
       description: "位于印度孟买的NEPTUNE品牌展厅，集成灯光与空气系统的现代商业空间，以沉浸式体验诠释品牌未来感。",
@@ -74,7 +74,7 @@ export const casesData = {
     {
       id: "jiangshan-one",
       title: "江山一号",
-      category: "住宅",
+      category: "平层",
       type: "idealyou", // 享你所想-空间案例
       image: "/images/cases/jiangshan-one/cover.jpg",
       description: "项目位于江景核心地段，高区俯瞰城市与江岸全景。空间以克制的留白与大面积石材、木饰面为主线，弱化风格标签，强调尺度与光的变化。客餐厅、旋梯与通高落地窗形成开放的生活场景，搭配艺术装置与定制家具，让居住者在日常起居中感受城市天际线的张力与秩序。",
@@ -83,7 +83,7 @@ export const casesData = {
     {
       id: "bgy-shuilantian-9",
       title: "碧桂园水蓝天9号栋",
-      category: "住宅",
+      category: "别墅洋房",
       type: "idealyou", // 享你所想-空间案例
       image: "/images/cases/bgy-shuilantian-9/cover.jpg",
       description: "位于岳麓核心区的湖景大宅，以现代东方的线条与材质诠释宁静、轻奢的生活质感。",
@@ -92,18 +92,111 @@ export const casesData = {
     {
       id: "beichen-hanjiangfu",
       title: "北辰翰江府",
-      category: "住宅",
+      category: "平层",
       type: "idealyou", // 享你所想-空间案例
       image: "/images/cases/beichen-hanjiangfu/cover.jpg",
       description: "位于长沙核心地段的现代精品住宅，以简约线条与高级材质诠释都市生活美学，打造低调而精致的居住体验。",
       gallery: Array.from({ length: 4 }, (_, i) => `/images/cases/gallery/beichen-hanjiangfu/beichen-hanjiangfu-${String(i + 1).padStart(2, '0')}.jpg`)
+    },
+    {
+      id: "bgy-lanbaowan-29",
+      title: "碧桂园蓝宝湾29号",
+      category: "别墅洋房",
+      type: "idealyou", // 享你所想-空间案例
+      image: "/images/cases/bgy-lanbaowan-29/cover.jpg",
+      description: "位于优质地段的别墅项目，以现代设计语言诠释高端居住体验。",
+      gallery: Array.from({ length: 18 }, (_, i) => `/images/cases/bgy-lanbaowan-29/bgy-lanbaowan-29-${String(i + 1).padStart(2, '0')}.jpg`)
+    },
+    {
+      id: "jindi-sanqianfu",
+      title: "金地三千府",
+      category: "别墅洋房",
+      type: "idealyou", // 享你所想-空间案例
+      image: "/images/cases/jindi-sanqianfu/cover.png",
+      description: "高端别墅项目，融合现代设计与自然景观，打造理想居住空间。",
+      gallery: Array.from({ length: 13 }, (_, i) => `/images/cases/jindi-sanqianfu/jindi-sanqianfu-${String(i + 1).padStart(2, '0')}.png`)
+    },
+    {
+      id: "jiabaoli-art-gallery",
+      title: "嘉宝莉艺术展厅",
+      category: "工装",
+      type: "idealyou", // 享你所想-空间案例
+      image: "/images/cases/jiabaoli-art-gallery/cover.jpg",
+      description: "艺术涂料品牌展厅，以现代设计语言展示产品特性，营造专业而富有艺术感的展示空间。",
+      gallery: [
+        ...Array.from({ length: 18 }, (_, i) => `/images/cases/jiabaoli-art-gallery/jiabaoli-art-gallery-${String(i + 1).padStart(2, '0')}.jpg`),
+        ...Array.from({ length: 3 }, (_, i) => `/images/cases/jiabaoli-art-gallery/jiabaoli-art-gallery-${String(i + 20).padStart(2, '0')}.jpg`)
+      ]
+    },
+    {
+      id: "kabaili-art-paint",
+      title: "卡百利艺术涂料",
+      category: "工装",
+      type: "idealyou", // 享你所想-空间案例
+      image: "/images/cases/kabaili-art-paint/cover.jpg",
+      description: "艺术涂料品牌展示空间，通过创新的空间设计展现产品的多样性和艺术价值。",
+      gallery: Array.from({ length: 12 }, (_, i) => `/images/cases/kabaili-art-paint/kabaili-art-paint-${String(i + 1).padStart(2, '0')}.jpg`)
+    },
+    {
+      id: "xichangjie-wedding",
+      title: "西长街婚纱摄影",
+      category: "工装",
+      type: "idealyou", // 享你所想-空间案例
+      image: "/images/cases/xichangjie-wedding/cover.jpg",
+      description: "专业婚纱摄影工作室，打造浪漫而精致的拍摄空间，为新人提供完美的拍摄体验。",
+      gallery: Array.from({ length: 20 }, (_, i) => `/images/cases/xichangjie-wedding/xichangjie-wedding-${String(i + 1).padStart(2, '0')}.jpg`)
+    },
+    {
+      id: "vanke-golden-home-1",
+      title: "万科金色家园1",
+      category: "精装",
+      type: "idealyou", // 享你所想-空间案例
+      image: "/images/cases/vanke-golden-home-1/cover.jpg",
+      description: "万科金色家园精装项目，以现代简约风格打造舒适宜居的居住空间。",
+      gallery: Array.from({ length: 4 }, (_, i) => `/images/cases/vanke-golden-home-1/vanke-golden-home-1-${String(i + 1).padStart(2, '0')}.jpg`)
+    },
+    {
+      id: "vanke-golden-home-2",
+      title: "万科金色家园2",
+      category: "精装",
+      type: "idealyou", // 享你所想-空间案例
+      image: "/images/cases/vanke-golden-home-2/cover.jpg",
+      description: "万科金色家园精装项目，注重细节与品质，营造温馨雅致的居住环境。",
+      gallery: Array.from({ length: 4 }, (_, i) => `/images/cases/vanke-golden-home-2/vanke-golden-home-2-${String(i + 1).padStart(2, '0')}.jpg`)
+    },
+    {
+      id: "dongfang-ying",
+      title: "东方映",
+      category: "平层",
+      type: "idealyou", // 享你所想-空间案例
+      image: "/images/cases/dongfang-ying/cover.jpg",
+      description: "现代平层住宅项目，以简约设计理念打造舒适宜居的居住空间。",
+      gallery: Array.from({ length: 12 }, (_, i) => `/images/cases/dongfang-ying/dongfang-ying-${String(i + 1).padStart(2, '0')}.jpg`)
+    },
+    {
+      id: "fengqi-luming",
+      title: "凤起鹿鸣",
+      category: "平层",
+      type: "idealyou", // 享你所想-空间案例
+      image: "/images/cases/fengqi-luming/cover.jpg",
+      description: "高端平层住宅项目，融合现代设计与东方美学，营造优雅精致的居住体验。",
+      gallery: Array.from({ length: 12 }, (_, i) => `/images/cases/fengqi-luming/fengqi-luming-${String(i + 1).padStart(2, '0')}.jpg`)
+    },
+    {
+      id: "shaodong-yinxiang",
+      title: "邵东印象",
+      category: "平层",
+      type: "idealyou", // 享你所想-空间案例
+      image: "/images/cases/shaodong-yinxiang/cover.jpg",
+      description: "平层住宅项目，以现代简约风格诠释都市生活美学，打造温馨舒适的居住空间。",
+      gallery: Array.from({ length: 4 }, (_, i) => `/images/cases/shaodong-yinxiang/shaodong-yinxiang-${String(i + 1).padStart(2, '0')}.jpg`)
     }
   ],
   en: [
     {
       id: "xiangjiang-one",
       title: "Xiangjiang One Residence",
-      category: "Residential",
+      category: "Villa",
       type: "idealyou", // Ideal You - Spatial Cases
       image: "/images/cases/xiangjiang-one/cover.jpg",
       description: "A top-tier private residence located by the Xiangjiang River. The design team breaks away from traditional boundaries, reconstructing spatial order with modern minimalist language. Panoramic glazing brings the river panorama indoors, while the monochrome palette and warm lighting create a calm yet ultra-luxurious ambience.",
@@ -121,7 +214,7 @@ export const casesData = {
     {
       id: "jiangshan-one",
       title: "Jiangshan One",
-      category: "Residential",
+      category: "Flat",
       type: "idealyou", // Ideal You - Spatial Cases
       image: "/images/cases/jiangshan-one/cover.jpg",
       description: "Located on a prime riverfront site, Jiangshan One commands a full panorama of the city skyline and Xiangjiang River. The design deliberately downplays overt styling, using calm stone and timber surfaces, generous negative space and a sculptural stair to organize the home. Panoramic glazing, open living–dining areas and curated art pieces together create a serene yet powerful stage for contemporary urban life.",
@@ -130,7 +223,7 @@ export const casesData = {
     {
       id: "bgy-shuilantian-9",
       title: "Country Garden Azure Sky Tower 9",
-      category: "Residential",
+      category: "Villa",
       type: "idealyou", // Ideal You - Spatial Cases
       image: "/images/cases/bgy-shuilantian-9/cover.jpg",
       description: "A lakefront residence in Changsha where calm modern lines blend with refined oriental materials for a serene luxury lifestyle.",
@@ -139,11 +232,104 @@ export const casesData = {
     {
       id: "beichen-hanjiangfu",
       title: "Beichen Hanjiangfu",
-      category: "Residential",
+      category: "Flat",
       type: "idealyou", // Ideal You - Spatial Cases
       image: "/images/cases/beichen-hanjiangfu/cover.jpg",
       description: "A modern boutique residence in Changsha's core district, interpreting urban living aesthetics with minimalist lines and premium materials.",
       gallery: Array.from({ length: 4 }, (_, i) => `/images/cases/gallery/beichen-hanjiangfu/beichen-hanjiangfu-${String(i + 1).padStart(2, '0')}.jpg`)
+    },
+    {
+      id: "bgy-lanbaowan-29",
+      title: "Country Garden Lanbaowan Tower 29",
+      category: "Villa",
+      type: "idealyou", // Ideal You - Spatial Cases
+      image: "/images/cases/bgy-lanbaowan-29/cover.jpg",
+      description: "A premium villa project in an excellent location, interpreting high-end living experience with modern design language.",
+      gallery: Array.from({ length: 18 }, (_, i) => `/images/cases/bgy-lanbaowan-29/bgy-lanbaowan-29-${String(i + 1).padStart(2, '0')}.jpg`)
+    },
+    {
+      id: "jindi-sanqianfu",
+      title: "Jindi Sanqianfu",
+      category: "Villa",
+      type: "idealyou", // Ideal You - Spatial Cases
+      image: "/images/cases/jindi-sanqianfu/cover.png",
+      description: "A high-end villa project that blends modern design with natural landscapes, creating an ideal living space.",
+      gallery: Array.from({ length: 13 }, (_, i) => `/images/cases/jindi-sanqianfu/jindi-sanqianfu-${String(i + 1).padStart(2, '0')}.png`)
+    },
+    {
+      id: "jiabaoli-art-gallery",
+      title: "Carpoly Art Gallery",
+      category: "Commercial",
+      type: "idealyou", // Ideal You - Spatial Cases
+      image: "/images/cases/jiabaoli-art-gallery/cover.jpg",
+      description: "An art paint brand showroom that showcases product characteristics through modern design language, creating a professional and artistic display space.",
+      gallery: [
+        ...Array.from({ length: 18 }, (_, i) => `/images/cases/jiabaoli-art-gallery/jiabaoli-art-gallery-${String(i + 1).padStart(2, '0')}.jpg`),
+        ...Array.from({ length: 3 }, (_, i) => `/images/cases/jiabaoli-art-gallery/jiabaoli-art-gallery-${String(i + 20).padStart(2, '0')}.jpg`)
+      ]
+    },
+    {
+      id: "kabaili-art-paint",
+      title: "Kabaili Art Paint",
+      category: "Commercial",
+      type: "idealyou", // Ideal You - Spatial Cases
+      image: "/images/cases/kabaili-art-paint/cover.jpg",
+      description: "An art paint brand display space that showcases product diversity and artistic value through innovative spatial design.",
+      gallery: Array.from({ length: 12 }, (_, i) => `/images/cases/kabaili-art-paint/kabaili-art-paint-${String(i + 1).padStart(2, '0')}.jpg`)
+    },
+    {
+      id: "xichangjie-wedding",
+      title: "Xichangjie Wedding Photography",
+      category: "Commercial",
+      type: "idealyou", // Ideal You - Spatial Cases
+      image: "/images/cases/xichangjie-wedding/cover.jpg",
+      description: "A professional wedding photography studio that creates a romantic and exquisite shooting space, providing couples with the perfect shooting experience.",
+      gallery: Array.from({ length: 20 }, (_, i) => `/images/cases/xichangjie-wedding/xichangjie-wedding-${String(i + 1).padStart(2, '0')}.jpg`)
+    },
+    {
+      id: "vanke-golden-home-1",
+      title: "Vanke Golden Home 1",
+      category: "Refined",
+      type: "idealyou", // Ideal You - Spatial Cases
+      image: "/images/cases/vanke-golden-home-1/cover.jpg",
+      description: "Vanke Golden Home refined project, creating a comfortable and livable living space with modern minimalist style.",
+      gallery: Array.from({ length: 4 }, (_, i) => `/images/cases/vanke-golden-home-1/vanke-golden-home-1-${String(i + 1).padStart(2, '0')}.jpg`)
+    },
+    {
+      id: "vanke-golden-home-2",
+      title: "Vanke Golden Home 2",
+      category: "Refined",
+      type: "idealyou", // Ideal You - Spatial Cases
+      image: "/images/cases/vanke-golden-home-2/cover.jpg",
+      description: "Vanke Golden Home refined project, focusing on details and quality, creating a warm and elegant living environment.",
+      gallery: Array.from({ length: 4 }, (_, i) => `/images/cases/vanke-golden-home-2/vanke-golden-home-2-${String(i + 1).padStart(2, '0')}.jpg`)
+    },
+    {
+      id: "dongfang-ying",
+      title: "Dongfang Ying",
+      category: "Flat",
+      type: "idealyou", // Ideal You - Spatial Cases
+      image: "/images/cases/dongfang-ying/cover.jpg",
+      description: "Modern flat residence project, creating a comfortable and livable living space with minimalist design philosophy.",
+      gallery: Array.from({ length: 12 }, (_, i) => `/images/cases/dongfang-ying/dongfang-ying-${String(i + 1).padStart(2, '0')}.jpg`)
+    },
+    {
+      id: "fengqi-luming",
+      title: "Fengqi Luming",
+      category: "Flat",
+      type: "idealyou", // Ideal You - Spatial Cases
+      image: "/images/cases/fengqi-luming/cover.jpg",
+      description: "High-end flat residence project, blending modern design with oriental aesthetics to create an elegant and refined living experience.",
+      gallery: Array.from({ length: 12 }, (_, i) => `/images/cases/fengqi-luming/fengqi-luming-${String(i + 1).padStart(2, '0')}.jpg`)
+    },
+    {
+      id: "shaodong-yinxiang",
+      title: "Shaodong Yinxiang",
+      category: "Flat",
+      type: "idealyou", // Ideal You - Spatial Cases
+      image: "/images/cases/shaodong-yinxiang/cover.jpg",
+      description: "Flat residence project, interpreting urban living aesthetics with modern minimalist style, creating a warm and comfortable living space.",
+      gallery: Array.from({ length: 4 }, (_, i) => `/images/cases/shaodong-yinxiang/shaodong-yinxiang-${String(i + 1).padStart(2, '0')}.jpg`)
     }
   ]
 };

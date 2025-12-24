@@ -134,12 +134,14 @@ const NextHomeCapabilities: React.FC = () => {
             
             <div className="relative w-full max-w-5xl mx-auto">
                <div className="flex flex-col md:flex-row justify-center gap-6 md:gap-10 mb-10">
-                  <motion.div 
-                    whileHover={{ y: -5 }}
-                    className="p-8 bg-slate-900 text-white rounded w-full md:w-1/3 whitespace-pre-line text-lg leading-relaxed flex items-center justify-center text-center min-h-[160px] shadow-xl"
-                  >
-                    {t('about.eco.nexthome')}
-                  </motion.div>
+                  <Link to="/nexthome" className="w-full md:w-1/3 block">
+                    <motion.div 
+                      whileHover={{ y: -5 }}
+                      className="p-8 bg-slate-900 text-white rounded w-full whitespace-pre-line text-lg leading-relaxed flex items-center justify-center text-center min-h-[160px] shadow-xl cursor-pointer"
+                    >
+                      {t('about.eco.nexthome')}
+                    </motion.div>
+                  </Link>
                   
                   <motion.div 
                     whileHover={{ scale: 1.05 }}
@@ -148,12 +150,14 @@ const NextHomeCapabilities: React.FC = () => {
                     {t('about.eco.core')}
                   </motion.div>
                   
-                  <motion.div 
-                    whileHover={{ y: -5 }}
-                    className="p-8 bg-slate-900 text-white rounded w-full md:w-1/3 whitespace-pre-line text-lg leading-relaxed flex items-center justify-center text-center min-h-[160px] shadow-xl"
-                  >
-                    {t('about.eco.mealtime')}
-                  </motion.div>
+                  <Link to="/mealtime" className="w-full md:w-1/3 block">
+                    <motion.div 
+                      whileHover={{ y: -5 }}
+                      className="p-8 bg-slate-900 text-white rounded w-full whitespace-pre-line text-lg leading-relaxed flex items-center justify-center text-center min-h-[160px] shadow-xl cursor-pointer"
+                    >
+                      {t('about.eco.mealtime')}
+                    </motion.div>
+                  </Link>
                </div>
                
                <div className="border-t-2 border-slate-200 pt-10 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">

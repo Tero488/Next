@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { SectionTitle } from '../components/UIComponents';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -36,9 +37,13 @@ const About: React.FC = () => {
               {/* Simple CSS Visual for Diagram */}
               <div className="relative w-full max-w-4xl">
                  <div className="flex justify-center space-x-10 mb-10">
-                    <div className="p-8 bg-slate-900 text-white rounded w-1/3 whitespace-pre-line text-lg leading-relaxed">{t('about.eco.nexthome')}</div>
+                    <Link to="/nexthome" className="w-1/3 block">
+                      <div className="p-8 bg-slate-900 text-white rounded w-full whitespace-pre-line text-lg leading-relaxed cursor-pointer hover:opacity-90 transition-opacity">{t('about.eco.nexthome')}</div>
+                    </Link>
                     <div className="p-8 bg-accent text-white rounded w-1/3 whitespace-pre-line text-lg leading-relaxed">{t('about.eco.core')}</div>
-                    <div className="p-8 bg-slate-900 text-white rounded w-1/3 whitespace-pre-line text-lg leading-relaxed">{t('about.eco.mealtime')}</div>
+                    <Link to="/mealtime" className="w-1/3 block">
+                      <div className="p-8 bg-slate-900 text-white rounded w-full whitespace-pre-line text-lg leading-relaxed cursor-pointer hover:opacity-90 transition-opacity">{t('about.eco.mealtime')}</div>
+                    </Link>
                  </div>
                  <div className="border-t-2 border-slate-300 pt-10 flex justify-between text-slate-500 text-base md:text-lg font-medium">
                     <span>{t('about.eco.rd')}</span>

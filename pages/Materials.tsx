@@ -61,11 +61,21 @@ const Materials: React.FC = () => {
     { name: '供销设2M', logo: '/images/brands/gongxiaoshe.png', category: '定制品牌' },
   ];
 
-  // 辅材品牌数据（示例，可以根据实际情况添加）
+  // 辅材品牌数据（13个辅材品牌）
   const auxiliaryMaterialBrands = [
-    { name: '示例辅材品牌1', logo: 'https://via.placeholder.com/200x80?text=Brand1', category: '辅材' },
-    { name: '示例辅材品牌2', logo: 'https://via.placeholder.com/200x80?text=Brand2', category: '辅材' },
-    { name: '示例辅材品牌3', logo: 'https://via.placeholder.com/200x80?text=Brand3', category: '辅材' },
+    { name: '辅材品牌1', logo: '/images/brands/auxiliary-01.png', category: '辅材' },
+    { name: '辅材品牌2', logo: '/images/brands/auxiliary-02.png', category: '辅材' },
+    { name: '辅材品牌3', logo: '/images/brands/auxiliary-03.png', category: '辅材' },
+    { name: '辅材品牌4', logo: '/images/brands/auxiliary-04.png', category: '辅材' },
+    { name: '辅材品牌5', logo: '/images/brands/auxiliary-05.png', category: '辅材' },
+    { name: '辅材品牌6', logo: '/images/brands/auxiliary-06.png', category: '辅材' },
+    { name: '辅材品牌7', logo: '/images/brands/auxiliary-07.png', category: '辅材' },
+    { name: '辅材品牌8', logo: '/images/brands/auxiliary-08.png', category: '辅材' },
+    { name: '辅材品牌9', logo: '/images/brands/auxiliary-09.png', category: '辅材' },
+    { name: '辅材品牌10', logo: '/images/brands/auxiliary-10.png', category: '辅材' },
+    { name: '辅材品牌11', logo: '/images/brands/auxiliary-11.png', category: '辅材' },
+    { name: '辅材品牌12', logo: '/images/brands/auxiliary-12.png', category: '辅材' },
+    { name: '辅材品牌13', logo: '/images/brands/auxiliary-13.png', category: '辅材' },
   ];
 
   const currentBrands = activeTab === 'main' ? mainMaterialBrands : auxiliaryMaterialBrands;

@@ -83,8 +83,8 @@ const SpaceMagic: React.FC = () => {
                             <p className="text-slate-500 text-lg group-hover:text-slate-700 transition-colors">{t('spacemagic.rd.mat.desc')}</p>
                             <div className="mt-6 text-accent text-sm font-medium flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                               查看品牌列表 →
-                            </div>
-                          </div>
+                        </div>
+                        </div>
                         </Link>
                      </StaggerItem>
                      <StaggerItem className="h-full">
@@ -95,7 +95,7 @@ const SpaceMagic: React.FC = () => {
                             <div className="mt-6 text-accent text-sm font-medium flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                               查看产品系列 →
                             </div>
-                          </div>
+                        </div>
                         </Link>
                      </StaggerItem>
                   </StaggerContainer>

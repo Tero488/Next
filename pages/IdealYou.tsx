@@ -27,15 +27,24 @@ const IdealYou: React.FC = () => {
 
   const filterMap: Record<string, string> = {
       'All': t('idealyou.filter.all'),
-      'Residential': t('idealyou.filter.residential'),
+      'Villa': t('idealyou.filter.villa'),
+      'Flat': t('idealyou.filter.flat'),
+      'Refined': t('idealyou.filter.refined'),
       'Commercial': t('idealyou.filter.commercial')
   };
 
   // Helper to match filter key with data category strings
   const getDataCategory = (key: string) => {
      if (language === 'zh') {
-        if (key === 'Residential') return '住宅';
-        if (key === 'Commercial') return '商业';
+        if (key === 'Villa') return '别墅洋房';
+        if (key === 'Flat') return '平层';
+        if (key === 'Refined') return '精装';
+        if (key === 'Commercial') return '工装';
+     } else {
+        if (key === 'Villa') return 'Villa';
+        if (key === 'Flat') return 'Flat';
+        if (key === 'Refined') return 'Refined';
+        if (key === 'Commercial') return 'Commercial';
      }
      return key;
   };
@@ -84,8 +93,8 @@ const IdealYou: React.FC = () => {
 
         {activeTab === 'cases' && (
            <div>
-              <div className="flex justify-center space-x-6 mb-12">
-                 {['All', 'Residential', 'Commercial'].map(cat => (
+              <div className="flex justify-center space-x-6 mb-12 flex-wrap">
+                 {['All', 'Villa', 'Flat', 'Refined', 'Commercial'].map(cat => (
                     <button 
                       key={cat}
                       onClick={() => setFilter(cat)}
