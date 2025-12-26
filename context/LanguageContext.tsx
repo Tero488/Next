@@ -130,6 +130,14 @@ export const translations = {
     'spacemagic.rd.smart.desc': '内容建设、薪酬制度、晋升通道、导流投放。',
     'spacemagic.detail.specs': '技术规格',
     'spacemagic.detail.quote': '获取报价',
+    'spacemagic.detail.spec.modular': '模块化标准',
+    'spacemagic.detail.spec.material': '材质',
+    'spacemagic.detail.spec.efficiency': '效率',
+    'spacemagic.detail.spec.warranty': '质保',
+    'spacemagic.detail.spec.modular.value': 'ISO-9001',
+    'spacemagic.detail.spec.material.value': '复合聚合物',
+    'spacemagic.detail.spec.efficiency.value': '+40% 速度',
+    'spacemagic.detail.spec.warranty.value': '10年',
 
     // Ideal You
     'idealyou.banner.subtitle': '小众经典，聚焦功能美学设计',
@@ -327,6 +335,14 @@ export const translations = {
     'spacemagic.rd.smart.desc': 'Content construction, compensation systems, promotion channels, traffic delivery.',
     'spacemagic.detail.specs': 'Technical Specs',
     'spacemagic.detail.quote': 'Request Quote',
+    'spacemagic.detail.spec.modular': 'Modular Standard',
+    'spacemagic.detail.spec.material': 'Material',
+    'spacemagic.detail.spec.efficiency': 'Efficiency',
+    'spacemagic.detail.spec.warranty': 'Warranty',
+    'spacemagic.detail.spec.modular.value': 'ISO-9001',
+    'spacemagic.detail.spec.material.value': 'Composite Polymer',
+    'spacemagic.detail.spec.efficiency.value': '+40% Speed',
+    'spacemagic.detail.spec.warranty.value': '10 Years',
 
     // Ideal You
     'idealyou.banner.subtitle': 'Creating spaces with unique commercial quality and sentiment.',

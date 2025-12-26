@@ -415,82 +415,282 @@ const productsData = [
   {
     id: "sf-045-4",
     category: "Soft Furnishings",
-    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
+    image: "/images/products/banana-boat-sofa/cover.png",
     title: { zh: "香蕉船沙发 SF045-4", en: "Banana Boat Sofa SF045-4" },
     description: { 
       zh: "尺寸: 283*103*66。高密度回弹海绵+高级布艺软包，如同一艘停泊在港湾的舒适小船。", 
       en: "Size: 283*103*66. High-density rebound foam + premium fabric upholstery. Comfortable as a boat in a harbor." 
-    }
+    },
+    gallery: [
+      "/images/products/banana-boat-sofa/cover.png",
+      "/images/products/banana-boat-sofa/banana-boat-sofa-01.png"
+    ]
   },
   {
     id: "lc-mama",
     category: "Soft Furnishings",
-    image: "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?q=80&w=800&auto=format&fit=crop",
+    image: "/images/products/mama-hug-chair/cover.png",
     title: { zh: "妈妈怀抱休闲椅", en: "Mama's Hug Lounge Chair" },
     description: { 
       zh: "尺寸: 110*102*91。软体定型棉+布艺。给予您如同母亲怀抱般的温暖与安全感。", 
       en: "Size: 110*102*91. Molded foam + fabric. Gives you warmth and security like a mother's embrace." 
-    }
+    },
+    gallery: [
+      "/images/products/mama-hug-chair/cover.png",
+      "/images/products/mama-hug-chair/mama-hug-chair-01.png"
+    ]
   },
   {
     id: "sf-052-1",
     category: "Soft Furnishings",
-    image: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=800&auto=format&fit=crop",
+    image: "/images/products/sf052-1/cover.png",
     title: { zh: "弧形组合沙发 SF052-1", en: "Curved Sectional Sofa SF052-1" },
     description: { 
       zh: "尺寸: 360*250*77。高密度高回弹海绵+高级布艺软包。流畅的线条设计，适合大平层空间。", 
       en: "Size: 360*250*77. High-density foam + premium fabric. Fluid lines designed for large flat spaces." 
-    }
+    },
+    gallery: [
+      "/images/products/sf052-1/cover.png",
+      "/images/products/sf052-1/sf052-1-01.png"
+    ]
   },
   {
-    id: "ct-098",
+    id: "lc-040",
     category: "Soft Furnishings",
-    image: "https://images.unsplash.com/photo-1532372320572-cda25653a26d?q=80&w=800&auto=format&fit=crop",
-    title: { zh: "古木纹茶几 CT098", en: "Ancient Wood Grain Coffee Table CT098" },
+    image: "/images/products/lc040-sofa/cover.png",
+    title: { zh: "LC040 沙发", en: "LC040 Sofa" },
     description: { 
-      zh: "尺寸: 150*80*36。拉丝黄古铜+古木纹大理石。奢华材质的完美碰撞。", 
-      en: "Size: 150*80*36. Brushed yellow bronze + ancient wood grain marble. A collision of luxury materials." 
-    }
+      zh: "尺寸: 80*150*60。框架: 不锈钢+进口落叶松。软体: 高级软包。一体式靠背造型给人稳定优雅的印象，赋予沙发现代感。如同穿针引线般的分割线，增加层次感，让沙发成为空间的独特亮点。", 
+      en: "Size: 80*150*60. Frame: Stainless steel + imported larch. Upholstery: Premium soft package. The integrated backrest shape gives a stable and elegant impression, endowing the sofa with a modern feel." 
+    },
+    gallery: [
+      "/images/products/lc040-sofa/cover.png",
+      "/images/products/lc040-sofa/lc040-sofa-01.png"
+    ]
   },
   {
-    id: "lc-126",
+    id: "sf-115-2",
     category: "Soft Furnishings",
-    image: "https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=800&auto=format&fit=crop",
-    title: { zh: "极简休闲椅 LC126", en: "Minimalist Lounge Chair LC126" },
+    image: "/images/products/sf115-2-sofa/cover.png",
+    title: { zh: "SF115-2 罗杰沙发", en: "SF115-2 Roger Sofa" },
     description: { 
-      zh: "尺寸: 76*77*80。棉麻布+高密度海绵+实木内框架+白蜡木脚。经典与舒适的结合。", 
-      en: "Size: 76*77*80. Cotton linen + high density foam + solid wood frame + ash wood legs." 
-    }
+      zh: "尺寸: 248*108*86。高密度高回弹海绵+高级布艺软包。", 
+      en: "Size: 248*108*86. High-density high-resilience sponge + premium fabric soft package." 
+    },
+    gallery: [
+      "/images/products/sf115-2-sofa/cover.png",
+      "/images/products/sf115-2-sofa/sf115-2-sofa-01.png"
+    ]
   },
   {
-    id: "sf-049",
+    id: "lc-036",
     category: "Soft Furnishings",
-    image: "https://images.unsplash.com/photo-1550254478-ead40cc54513?q=80&w=800&auto=format&fit=crop",
-    title: { zh: "舞者沙发 SF049", en: "Dancer Sofa SF049" },
+    image: "/images/products/lc036-armchair/cover.png",
+    title: { zh: "LC036 扶手椅", en: "LC036 Arm Chair" },
     description: { 
-      zh: "尺寸: 403*160*68。半包围式靠背线条优美雅致，如同舞者般亭亭玉立。", 
-      en: "Size: 403*160*68. Semi-enclosed backrest with elegant lines, standing gracefully like a dancer." 
-    }
+      zh: "尺寸: 78*78*68。框架: 不锈钢+进口落叶松。软体: 高级软包。", 
+      en: "Size: 78*78*68. Frame: Stainless steel + imported larch. Upholstery: Premium soft package." 
+    },
+    gallery: [
+      "/images/products/lc036-armchair/cover.png",
+      "/images/products/lc036-armchair/lc036-armchair-01.png"
+    ]
   },
   {
-    id: "b-020",
+    id: "lc-105",
     category: "Soft Furnishings",
-    image: "https://images.unsplash.com/photo-1505693314120-0d443867891c?q=80&w=800&auto=format&fit=crop",
-    title: { zh: "软包大床 B020", en: "Upholstered Bed B020" },
+    image: "/images/products/lc105-armchair/cover.png",
+    title: { zh: "LC105 扶手椅", en: "LC105 Arm Chair" },
     description: { 
-      zh: "尺寸: 235*210*89。不锈钢+进口落叶松+高级软包。为睡眠提供最坚实的支撑与最柔软的触感。", 
-      en: "Size: 235*210*89. Stainless steel + imported larch + premium upholstery." 
-    }
+      zh: "尺寸: 71*91*81。框架: 实木框架。软体: 布艺软包+麻布。扶手椅是客厅中除了沙发外的第二休憩地，轻松随意，不拘一格，享受表面拉扣带来的独特按摩感。", 
+      en: "Size: 71*91*81. Frame: Solid wood frame. Upholstery: Fabric soft package + linen. The armchair is the second resting place in the living room besides the sofa, relaxed and casual, enjoying the unique massage feeling brought by the surface's pull buttons." 
+    },
+    gallery: [
+      "/images/products/lc105-armchair/cover.png",
+      "/images/products/lc105-armchair/lc105-armchair-01.png"
+    ]
   },
   {
-    id: "sc-029",
+    id: "cb2515-chanel-sofa",
     category: "Soft Furnishings",
-    image: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?q=80&w=800&auto=format&fit=crop",
-    title: { zh: "艺术高柜 SC029", en: "Art Cabinet SC029" },
+    image: "/images/products/cb2515-chanel-sofa/cover.png",
+    title: { zh: "CB2515 香奈儿沙发", en: "CB2515 Chanel Sofa" },
     description: { 
-      zh: "尺寸: 110*45*150。板做油漆+不锈钢。带有镜子的展示区，是空间中的艺术装置。", 
-      en: "Size: 110*45*150. Painted board + stainless steel. Display area with mirror, an art installation in space." 
-    }
+      zh: "框架: 进口落叶松。软体: 高级软包。", 
+      en: "Frame: Imported larch. Upholstery: Premium soft package." 
+    },
+    gallery: [
+      "/images/products/cb2515-chanel-sofa/cover.png",
+      "/images/products/cb2515-chanel-sofa/cb2515-chanel-sofa-01.png"
+    ]
+  },
+  {
+    id: "sf127-terrace-sofa",
+    category: "Soft Furnishings",
+    image: "/images/products/sf127-terrace-sofa/cover.png",
+    title: { zh: "SF127 梯田沙发", en: "SF127 Terraced Sofa" },
+    description: { 
+      zh: "尺寸: 310*95*70。框架: 进口落叶松。软体: 高级软包。", 
+      en: "Size: 310*95*70. Frame: Imported larch. Upholstery: Premium soft package." 
+    },
+    gallery: [
+      "/images/products/sf127-terrace-sofa/cover.png",
+      "/images/products/sf127-terrace-sofa/sf127-terrace-sofa-01.png"
+    ]
+  },
+  {
+    id: "fc014-armchair",
+    category: "Soft Furnishings",
+    image: "/images/products/fc014-armchair/cover.png",
+    title: { zh: "FC014 扶手椅", en: "FC014 Arm Chair" },
+    description: { 
+      zh: "尺寸: 91.5*73.5*78。面料: 进口苯胺皮，全皮。填充: 高密度海绵。扶手: 不锈钢+熔岩焊效果。多面切割拼接的三维感如同钻石，不锈钢扶手未打磨的熔岩焊效果带来现代设计感，进口苯胺皮的柔软舒适与硬质不锈钢形成对比。", 
+      en: "Size: 91.5*73.5*78. Fabric: Imported aniline leather, full leather. Filling: High-density sponge. Armrest: Stainless steel + lava weld effect." 
+    },
+    gallery: [
+      "/images/products/fc014-armchair/cover.png",
+      "/images/products/fc014-armchair/fc014-armchair-01.png"
+    ]
+  },
+  {
+    id: "lc046-chaise",
+    category: "Soft Furnishings",
+    image: "/images/products/lc046-chaise/cover.png",
+    title: { zh: "LC046 躺椅", en: "LC046 Chaise Lounge" },
+    description: { 
+      zh: "尺寸: 65*157*86。框架: 五金。面料: 布艺/超纤。", 
+      en: "Size: 65*157*86. Frame: Hardware. Fabric: Fabric/microfiber." 
+    },
+    gallery: [
+      "/images/products/lc046-chaise/cover.png",
+      "/images/products/lc046-chaise/lc046-chaise-01.png"
+    ]
+  },
+  {
+    id: "lc151-spanish-chair",
+    category: "Soft Furnishings",
+    image: "/images/products/lc151-spanish-chair/cover.png",
+    title: { zh: "LC151 西班牙椅", en: "LC151 Spanish Chair" },
+    description: { 
+      zh: "材质: 白蜡木+马鞍皮。", 
+      en: "Material: Ash wood + Saddle leather." 
+    },
+    gallery: [
+      "/images/products/lc151-spanish-chair/cover.png",
+      "/images/products/lc151-spanish-chair/lc151-spanish-chair-01.png"
+    ]
+  },
+  {
+    id: "hunting-chair",
+    category: "Soft Furnishings",
+    image: "/images/products/hunting-chair/cover.png",
+    title: { zh: "狩猎椅", en: "Hunting Chair" },
+    description: { 
+      zh: "材质: 白蜡木+复合仿真马鞍皮+铜制皮带扣。", 
+      en: "Material: Ash wood + Composite imitation saddle leather + Copper belt buckle." 
+    },
+    gallery: [
+      "/images/products/hunting-chair/cover.png",
+      "/images/products/hunting-chair/hunting-chair-01.png"
+    ]
+  },
+  {
+    id: "chief-chair",
+    category: "Soft Furnishings",
+    image: "/images/products/chief-chair/cover.png",
+    title: { zh: "酋长椅", en: "Chief's Chair" },
+    description: { 
+      zh: "材质: 白蜡木+超纤皮。", 
+      en: "Material: Ash wood + Microfiber leather." 
+    },
+    gallery: [
+      "/images/products/chief-chair/cover.png",
+      "/images/products/chief-chair/chief-chair-01.png"
+    ]
+  },
+  {
+    id: "chenxi-chair",
+    category: "Soft Furnishings",
+    image: "/images/products/chenxi-chair/cover.png",
+    title: { zh: "辰熙椅", en: "Chenxi Chair" },
+    description: { 
+      zh: "材质: 白蜡木+超纤皮。", 
+      en: "Material: Ash wood + Microfiber leather." 
+    },
+    gallery: [
+      "/images/products/chenxi-chair/cover.png",
+      "/images/products/chenxi-chair/chenxi-chair-01.png"
+    ]
+  },
+  {
+    id: "leisure-chair-936",
+    category: "Soft Furnishings",
+    image: "/images/products/leisure-chair-936/cover.png",
+    title: { zh: "936 休闲椅", en: "936 Leisure Chair" },
+    description: { 
+      zh: "尺寸: 283*107*68。材质: 进口落叶松+高级软包。", 
+      en: "Size: 283*107*68. Material: Imported larch + Premium soft package." 
+    },
+    gallery: [
+      "/images/products/leisure-chair-936/cover.png",
+      "/images/products/leisure-chair-936/leisure-chair-936-01.png"
+    ]
+  },
+  {
+    id: "cb2382-leisure-chair",
+    category: "Soft Furnishings",
+    image: "/images/products/cb2382-leisure-chair/cover.png",
+    title: { zh: "CB2382 休闲椅", en: "CB2382 Leisure Chair" },
+    description: { 
+      zh: "尺寸: 74*72*75。材质: 头层真皮+海绵+羽绒+黑纱铁架。", 
+      en: "Size: 74*72*75. Material: Top-grain leather + Sponge + Down + Black iron frame." 
+    },
+    gallery: [
+      "/images/products/cb2382-leisure-chair/cover.png",
+      "/images/products/cb2382-leisure-chair/cb2382-leisure-chair-01.png"
+    ]
+  },
+  {
+    id: "coffee-table-18010",
+    category: "Soft Furnishings",
+    image: "/images/products/coffee-table-18010/cover.png",
+    title: { zh: "18010 旋转茶几", en: "18010 Rotating Coffee Table" },
+    description: { 
+      zh: "尺寸: 146*96*31。材质: 黑色钢化玻璃面板+玫瑰金拉丝金属漆柜体+硬件镜面不锈钢黑钛防指纹。", 
+      en: "Size: 146*96*31. Material: Black tempered glass panel + Rose gold brushed metal paint cabinet + Hardware mirror stainless steel black titanium anti-fingerprint." 
+    },
+    gallery: [
+      "/images/products/coffee-table-18010/cover.png",
+      "/images/products/coffee-table-18010/coffee-table-18010-01.png"
+    ]
+  },
+  {
+    id: "coffee-table-2301",
+    category: "Soft Furnishings",
+    image: "/images/products/coffee-table-2301/cover.png",
+    title: { zh: "2301# 茶几", en: "2301# Coffee Table" },
+    description: { 
+      zh: "尺寸: 141*95*29。材质: 烟熏木皮台面+岩板+实木腿喷黑沙漆。", 
+      en: "Size: 141*95*29. Material: Smoked wood veneer top + Rock slab + Solid wood legs sprayed with black sand paint." 
+    },
+    gallery: [
+      "/images/products/coffee-table-2301/cover.png",
+      "/images/products/coffee-table-2301/coffee-table-2301-01.png"
+    ]
+  },
+  {
+    id: "coffee-table-2309",
+    category: "Soft Furnishings",
+    image: "/images/products/coffee-table-2309/cover.png",
+    title: { zh: "2309# 金属拉丝款", en: "2309# Metal Brushed Style" },
+    description: { 
+      zh: "尺寸: 121*97*32(A), 111*94*45(B)。材质: 拉丝金属台面+古铜拉丝框架。", 
+      en: "Size: 121*97*32(A), 111*94*45(B). Material: Brushed metal tabletop + Antique bronze brushed frame." 
+    },
+    gallery: [
+      "/images/products/coffee-table-2309/cover.png",
+      "/images/products/coffee-table-2309/coffee-table-2309-01.png"
+    ]
   },
 
   // --- Smart Lighting (智能灯光) ---
@@ -527,34 +727,284 @@ const productsData = [
 
   // --- Artistic Coatings (艺术涂料) ---
   {
-    id: "coating-01",
+    id: "modern-sand-velvet",
     category: "Artistic Coatings",
-    image: "https://images.unsplash.com/photo-1615873968403-89e068629265?q=80&w=800&auto=format&fit=crop",
-    title: { zh: "微水泥艺术涂料", en: "Microcement Artistic Coating" },
+    image: "/images/products/modern-sand-velvet/cover.png",
+    title: { zh: "摩登砂绒", en: "Modern Sand Velvet" },
     description: { 
-      zh: "意大利进口微水泥系统，极简无缝质感。防水防霉，可应用于墙面、地面与家具表面。", 
-      en: "Italian imported microcement system, minimalist seamless texture. Waterproof and mold-resistant, applicable to walls, floors and furniture." 
-    }
+      zh: "摩登砂绒拥有华丽明亮的金属色彩，动感十足。珍珠与柔光的肌理交织，在光影中反射，细腻的毛发状肌理散发出迷人魅力。", 
+      en: "Modern velvet comes with gorgeous, bright metallic colors, and is dynamic. The texture of pearl and soft light intersects, reflected in light and shadow." 
+    },
+    gallery: [
+      "/images/products/modern-sand-velvet/cover.png",
+      "/images/products/modern-sand-velvet/modern-sand-velvet-01.png"
+    ]
   },
   {
-    id: "coating-02",
+    id: "skin-feel-lambskin",
     category: "Artistic Coatings",
-    image: "https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?q=80&w=800&auto=format&fit=crop",
-    title: { zh: "肌理漆立体涂装", en: "Textured Paint 3D Coating" },
+    image: "/images/products/skin-feel-lambskin/cover.png",
+    title: { zh: "肤感小羊皮", en: "Skin-feel Lambskin" },
     description: { 
-      zh: "手工批刮工艺，打造独特肌理效果。环保零VOC配方，呈现丰富的光影层次与触感。", 
-      en: "Hand-applied technique creating unique textured effects. Eco-friendly zero-VOC formula with rich light and tactile depth." 
-    }
+      zh: "肤感小羊皮艺术涂料拥有如小羊皮般细腻柔软的触感，带来温暖与舒适。柔和的光泽，展现低调奢华，为空间增添优雅气质。", 
+      en: "The skin-feel lambskin art paint has a delicate and soft touch like lambskin, bringing warmth and comfort. With a soft gloss, it shows a low-key luxury." 
+    },
+    gallery: [
+      "/images/products/skin-feel-lambskin/cover.png",
+      "/images/products/skin-feel-lambskin/skin-feel-lambskin-01.png"
+    ]
   },
   {
-    id: "coating-03",
+    id: "fass-sand-velvet",
     category: "Artistic Coatings",
-    image: "https://images.unsplash.com/photo-1604014237800-1c9102c219da?q=80&w=800&auto=format&fit=crop",
-    title: { zh: "艺术硅藻泥涂料", en: "Artistic Diatomaceous Earth Coating" },
+    image: "/images/products/fass-sand-velvet/cover.png",
+    title: { zh: "法斯砂绒", en: "Fass Sand Velvet" },
     description: { 
-      zh: "天然硅藻土基底，调节室内湿度与净化空气。可塑性强，呈现哑光自然质感。", 
-      en: "Natural diatomaceous earth base, regulates humidity and purifies air. Highly moldable with matte natural texture." 
-    }
+      zh: "法斯砂绒是一款独特的艺术涂料，拥有淡薄细腻的肌理，带来细腻舒适的触感。散发着低调优雅的金属光泽。", 
+      en: "The Fass Sand Velvet is a unique art paint with a faint, thin texture, offering a delicate and comfortable touch. It exudes a low-key and elegant metallic sheen." 
+    },
+    gallery: [
+      "/images/products/fass-sand-velvet/cover.png",
+      "/images/products/fass-sand-velvet/fass-sand-velvet-01.png"
+    ]
+  },
+  {
+    id: "metal-relief",
+    category: "Artistic Coatings",
+    image: "/images/products/metal-relief/cover.png",
+    title: { zh: "金属浮雕", en: "Metal Relief" },
+    description: { 
+      zh: "金属浮雕艺术涂料，以其独特的工艺，巧妙运用金属漆进行着色，呈现出迷人的金属光泽质感。配合精致的浮雕图案，瞬间赋予空间非凡的艺术风格。", 
+      en: "The metal relief art paint, with its unique craftsmanship, skillfully uses metal paint for coloring, presenting a fascinating metallic luster texture." 
+    },
+    gallery: [
+      "/images/products/metal-relief/cover.png",
+      "/images/products/metal-relief/metal-relief-01.png"
+    ]
+  },
+  {
+    id: "metallic-velvet",
+    category: "Artistic Coatings",
+    image: "/images/products/metallic-velvet/cover.png",
+    title: { zh: "金属丝绒", en: "Metallic Velvet" },
+    description: { 
+      zh: "金属丝绒拥有如丝绒般细腻的肌理，比普通丝绒更耐擦洗，柔和悦目的光泽为空间注入奢华感。", 
+      en: "Metallic velvet has a delicate texture like velvet, more scrub-resistant than ordinary velvet, with a soft and pleasant luster that infuses luxury into a space." 
+    },
+    gallery: [
+      "/images/products/metallic-velvet/cover.png",
+      "/images/products/metallic-velvet/metallic-velvet-01.png"
+    ]
+  },
+  {
+    id: "turin-sand-velvet",
+    category: "Artistic Coatings",
+    image: "/images/products/turin-sand-velvet/cover.png",
+    title: { zh: "都灵砂绒", en: "Turin Sand Velvet" },
+    description: { 
+      zh: "都灵砂绒是一款独特的艺术涂料效果，拥有极其细腻的金属扫砂肌理。相比其他工艺，扫砂更均匀精致，看似简单却赋予空间奢华风格。", 
+      en: "Turin Sand Velvet is a unique artistic paint effect with an extremely delicate metallic sand-sweeping texture. More evenly and exquisitely swept compared to other processes." 
+    },
+    gallery: [
+      "/images/products/turin-sand-velvet/cover.png",
+      "/images/products/turin-sand-velvet/turin-sand-velvet-01.png"
+    ]
+  },
+  {
+    id: "milan-velvet",
+    category: "Artistic Coatings",
+    image: "/images/products/milan-velvet/cover.png",
+    title: { zh: "米兰丝绒", en: "Milan Velvet" },
+    description: { 
+      zh: "米兰丝绒拥有细腻顺滑的手感，施工简易，耐擦洗性强。赋予空间柔和的珠光光泽，展现优雅品质。", 
+      en: "Milan Velvet has a delicate and smooth handfeel, easy to construct, and highly scrub-resistant. It endows the space with a soft pearlescent luster, showing elegant qualities." 
+    },
+    gallery: [
+      "/images/products/milan-velvet/cover.png",
+      "/images/products/milan-velvet/milan-velvet-01.png"
+    ]
+  },
+  {
+    id: "ruida-yaron",
+    category: "Artistic Coatings",
+    image: "/images/products/ruida-yaron/cover.png",
+    title: { zh: "睿达雅绒", en: "Ruida Yaron" },
+    description: { 
+      zh: "睿达雅绒是一款迷人的艺术涂料材质，拥有如麂皮般的肌理和柔和的哑光效果。触感细腻温暖，巧妙为空间营造低调、优雅、温馨的氛围。", 
+      en: "Ruida Yaron is a charming artistic paint material with a texture similar to suede and a soft matte effect. It feels delicate and warm to the touch." 
+    },
+    gallery: [
+      "/images/products/ruida-yaron/cover.png",
+      "/images/products/ruida-yaron/ruida-yaron-01.png"
+    ]
+  },
+  {
+    id: "vitas",
+    category: "Artistic Coatings",
+    image: "/images/products/vitas/cover.png",
+    title: { zh: "维塔斯", en: "Vitas" },
+    description: { 
+      zh: "维塔斯是一款极其哑光的珠光涂料，在正常条件下显得低调，但在光线轻抚下会显现出细腻的珠光，散发出迷人的光泽。", 
+      en: "Vitas is an extremely matte pearlescent paint that appears understated in normal conditions but reveals delicate pearlescence when caressed by light." 
+    },
+    gallery: [
+      "/images/products/vitas/cover.png",
+      "/images/products/vitas/vitas-01.png"
+    ]
+  },
+  {
+    id: "micro-cement",
+    category: "Artistic Coatings",
+    image: "/images/products/micro-cement/cover.png",
+    title: { zh: "微水泥", en: "Micro-cement" },
+    description: { 
+      zh: "微水泥是一种新型装饰材料，拥有无缝一体的结构和细腻的肌理。具有高强度、防水等特性，轻松融入各类住宅和商业空间，展现简约高端风格。", 
+      en: "Micro-cement is a new-type decorative material with a seamless and integral structure and a fine texture. It boasts high strength and waterproof properties." 
+    },
+    gallery: [
+      "/images/products/micro-cement/cover.png",
+      "/images/products/micro-cement/micro-cement-01.png"
+    ]
+  },
+  {
+    id: "massey-plaster",
+    category: "Artistic Coatings",
+    image: "/images/products/massey-plaster/cover.png",
+    title: { zh: "马塞灰泥", en: "Massey Plaster" },
+    description: { 
+      zh: "马塞灰泥是一款拥有细腻肌理和优雅风格的肌理涂料。丰富的色彩选择，柔和的色调，是极简和优雅空间的完美选择，为空间注入独特的艺术氛围。", 
+      en: "Massey plaster is a textured paint with a delicate texture and an elegant style. It features a rich color palette with soft hues." 
+    },
+    gallery: [
+      "/images/products/massey-plaster/cover.png",
+      "/images/products/massey-plaster/massey-plaster-01.png"
+    ]
+  },
+  {
+    id: "sicilian-plaster",
+    category: "Artistic Coatings",
+    image: "/images/products/sicilian-plaster/cover.png",
+    title: { zh: "西西里灰泥", en: "Sicilian Plaster" },
+    description: { 
+      zh: "西西里灰泥是一款无机肌理涂料，拥有略微粗糙的独特肌理。能够精心为空间营造优雅的空间质感，让每个角落都散发出自然质朴的美感，展现独特魅力。", 
+      en: "Sicilian plaster is an inorganic textured paint with a slightly rough and unique texture. It can carefully create an elegant spatial texture for the space." 
+    },
+    gallery: [
+      "/images/products/sicilian-plaster/cover.png",
+      "/images/products/sicilian-plaster/sicilian-plaster-01.png"
+    ]
+  },
+  {
+    id: "purdue-plaster",
+    category: "Artistic Coatings",
+    image: "/images/products/purdue-plaster/cover.png",
+    title: { zh: "普尔多灰泥", en: "Purdue Plaster" },
+    description: { 
+      zh: "普尔多灰泥是一款含有天然色砂的无机肌理灰泥，呈现素雅的外观，营造温暖宁静的氛围。", 
+      en: "Purdue plaster is an inorganic textured plaster containing natural-colored sand, offering a plain and elegant look, and creating a warm, peaceful atmosphere." 
+    },
+    gallery: [
+      "/images/products/purdue-plaster/cover.png",
+      "/images/products/purdue-plaster/purdue-plaster-01.png"
+    ]
+  },
+  {
+    id: "raphael-retro",
+    category: "Artistic Coatings",
+    image: "/images/products/raphael-retro/cover.png",
+    title: { zh: "拉斐尔复古", en: "Raphael Retro" },
+    description: { 
+      zh: "拉斐尔复古是一款拥有肌理图案和老化、美式色彩融合效果的艺术涂料。结合复古元素与精湛工艺，呈现丰富的层次色彩和自然过渡，为墙面注入历史韵味和艺术质感。", 
+      en: "Raphael Retro is an artistic paint with both textured patterns and effects of aging and American-style color blending." 
+    },
+    gallery: [
+      "/images/products/raphael-retro/cover.png",
+      "/images/products/raphael-retro/raphael-retro-01.png"
+    ]
+  },
+  {
+    id: "marmorino",
+    category: "Artistic Coatings",
+    image: "/images/products/marmorino/cover.png",
+    title: { zh: "玛曼奴", en: "Marmorino" },
+    description: { 
+      zh: "玛曼奴是一款在高端住宅中广受欢迎的石灰基涂料，其独特的配方创造出细腻的肌理，融合自然色彩，打造素雅、简约、低调而奢华的空间。", 
+      en: "Marmorino is a lime-based coating popular in high-end homes, its unique formula creates a delicate texture and blends natural colors." 
+    },
+    gallery: [
+      "/images/products/marmorino/cover.png",
+      "/images/products/marmorino/marmorino-01.png"
+    ]
+  },
+  {
+    id: "ea-metallic",
+    category: "Artistic Coatings",
+    image: "/images/products/ea-metallic/cover.png",
+    title: { zh: "EA金属", en: "EA Metallic" },
+    description: { 
+      zh: "EA金属是一款金属艺术涂料，拥有细腻光滑的肌理，大理石般的迷人质感，以及淡淡的奢华金属光泽，为空间注入现代、时尚、高端的氛围。", 
+      en: "EA Metallic is a metallic artistic paint featuring a fine and smooth texture, a marble-like charming feel, and a faint luxurious metallic luster." 
+    },
+    gallery: [
+      "/images/products/ea-metallic/cover.png",
+      "/images/products/ea-metallic/ea-metallic-01.png"
+    ]
+  },
+  {
+    id: "travertine",
+    category: "Artistic Coatings",
+    image: "/images/products/travertine/cover.png",
+    title: { zh: "特瓦奴", en: "Travertine" },
+    description: { 
+      zh: "特瓦奴是一款石灰基艺术涂料，环保健康，调湿抗菌，经久耐用。拥有丰富的肌理变化，包括斑驳复古、木纹、水泥脱模、石纹等效果，深受设计师青睐。", 
+      en: "Travertine is a lime-based art paint that is environmentally friendly, healthy, humidity-adjusting, antibacterial, and durable." 
+    },
+    gallery: [
+      "/images/products/travertine/cover.png",
+      "/images/products/travertine/travertine-01.png"
+    ]
+  },
+  {
+    id: "shihuanu",
+    category: "Artistic Coatings",
+    image: "/images/products/shihuanu/cover.png",
+    title: { zh: "石桦奴", en: "Shihuanu" },
+    description: { 
+      zh: "石桦奴是一款拥有粗犷肌理的石灰基涂料，旨在营造自然质朴的氛围。其多样的肌理塑造能力可以呈现各种洞石效果，为空间增添独特魅力。", 
+      en: "Shihuanu is a lime-based paint with a rugged texture, designed to create a natural and rustic atmosphere." 
+    },
+    gallery: [
+      "/images/products/shihuanu/cover.png",
+      "/images/products/shihuanu/shihuanu-01.png"
+    ]
+  },
+  {
+    id: "mica-colored-stone",
+    category: "Artistic Coatings",
+    image: "/images/products/mica-colored-stone/cover.png",
+    title: { zh: "云母彩石", en: "Mica Colored Stone" },
+    description: { 
+      zh: "云母彩石是一款天然石灰基肌理涂料，采用天然云母作为骨料。创造出质朴粗犷的表面效果，如同天然石材般，具有原始美感和自然魅力。", 
+      en: "Mica Colored Stone is a natural lime-based textured paint that uses natural mica as aggregates." 
+    },
+    gallery: [
+      "/images/products/mica-colored-stone/cover.png",
+      "/images/products/mica-colored-stone/mica-colored-stone-01.png"
+    ]
+  },
+  {
+    id: "maya-stone",
+    category: "Artistic Coatings",
+    image: "/images/products/maya-stone/cover.png",
+    title: { zh: "玛雅石", en: "Maya Stone" },
+    description: { 
+      zh: "玛雅石是一款水泥基肌理涂料，能够创造出拥有丰富纹理和明显孔洞的天然石材效果。其质朴的色彩极具特色，独特的肌理赋予空间原始自然的氛围。", 
+      en: "Maya Stone is a cement-based textured paint that can create natural stone effects with rich veins and obvious holes." 
+    },
+    gallery: [
+      "/images/products/maya-stone/cover.png",
+      "/images/products/maya-stone/maya-stone-01.png"
+    ]
   },
 
   // --- Woodwork Custom (木作定制) ---
@@ -596,7 +1046,8 @@ export const getProducts = (lang: 'zh' | 'en') => {
     category: p.category, // Keep internal category ID consistent
     image: p.image,
     title: p.title[lang],
-    description: p.description[lang]
+    description: p.description[lang],
+    gallery: p.gallery || []
   }));
 };
 

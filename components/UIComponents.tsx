@@ -90,19 +90,19 @@ export const SafeImage: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({
   }
 
   return (
-    <>
-      {!loaded && <div className={`absolute inset-0 bg-slate-200 animate-pulse ${className}`} />}
+    <div className="relative w-full h-full">
+      {!loaded && <div className="absolute inset-0 bg-slate-200 animate-pulse" />}
       <img
         src={src}
         alt={alt}
-        className={`${className} ${loaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`}
+        className={`${className} ${loaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300 relative z-10`}
         onError={() => setError(true)}
         onLoad={() => setLoaded(true)}
         loading="lazy"
         decoding="async"
         {...props}
       />
-    </>
+    </div>
   );
 };
 
@@ -218,18 +218,19 @@ export const CaseCard: React.FC<{ id: string; image: string; title: string; cate
 export const ProductCard: React.FC<{ id: string; image: string; title: string; description: string }> = ({ id, image, title, description }) => {
   const { t } = useLanguage();
   return (
-    <StaggerItem className="bg-slate-50 p-8 hover:shadow-xl transition-all duration-300 border border-slate-100 cursor-pointer hover:-translate-y-2 h-full flex flex-col">
-      <div className="h-56 mb-8 overflow-hidden bg-slate-200 relative group-hover:shadow-inner">
-        <SafeImage 
+    <StaggerItem className="bg-white p-6 hover:shadow-2xl transition-all duration-300 border border-slate-200 rounded-xl cursor-pointer hover:-translate-y-2 h-full flex flex-col overflow-hidden group">
+      <div className="h-[280px] mb-6 overflow-hidden bg-gradient-to-br from-slate-50 via-white to-slate-50 rounded-lg flex items-center justify-center p-8 relative">
+        <img 
           src={image} 
           alt={title} 
-          className="w-full h-full object-cover transition-transform duration-700 hover:scale-110 transform-gpu" 
+          className="max-w-full max-h-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105" 
+          loading="lazy"
         />
       </div>
-      <h3 className="text-xl font-bold text-slate-900 mb-3">{title}</h3>
-      <p className="text-slate-500 text-base mb-6 flex-grow leading-relaxed">{description}</p>
-      <Link to={`/nexthome/space-magic/${id}`} className="text-accent text-base font-medium flex items-center hover:underline mt-auto group">
-        {t('ui.details')} <ArrowRight size={16} className="ml-1 transform group-hover:translate-x-1 transition-transform" />
+      <h3 className="text-xl font-bold text-slate-900 mb-3 line-clamp-2 min-h-[3.5rem]">{title}</h3>
+      <p className="text-slate-600 text-sm mb-6 flex-grow leading-relaxed line-clamp-3">{description}</p>
+      <Link to={`/nexthome/space-magic/${id}`} className="text-accent text-sm font-semibold flex items-center hover:text-accent/80 transition-colors mt-auto group/link">
+        {t('ui.details')} <ArrowRight size={16} className="ml-1 transform group-hover/link:translate-x-1 transition-transform" />
       </Link>
     </StaggerItem>
   );

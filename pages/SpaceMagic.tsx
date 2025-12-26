@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Reveal, StaggerContainer, StaggerItem, ParallaxImage, SafeImage } from '../components/UIComponents';
+import { Reveal, StaggerContainer, StaggerItem, ParallaxImage } from '../components/UIComponents';
 import { getProducts } from '../data';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -12,27 +12,89 @@ export const SpaceMagicDetail: React.FC = () => {
 
   if (!product) return <div className="pt-40 text-center text-xl">Product not found</div>;
 
+  const galleryImages = product.gallery && product.gallery.length > 0 ? product.gallery : [product.image];
+
+  // 从产品描述中提取尺寸和材质
+  const parseSpecs = (desc: string) => {
+    let size = '';
+    let material = '';
+    
+    // 提取尺寸：格式为 "尺寸: 283*103*66" 或 "Size: 283*103*66"
+    // 匹配尺寸后面的所有内容直到句号
+    const sizeMatch = desc.match(/(?:尺寸|Size)[：:]\s*([^。.]+)/);
+    if (sizeMatch) {
+      size = sizeMatch[1].trim();
+    }
+    
+    // 提取材质：在尺寸后面的第一个句号之后，第一个逗号之前的内容
+    // 格式通常是 "尺寸: XXX。材质描述，其他描述。"
+    const afterSize = desc.split(/[。.]/)[1];
+    if (afterSize) {
+      // 取第一个逗号之前的内容作为材质
+      const materialPart = afterSize.split(/[，,]/)[0].trim();
+      if (materialPart) {
+        material = materialPart;
+      }
+    }
+    
+    return { size, material };
+  };
+
+  const specs = parseSpecs(product.description);
+
   return (
     <div className="pt-32 pb-24 max-w-7xl mx-auto px-4">
-       <Reveal width="100%">
-         <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
-            <div className="rounded-lg overflow-hidden shadow-2xl h-[600px] bg-slate-200">
-               <SafeImage src={product.image} alt={product.title} className="w-full h-full object-cover" />
+       <div className="grid grid-cols-1 md:grid-cols-2 gap-20 mb-20">
+            <div>
+               {galleryImages.length > 0 && (
+                  <div className="rounded-lg overflow-hidden shadow-2xl bg-slate-200 mb-4 flex items-center justify-center p-8 min-h-[600px]">
+                     <img 
+                        src={galleryImages[0]} 
+                        alt={product.title} 
+                        className="max-w-full max-h-[600px] w-auto h-auto object-contain"
+                        loading="eager"
+                     />
+                  </div>
+               )}
+               {galleryImages.length > 1 && (
+                  <div className="grid grid-cols-2 gap-4">
+                     {galleryImages.slice(1).map((img, idx) => (
+                        <div key={idx} className="rounded-lg overflow-hidden shadow-lg bg-slate-200 flex items-center justify-center p-4 min-h-[200px]">
+                           <img 
+                              src={img} 
+                              alt={`${product.title} ${idx + 2}`} 
+                              className="max-w-full max-h-[200px] w-auto h-auto object-contain"
+                              loading="lazy"
+                           />
+                        </div>
+                     ))}
+                  </div>
+               )}
             </div>
             <div className="flex flex-col justify-center">
                <span className="bg-accent/10 text-accent px-5 py-2.5 rounded-full text-sm font-bold uppercase w-fit mb-8 tracking-widest">{product.category}</span>
                <h1 className="text-5xl md:text-6xl font-serif font-bold mb-8 text-slate-900">{product.title}</h1>
                <p className="text-slate-600 text-xl leading-relaxed mb-12">{product.description}</p>
                
-               <div className="bg-slate-50 p-10 border-l-4 border-accent mb-12">
-                  <h3 className="font-bold text-slate-900 mb-6 uppercase tracking-wider text-base">{t('spacemagic.detail.specs')}</h3>
-                  <ul className="space-y-4 text-slate-600 text-lg">
-                     <li className="flex justify-between border-b border-slate-200 pb-3"><span>Modular Standard</span> <span className="font-medium">ISO-9001</span></li>
-                     <li className="flex justify-between border-b border-slate-200 pb-3"><span>Material</span> <span className="font-medium">Composite Polymer</span></li>
-                     <li className="flex justify-between border-b border-slate-200 pb-3"><span>Efficiency</span> <span className="font-medium text-accent">+40% Speed</span></li>
-                     <li className="flex justify-between pt-3"><span>Warranty</span> <span className="font-medium">10 Years</span></li>
-                  </ul>
-               </div>
+               {(specs.size || specs.material) && (
+                  <div className="bg-slate-50 p-10 border-l-4 border-accent mb-12">
+                     <h3 className="font-bold text-slate-900 mb-6 uppercase tracking-wider text-base">{t('spacemagic.detail.specs')}</h3>
+                     <ul className="space-y-4 text-slate-600 text-lg">
+                        {specs.size && (
+                           <li className="flex justify-between border-b border-slate-200 pb-3">
+                              <span>{language === 'zh' ? '尺寸' : 'Size'}</span> 
+                              <span className="font-medium">{specs.size}</span>
+                           </li>
+                        )}
+                        {specs.material && (
+                           <li className="flex justify-between pt-3">
+                              <span>{language === 'zh' ? '材质' : 'Material'}</span> 
+                              <span className="font-medium">{specs.material}</span>
+                           </li>
+                        )}
+                     </ul>
+                  </div>
+               )}
                
                <div>
                   <Link to="/contact" className="bg-slate-900 text-white px-12 py-5 text-base font-bold uppercase tracking-widest hover:bg-accent transition-colors inline-block shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
@@ -41,7 +103,6 @@ export const SpaceMagicDetail: React.FC = () => {
                </div>
             </div>
          </div>
-       </Reveal>
     </div>
   );
 };

@@ -15,6 +15,7 @@ export interface Product {
   category: string;
   image: string;
   description: string;
+  gallery?: string[];
 }
 
 export interface NewsItem {
