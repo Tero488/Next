@@ -7,6 +7,7 @@ export interface Case {
   image: string;
   description: string;
   gallery?: string[];
+  isPlaceholder?: boolean; // 标记是否为占位符
 }
 
 export interface Product {

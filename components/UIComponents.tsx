@@ -89,20 +89,36 @@ export const SafeImage: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({
     );
   }
 
+  // Check if className requires block-level or full-width/height (needs absolute positioning)
+  const needsBlock = className?.includes('w-full') && className?.includes('h-full');
+
+  const imageElement = (
+    <img
+      src={src}
+      alt={alt}
+      className={`${className} ${loaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300 relative z-10`}
+      onError={() => setError(true)}
+      onLoad={() => setLoaded(true)}
+      loading="lazy"
+      decoding="async"
+      {...props}
+    />
+  );
+
+  if (needsBlock) {
+    return (
+      <div className="absolute inset-0">
+        {!loaded && <div className="absolute inset-0 bg-slate-200 animate-pulse rounded" />}
+        {imageElement}
+      </div>
+    );
+  }
+
   return (
-    <div className="relative w-full h-full">
-      {!loaded && <div className="absolute inset-0 bg-slate-200 animate-pulse" />}
-      <img
-        src={src}
-        alt={alt}
-        className={`${className} ${loaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300 relative z-10`}
-        onError={() => setError(true)}
-        onLoad={() => setLoaded(true)}
-        loading="lazy"
-        decoding="async"
-        {...props}
-      />
-    </div>
+    <span className="relative inline-block">
+      {!loaded && <span className="absolute inset-0 bg-slate-200 animate-pulse rounded" />}
+      {imageElement}
+    </span>
   );
 };
 
@@ -196,24 +212,46 @@ export const Button: React.FC<{ children: React.ReactNode; to?: string; variant?
   );
 };
 
-export const CaseCard: React.FC<{ id: string; image: string; title: string; category: string }> = ({ id, image, title, category }) => (
-  <StaggerItem className="group cursor-pointer block h-full">
-    <Link to={`/cases/${id}`} className="block h-full">
-      <div className="relative overflow-hidden aspect-[4/3] mb-5 shadow-md group-hover:shadow-xl transition-all duration-500 bg-slate-200">
-        <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/10 z-10 transition-colors duration-500" />
-        <SafeImage 
-          src={image} 
-          alt={title} 
-          className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 transform-gpu" 
-        />
-      </div>
-      <div className="flex flex-col">
-        <span className="text-sm text-accent uppercase tracking-wider font-bold mb-2 translate-y-0 transition-transform duration-300 group-hover:-translate-y-1">{category}</span>
-        <h3 className="text-2xl font-serif font-medium text-slate-900 group-hover:text-accent transition-colors duration-300">{title}</h3>
-      </div>
-    </Link>
-  </StaggerItem>
-);
+export const CaseCard: React.FC<{ id: string; image: string; title: string; category: string; isPlaceholder?: boolean }> = ({ id, image, title, category, isPlaceholder }) => {
+  if (isPlaceholder) {
+    return (
+      <StaggerItem className="block h-full">
+        <div className="block h-full cursor-default">
+          <div className="relative overflow-hidden aspect-[4/3] mb-5 shadow-md transition-all duration-500 bg-slate-100 flex items-center justify-center">
+            <div className="text-center px-6 py-12">
+              <div className="text-5xl mb-4 opacity-20">📐</div>
+              <p className="text-slate-400 text-lg font-medium">案例更新中</p>
+              <p className="text-slate-400 text-sm mt-2">敬请期待</p>
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm text-slate-400 uppercase tracking-wider font-bold mb-2">{category}</span>
+            <h3 className="text-2xl font-serif font-medium text-slate-400">{title}</h3>
+          </div>
+        </div>
+      </StaggerItem>
+    );
+  }
+
+  return (
+    <StaggerItem className="group cursor-pointer block h-full">
+      <Link to={`/cases/${id}`} className="block h-full">
+        <div className="relative overflow-hidden aspect-[4/3] mb-5 shadow-md group-hover:shadow-xl transition-all duration-500 bg-slate-200">
+          <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/10 z-10 transition-colors duration-500" />
+          <SafeImage 
+            src={image} 
+            alt={title} 
+            className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 transform-gpu" 
+          />
+        </div>
+        <div className="flex flex-col">
+          <span className="text-sm text-accent uppercase tracking-wider font-bold mb-2 translate-y-0 transition-transform duration-300 group-hover:-translate-y-1">{category}</span>
+          <h3 className="text-2xl font-serif font-medium text-slate-900 group-hover:text-accent transition-colors duration-300">{title}</h3>
+        </div>
+      </Link>
+    </StaggerItem>
+  );
+};
 
 export const ProductCard: React.FC<{ id: string; image: string; title: string; description: string }> = ({ id, image, title, description }) => {
   const { t } = useLanguage();

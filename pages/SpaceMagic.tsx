@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Reveal, StaggerContainer, StaggerItem, ParallaxImage } from '../components/UIComponents';
+import { Reveal, StaggerContainer, StaggerItem, ParallaxImage, SafeImage } from '../components/UIComponents';
 import { getProducts } from '../data';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -48,7 +48,7 @@ export const SpaceMagicDetail: React.FC = () => {
             <div>
                {galleryImages.length > 0 && (
                   <div className="rounded-lg overflow-hidden shadow-2xl bg-slate-200 mb-4 flex items-center justify-center p-8 min-h-[600px]">
-                     <img 
+                     <SafeImage 
                         src={galleryImages[0]} 
                         alt={product.title} 
                         className="max-w-full max-h-[600px] w-auto h-auto object-contain"
@@ -60,7 +60,7 @@ export const SpaceMagicDetail: React.FC = () => {
                   <div className="grid grid-cols-2 gap-4">
                      {galleryImages.slice(1).map((img, idx) => (
                         <div key={idx} className="rounded-lg overflow-hidden shadow-lg bg-slate-200 flex items-center justify-center p-4 min-h-[200px]">
-                           <img 
+                           <SafeImage 
                               src={img} 
                               alt={`${product.title} ${idx + 2}`} 
                               className="max-w-full max-h-[200px] w-auto h-auto object-contain"

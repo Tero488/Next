@@ -190,6 +190,16 @@ export const casesData = {
       image: "/images/cases/shaodong-yinxiang/cover.jpg",
       description: "平层住宅项目，以现代简约风格诠释都市生活美学，打造温馨舒适的居住空间。",
       gallery: Array.from({ length: 4 }, (_, i) => `/images/cases/shaodong-yinxiang/shaodong-yinxiang-${String(i + 1).padStart(2, '0')}.jpg`)
+    },
+    {
+      id: "coming-soon",
+      title: "案例更新中 敬请期待",
+      category: "",
+      type: "idealyou", // 享你所想-空间案例
+      image: "",
+      description: "",
+      gallery: [],
+      isPlaceholder: true // 标记为占位符
     }
   ],
   en: [
@@ -330,6 +340,16 @@ export const casesData = {
       image: "/images/cases/shaodong-yinxiang/cover.jpg",
       description: "Flat residence project, interpreting urban living aesthetics with modern minimalist style, creating a warm and comfortable living space.",
       gallery: Array.from({ length: 4 }, (_, i) => `/images/cases/shaodong-yinxiang/shaodong-yinxiang-${String(i + 1).padStart(2, '0')}.jpg`)
+    },
+    {
+      id: "coming-soon",
+      title: "Coming Soon",
+      category: "",
+      type: "idealyou", // Ideal You - Spatial Cases
+      image: "",
+      description: "",
+      gallery: [],
+      isPlaceholder: true // Mark as placeholder
     }
   ]
 };
