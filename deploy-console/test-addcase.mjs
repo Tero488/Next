@@ -1,32 +1,38 @@
 import { addCase } from './case-lib.mjs';
+import sharp from 'sharp';
 import fs from 'fs';
 import path from 'path';
+import { execSync } from 'child_process';
 
-const PNG = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
+const ROOT = 'E:/Next-main/Next-main';
+
+// 用 sharp 生成两张真实 PNG，转成 dataURL（模拟甲方真实拖入的图片）
+async function makeImageDataUrl(size, color) {
+  const buf = await sharp({ create: { width: size, height: size, channels: 3, background: color } }).png().toBuffer();
+  return 'data:image/png;base64,' + buf.toString('base64');
+}
 
 const images = [
-  { name: 'cover.png', dataUrl: PNG },
-  { name: 'living.png', dataUrl: PNG },
-  { name: 'bedroom.png', dataUrl: PNG },
+  { name: 'cover.png', dataUrl: await makeImageDataUrl(120, { r: 20, g: 80, b: 160 }) },
+  { name: 'living.png', dataUrl: await makeImageDataUrl(100, { r: 160, g: 80, b: 20 }) },
 ];
 
-const { id, coverRel, galleryRel } = await addCase({
-  title: 'abc test case',
-  category: '平层',
-  description: '这是一个自动化测试案例',
+const { id } = await addCase({
+  title: '冒烟测试案例',
+  category: '测试',
+  description: '本地冒烟测试',
   images,
-  sharp: null,
+  sharp,
 });
 
-console.log('生成的 id =', id);
-console.log('coverRel =', coverRel);
-console.log('galleryRel =', galleryRel);
+const dir = path.join(ROOT, 'public/images/cases', id);
+const files = fs.readdirSync(dir).sort();
+const allWebp = files.every((f) => f.endsWith('.webp'));
+const data = fs.readFileSync(path.join(ROOT, 'data/index.ts'), 'utf8');
+const inData = data.includes('id: "' + id + '"') && data.includes(id + '/cover.webp');
+console.log('冒烟测试:', allWebp && inData ? 'PASS' : 'FAIL', '| id =', id, '| 文件 =', files.join(','));
 
-const dir = path.join('E:/Next-main/Next-main/public/images/cases', id);
-const files = fs.readdirSync(dir);
-console.log('写入的文件:', files);
-
-const data = fs.readFileSync('E:/Next-main/Next-main/data/index.ts', 'utf8');
-console.log('data/index.ts 是否含新案例:', data.includes('id: "abc-test-case"'));
-console.log('data/index.ts 是否含封面路径:', data.includes(coverRel));
-console.log('TEST OK');
+// 还原：撤销 data/index.ts 改动并删除测试图，不留痕迹
+execSync('git checkout -- data/index.ts', { cwd: ROOT });
+fs.rmSync(dir, { recursive: true, force: true });
+console.log('已还原 data/index.ts 并删除测试图');
