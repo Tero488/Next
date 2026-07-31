@@ -27,7 +27,7 @@ const mealTimeSections: Record<'zh' | 'en', Record<string, MealTimeSection>> = {
         '舒适社交空间设计',
         '咖啡文化分享与交流'
       ],
-      images: Array.from({ length: 7 }, (_, i) => `/images/mealtime/coffee/coffee-${String(i + 1).padStart(2, '0')}.jpg`)
+      images: Array.from({ length: 7 }, (_, i) => `/images/mealtime/coffee/coffee-${String(i + 1).padStart(2, '0')}.webp`)
     },
     dining: {
       id: 'dining',
@@ -41,7 +41,7 @@ const mealTimeSections: Record<'zh' | 'en', Record<string, MealTimeSection>> = {
         '私人定制宴会服务',
         '主题餐饮活动策划'
       ],
-      images: Array.from({ length: 7 }, (_, i) => `/images/mealtime/dining/dining-${String(i + 1).padStart(2, '0')}.jpg`)
+      images: Array.from({ length: 7 }, (_, i) => `/images/mealtime/dining/dining-${String(i + 1).padStart(2, '0')}.webp`)
     },
     lifestyle: {
       id: 'lifestyle',
@@ -55,7 +55,7 @@ const mealTimeSections: Record<'zh' | 'en', Record<string, MealTimeSection>> = {
         '社群运营与会员体系',
         '潮流趋势发布与分享'
       ],
-      images: Array.from({ length: 11 }, (_, i) => `/images/mealtime/lifestyle/lifestyle-${String(i + 1).padStart(2, '0')}.jpg`)
+      images: Array.from({ length: 11 }, (_, i) => `/images/mealtime/lifestyle/lifestyle-${String(i + 1).padStart(2, '0')}.webp`)
     }
   },
   en: {
@@ -71,7 +71,7 @@ const mealTimeSections: Record<'zh' | 'en', Record<string, MealTimeSection>> = {
         'Comfortable social space design',
         'Coffee culture sharing and exchange'
       ],
-      images: Array.from({ length: 7 }, (_, i) => `/images/mealtime/coffee/coffee-${String(i + 1).padStart(2, '0')}.jpg`)
+      images: Array.from({ length: 7 }, (_, i) => `/images/mealtime/coffee/coffee-${String(i + 1).padStart(2, '0')}.webp`)
     },
     dining: {
       id: 'dining',
@@ -85,7 +85,7 @@ const mealTimeSections: Record<'zh' | 'en', Record<string, MealTimeSection>> = {
         'Private customized banquet service',
         'Themed dining event planning'
       ],
-      images: Array.from({ length: 7 }, (_, i) => `/images/mealtime/dining/dining-${String(i + 1).padStart(2, '0')}.jpg`)
+      images: Array.from({ length: 7 }, (_, i) => `/images/mealtime/dining/dining-${String(i + 1).padStart(2, '0')}.webp`)
     },
     lifestyle: {
       id: 'lifestyle',
@@ -99,7 +99,7 @@ const mealTimeSections: Record<'zh' | 'en', Record<string, MealTimeSection>> = {
         'Community operations and membership system',
         'Trend release and sharing'
       ],
-      images: Array.from({ length: 11 }, (_, i) => `/images/mealtime/lifestyle/lifestyle-${String(i + 1).padStart(2, '0')}.jpg`)
+      images: Array.from({ length: 11 }, (_, i) => `/images/mealtime/lifestyle/lifestyle-${String(i + 1).padStart(2, '0')}.webp`)
     }
   }
 };
