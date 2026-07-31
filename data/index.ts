@@ -54,17 +54,6 @@ const CONFIG_IMAGES = {
 export const casesData = {
   zh: [
     {
-      id: "cs1785522374553800",
-      title: "连通性测试-可删除",
-      category: "测试",
-      type: "idealyou", // 享你所想-空间案例
-      image: "/images/cases/cs1785522374553800/cover.webp",
-      description: "verify token",
-      gallery: [
-        "/images/cases/cs1785522374553800/cover.webp"
-      ]
-    },
-    {
       id: "xiangjiang-one",
       title: "湘江壹号·天际私宅",
       category: "别墅洋房",
@@ -214,17 +203,6 @@ export const casesData = {
     }
   ],
   en: [
-    {
-      id: "cs1785522374553800",
-      title: "连通性测试-可删除",
-      category: "测试",
-      type: "idealyou", // Ideal You - Spatial Cases
-      image: "/images/cases/cs1785522374553800/cover.webp",
-      description: "verify token",
-      gallery: [
-        "/images/cases/cs1785522374553800/cover.webp"
-      ]
-    },
     {
       id: "xiangjiang-one",
       title: "Xiangjiang One Residence",
