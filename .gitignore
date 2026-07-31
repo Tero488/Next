@@ -1,0 +1,8 @@
+# 依赖与构建产物（由 Vercel 自行安装/构建，无需进仓库）
+node_modules/
+dist/
+*.local
+
+# 编辑器 / 系统文件
+.DS_Store
+Thumbs.db

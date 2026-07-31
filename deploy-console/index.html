@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>网站更新控制台</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; max-width: 640px; margin: 48px auto; padding: 0 16px; color: #1a1a1a; }
+    h1 { font-size: 22px; font-weight: 600; margin: 0 0 8px; }
+    p { line-height: 1.7; color: #444; }
+    .row { display: flex; gap: 12px; margin: 20px 0; flex-wrap: wrap; }
+    button { padding: 12px 20px; font-size: 15px; border: none; border-radius: 10px; cursor: pointer; background: #185FA5; color: #fff; transition: opacity .15s; }
+    button:hover { opacity: .88; }
+    button.ghost { background: #eee; color: #333; }
+    pre { background: #f6f6f6; padding: 16px; border-radius: 10px; white-space: pre-wrap; font-size: 13px; line-height: 1.5; min-height: 24px; }
+    .hint { font-size: 13px; color: #888; }
+  </style>
+</head>
+<body>
+  <h1>网站更新控制台</h1>
+  <p>在本地改完网站文件后，点击下方按钮即可把改动推送到 GitHub，Vercel 会自动重新部署。整个过程无需碰命令行。</p>
+
+  <div class="row">
+    <button id="check">查看待发布改动</button>
+    <button id="publish" class="ghost">一键发布</button>
+  </div>
+
+  <pre id="log">点击「查看待发布改动」开始。</pre>
+  <p class="hint">提示：首次运行需先启动后端（<code>node deploy-console/server.mjs</code>），再打开本页。</p>
+
+  <script>
+    const log = document.getElementById('log');
+    document.getElementById('check').onclick = async () => {
+      const r = await fetch('/api/status');
+      const d = await r.json();
+      if (d.error) { log.textContent = '读取失败：' + d.error; return; }
+      if (d.changed === 0) { log.textContent = '当前没有待发布的改动。'; return; }
+      log.textContent = '待发布文件数：' + d.changed + '\n\n' + d.detail.join('\n');
+    };
+    document.getElementById('publish').onclick = async () => {
+      log.textContent = '发布中，请稍候…';
+      const r = await fetch('/api/publish');
+      const t = await r.text();
+      log.textContent = '发布结果：' + t;
+    };
+  </script>
+</body>
+</html>
