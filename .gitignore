@@ -9,3 +9,9 @@ Thumbs.db
 
 # WorkBuddy 项目内存（不进仓库）
 .workbuddy/
+
+# 控制台：私钥/构建产物/依赖（不进仓库）
+deploy-console/config.json
+deploy-console/NextConsole.exe
+deploy-console/frontend.cjs
+deploy-console/node_modules/

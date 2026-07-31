@@ -1,0 +1,15 @@
+{
+  "name": "deploy-console",
+  "version": "1.0.0",
+  "description": "让**完全不懂技术**的甲方也能更新网站：把图片拖进网页、填几个字段、点一下， 剩下的「转图 + 写文件 + 改数据 + 推送 GitHub + 触发部署」全自动，全程不用碰命令行。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pkg": "^5.8.1"
+  }
+}

@@ -236,6 +236,29 @@
       };
     });
 
+    // 浏览器端把图片转成 webp（质量 0.85），避免后端依赖 sharp，便于打包成 exe
+    function fileToWebpDataUrl(file) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+          canvas.toBlob((blob) => {
+            if (!blob) return reject(new Error('图片转换失败'));
+            const rd = new FileReader();
+            rd.onload = () => resolve({ name: file.name.replace(/\.[^.]+$/, '.webp'), dataUrl: rd.result });
+            rd.onerror = reject;
+            rd.readAsDataURL(blob);
+          }, 'image/webp', 0.85);
+        };
+        img.onerror = () => reject(new Error('无法读取图片'));
+        img.src = URL.createObjectURL(file);
+      });
+    }
+
     // 拖拽图区辅助：返回一个 { addFiles, files } 对象
     function makeDrop(dropId, fileId, thumbsId) {
       const drop = document.getElementById(dropId);
@@ -264,12 +287,7 @@
       return { files, toImages: async () => {
         const out = [];
         for (const f of files) {
-          const dataUrl = await new Promise((r) => {
-            const rd = new FileReader();
-            rd.onload = (e) => r(e.target.result);
-            rd.readAsDataURL(f);
-          });
-          out.push({ name: f.name, dataUrl });
+          out.push(await fileToWebpDataUrl(f));
         }
         return out;
       } };
