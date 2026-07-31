@@ -118,56 +118,56 @@ const NextHome: React.FC = () => {
             {[1, 2].map((set) => (
               <div key={set} className="flex items-center gap-16 px-8 whitespace-nowrap">
                 {/* 瓷砖品牌 6个 */}
-                <img src="/images/brands/gna.png" alt="GNA蒙娜丽莎" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/romantic.png" alt="ROMANTIC罗马利奥" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/kito.png" alt="KITO金意陶" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/huijian.png" alt="汇简瓷砖" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/jianyi.png" alt="简一大理石" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/romario.png" alt="ROMARIO" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/gna.webp" alt="GNA蒙娜丽莎" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/romantic.webp" alt="ROMANTIC罗马利奥" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/kito.webp" alt="KITO金意陶" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/huijian.webp" alt="汇简瓷砖" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/jianyi.webp" alt="简一大理石" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/romario.webp" alt="ROMARIO" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
                 
                 {/* 地板品牌 4个 */}
-                <img src="/images/brands/green-flooring.png" alt="格林地板" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/vitvi.png" alt="VITVI维特鲁威" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/moland.png" alt="moland摩兰地板" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/shuxiang-mendi.png" alt="书香门地" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/green-flooring.webp" alt="格林地板" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/vitvi.webp" alt="VITVI维特鲁威" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/moland.webp" alt="moland摩兰地板" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/shuxiang-mendi.webp" alt="书香门地" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
                 
                 {/* 卫浴用品品牌 5个 */}
-                <img src="/images/brands/roca.png" alt="Roca" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/hansgrohe.png" alt="hansgrohe" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/faenza.png" alt="FAENZA法恩莎" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/kendo.png" alt="KENDO精度" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/nicole-das.png" alt="nicole das" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/roca.webp" alt="Roca" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/hansgrohe.webp" alt="hansgrohe" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/faenza.webp" alt="FAENZA法恩莎" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/kendo.webp" alt="KENDO精度" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/nicole-das.webp" alt="nicole das" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
                 
                 {/* 门窗品牌 4个 */}
-                <img src="/images/brands/isi.png" alt="ISI轩尼斯" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/mumu.png" alt="MUMU慕慕门窗" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/boph.png" alt="BOPH" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/tata.png" alt="TATA木门" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/isi.webp" alt="ISI轩尼斯" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/mumu.webp" alt="MUMU慕慕门窗" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/boph.webp" alt="BOPH" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/tata.webp" alt="TATA木门" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
                 
                 {/* 灯具品牌 3个 */}
-                <img src="/images/brands/siemens.png" alt="SIEMENS" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/kangcai.png" alt="KANGCAI LIGHTING" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/cdn.png" alt="CDN西顿照明" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/siemens.webp" alt="SIEMENS" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/kangcai.webp" alt="KANGCAI LIGHTING" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/cdn.webp" alt="CDN西顿照明" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
                 
                 {/* 五金及装修材料品牌 7个 */}
-                <img src="/images/brands/auou.png" alt="AUPU奥普" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/hutlon.png" alt="HUTLON汇泰龙" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/yangshu-boyu.png" alt="央墅·铂域" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/runtai.png" alt="润泰石材" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/funiu.png" alt="FUNIU" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/savoia.png" alt="SAVOIA" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/kd.png" alt="KD" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/auou.webp" alt="AUPU奥普" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/hutlon.webp" alt="HUTLON汇泰龙" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/yangshu-boyu.webp" alt="央墅·铂域" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/runtai.webp" alt="润泰石材" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/funiu.webp" alt="FUNIU" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/savoia.webp" alt="SAVOIA" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/kd.webp" alt="KD" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
                 
                 {/* 设备品牌 6个 */}
-                <img src="/images/brands/toshiba.png" alt="TOSHIBA东芝" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/brotje.png" alt="BRÖTJE" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/culligan.png" alt="Culligan康丽根" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/hisense.png" alt="Hisense海信" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/viessmann.png" alt="VIESSMANN" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
-                <img src="/images/brands/alikes.png" alt="Alikes爱尼克斯" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/toshiba.webp" alt="TOSHIBA东芝" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/brotje.webp" alt="BRÖTJE" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/culligan.webp" alt="Culligan康丽根" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/hisense.webp" alt="Hisense海信" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/viessmann.webp" alt="VIESSMANN" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/alikes.webp" alt="Alikes爱尼克斯" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
                 
                 {/* 定制品牌 1个 */}
-                <img src="/images/brands/gongxiaoshe.png" alt="供销设2M" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
+                <img src="/images/brands/gongxiaoshe.webp" alt="供销设2M" className="h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" loading="lazy" />
               </div>
             ))}
           </div>
@@ -206,7 +206,7 @@ const NextHome: React.FC = () => {
                transition={{ duration: 1.2, ease: "easeOut" }}
                className="relative group overflow-hidden h-[600px] cursor-pointer"
              >
-                <img src="/images/cases/xiangjiang-one/cover.jpg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Space Magic"/>
+                <img src="/images/cases/xiangjiang-one/cover.webp" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Space Magic"/>
                 <div className="absolute inset-0 bg-slate-900/80 group-hover:bg-slate-900/60 transition-colors duration-500 flex flex-col justify-center p-20">
                    <span className="text-accent text-sm font-bold uppercase tracking-[0.2em] mb-6">Innovative</span>
                    <h3 className="text-5xl text-white font-serif font-bold mb-6">{t('nexthome.sm.title')}</h3>
@@ -225,7 +225,7 @@ const NextHome: React.FC = () => {
                transition={{ duration: 1.2, ease: "easeOut" }}
                className="relative group overflow-hidden h-[600px] cursor-pointer"
              >
-                <img src="/images/cases/vanke-golden-home-1/cover.jpg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Ideal You"/>
+                <img src="/images/cases/vanke-golden-home-1/cover.webp" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Ideal You"/>
                 <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/20 transition-colors duration-500 flex flex-col justify-center p-20 items-end text-right">
                    <span className="text-white text-sm font-bold uppercase tracking-[0.2em] mb-6">Premium</span>
                    <h3 className="text-5xl text-white font-serif font-bold mb-6">{t('nexthome.iy.title')}</h3>
