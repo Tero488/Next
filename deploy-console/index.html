@@ -51,7 +51,7 @@
   <div class="overlay" id="login">
     <div class="box">
       <h1>网站更新控制台</h1>
-      <p>请输入访问密码以进入。</p>
+      <p>请输入访问密码以进入。<br><span style="color:#888">需配合本地后端使用：先运行 <code>node deploy-console/server.mjs</code>，再访问 <code>http://localhost:5188</code>。</span></p>
       <div class="msg" id="login-msg"></div>
       <input id="login-pw" type="password" placeholder="访问密码" />
       <button id="login-btn">进入控制台</button>
@@ -207,7 +207,7 @@
         const d = await r.json();
         if (d.ok) { setToken(d.token); hideLogin(); }
         else document.getElementById('login-msg').textContent = d.error || '登录失败';
-      } catch { document.getElementById('login-msg').textContent = '网络错误，请重试'; }
+      } catch { document.getElementById('login-msg').textContent = '无法连接后端。请确认已运行 node deploy-console/server.mjs，并用 http://localhost:5188 打开本页。'; }
     };
     document.getElementById('login-pw').addEventListener('keydown', (e) => { if (e.key === 'Enter') document.getElementById('login-btn').click(); });
 
