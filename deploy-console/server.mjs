@@ -1,4 +1,5 @@
 import http from 'http';
+import crypto from 'crypto';
 import { execFileSync } from 'child_process';
 import fs from 'fs';
 import { addContent } from './case-lib.mjs';
@@ -9,6 +10,34 @@ const PORT = Number(process.env.PORT) || 5188;
 const MAX_BODY = 200 * 1024 * 1024; // 200MB 上限，足够甲方拖入一组案例图
 const REPO = 'Tero488/Next';
 const API = 'https://api.github.com';
+
+// 控制台访问密码：默认 next2026，可用环境变量 CONSOLE_PASSWORD 覆盖（建议上线前改成强密码）
+const CONSOLE_PASSWORD = process.env.CONSOLE_PASSWORD || 'next2026';
+const tokens = new Map(); // token -> 过期时间戳(ms)
+const TOKEN_TTL = 1000 * 60 * 60 * 12; // 12 小时
+// 定期清理过期 token
+setInterval(() => {
+  const now = Date.now();
+  for (const [t, exp] of tokens) if (exp < now) tokens.delete(t);
+}, 1000 * 60 * 30).unref();
+
+// 从请求头取 Bearer token
+function getBearer(req) {
+  const h = req.headers['authorization'] || req.headers['Authorization'] || '';
+  const m = h.match(/^Bearer\s+(.+)$/i);
+  return m ? m[1].trim() : null;
+}
+// 校验登录态；未授权时直接返回 401（不再继续处理）
+function requireAuth(req, res) {
+  const t = getBearer(req);
+  if (!t || !tokens.has(t)) {
+    res.setHeader('Content-Type', 'application/json');
+    res.statusCode = 401;
+    res.end(JSON.stringify({ ok: false, error: '未授权，请先在控制台输入密码登录' }));
+    return false;
+  }
+  return true;
+}
 
 // 各板块发布后的线上查看地址
 const LIVE = {
@@ -145,8 +174,35 @@ function handleAddContent(req, res) {
 const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
 
+  // 登录：校验密码，成功返回一次性 token（12h 有效）
+  if (req.method === 'POST' && req.url === '/api/login') {
+    let body = '';
+    req.on('data', (c) => (body += c));
+    req.on('end', () => {
+      try {
+        const p = JSON.parse(body || '{}');
+        if (p.password === CONSOLE_PASSWORD) {
+          const token = crypto.randomBytes(24).toString('hex');
+          tokens.set(token, Date.now() + TOKEN_TTL);
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ ok: true, token }));
+        } else {
+          res.setHeader('Content-Type', 'application/json');
+          res.statusCode = 401;
+          res.end(JSON.stringify({ ok: false, error: '密码错误' }));
+        }
+      } catch {
+        res.setHeader('Content-Type', 'application/json');
+        res.statusCode = 400;
+        res.end(JSON.stringify({ ok: false, error: '请求格式错误' }));
+      }
+    });
+    return;
+  }
+
   // 查看本地改动（只读 git status，仅作信息展示）
   if (req.url === '/api/status') {
+    if (!requireAuth(req, res)) return;
     try {
       const out = execFileSync('git', ['status', '--porcelain'], { cwd: ROOT, encoding: 'utf8' });
       const lines = out.split('\n').filter(Boolean);
@@ -161,6 +217,7 @@ const server = http.createServer((req, res) => {
 
   // 手动同步控制台代码到仓库（默认发布控制台三个文件）
   if (req.url === '/api/publish') {
+    if (!requireAuth(req, res)) return;
     (async () => {
       try {
         const files = ['deploy-console/server.mjs', 'deploy-console/case-lib.mjs', 'deploy-console/index.html'];
@@ -178,6 +235,7 @@ const server = http.createServer((req, res) => {
 
   // 通用内容发布（案例 / 新闻 / 加入我们）
   if (req.method === 'POST' && req.url === '/api/add-content') {
+    if (!requireAuth(req, res)) return;
     handleAddContent(req, res);
     return;
   }

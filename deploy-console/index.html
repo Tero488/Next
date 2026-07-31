@@ -35,9 +35,29 @@
     .sub button.active { background: #185FA5; color: #fff; border-color: #185FA5; }
     .row2 { display: flex; gap: 12px; }
     .row2 > div { flex: 1; }
+    /* 登录遮罩 */
+    body.locked > *:not(.overlay) { display: none !important; }
+    .overlay { position: fixed; inset: 0; background: #f7f9fc; display: flex; align-items: center; justify-content: center; z-index: 999; }
+    .overlay .box { width: 340px; max-width: 90%; border: 1px solid #e2e8f0; border-radius: 14px; padding: 30px; background: #fff; box-shadow: 0 12px 48px rgba(0,0,0,.08); }
+    .overlay h1 { font-size: 19px; margin-bottom: 6px; }
+    .overlay p { font-size: 13px; color: #888; margin-bottom: 18px; }
+    .overlay input { margin-bottom: 14px; }
+    .overlay button { width: 100%; }
+    .overlay .msg { font-size: 13px; color: #c0392b; min-height: 18px; margin-bottom: 10px; }
   </style>
 </head>
-<body>
+<body class="locked">
+  <!-- 登录遮罩 -->
+  <div class="overlay" id="login">
+    <div class="box">
+      <h1>网站更新控制台</h1>
+      <p>请输入访问密码以进入。</p>
+      <div class="msg" id="login-msg"></div>
+      <input id="login-pw" type="password" placeholder="访问密码" />
+      <button id="login-btn">进入控制台</button>
+    </div>
+  </div>
+
   <h1>网站更新控制台</h1>
   <p>甲方专用：选择板块、拖入素材、填好内容，点「发布」即可上线，全程无需改代码。</p>
 
@@ -142,6 +162,55 @@
   <p class="hint">首次运行需先启动后端：<code>node deploy-console/server.mjs</code>，再打开本页。</p>
 
   <script>
+    const TOKEN_KEY = 'console_token';
+    function getToken() { return sessionStorage.getItem(TOKEN_KEY) || ''; }
+    function setToken(t) { if (t) sessionStorage.setItem(TOKEN_KEY, t); else sessionStorage.removeItem(TOKEN_KEY); }
+
+    // 统一请求封装：自动带 token；401 时退回登录页
+    function api(path, body) {
+      const headers = { 'Content-Type': 'application/json' };
+      const tk = getToken();
+      if (tk) headers['Authorization'] = 'Bearer ' + tk;
+      return fetch(path, { method: 'POST', headers, body: body ? JSON.stringify(body) : undefined })
+        .then(async (r) => {
+          if (r.status === 401) { showLogin('登录已失效，请重新输入密码'); throw new Error('unauthorized'); }
+          return r;
+        });
+    }
+    function apiGet(path) {
+      const headers = {};
+      const tk = getToken();
+      if (tk) headers['Authorization'] = 'Bearer ' + tk;
+      return fetch(path, { headers })
+        .then(async (r) => {
+          if (r.status === 401) { showLogin('登录已失效，请重新输入密码'); throw new Error('unauthorized'); }
+          return r;
+        });
+    }
+
+    // 登录逻辑
+    const overlay = document.getElementById('login');
+    function showLogin(msg) {
+      if (msg) document.getElementById('login-msg').textContent = msg;
+      document.body.classList.add('locked');
+      setToken('');
+      document.getElementById('login-pw').value = '';
+      document.getElementById('login-pw').focus();
+    }
+    function hideLogin() { document.body.classList.remove('locked'); }
+
+    if (getToken()) hideLogin();
+    document.getElementById('login-btn').onclick = async () => {
+      const pw = document.getElementById('login-pw').value;
+      try {
+        const r = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: pw }) });
+        const d = await r.json();
+        if (d.ok) { setToken(d.token); hideLogin(); }
+        else document.getElementById('login-msg').textContent = d.error || '登录失败';
+      } catch { document.getElementById('login-msg').textContent = '网络错误，请重试'; }
+    };
+    document.getElementById('login-pw').addEventListener('keydown', (e) => { if (e.key === 'Enter') document.getElementById('login-btn').click(); });
+
     let current = 'cases';
     let casesType = 'idealyou';
 
@@ -218,17 +287,13 @@
       if (casesDrop.files.length === 0) { log.textContent = '请先拖入至少一张案例图片'; return; }
       log.textContent = '处理中：转换图片并写入网站数据…';
       const images = await casesDrop.toImages();
-      const r = await fetch('/api/add-content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          section: 'cases',
-          type: casesType,
-          title,
-          category: document.getElementById('category-cases').value,
-          description: document.getElementById('desc-cases').value,
-          images,
-        }),
+      const r = await api('/api/add-content', {
+        section: 'cases',
+        type: casesType,
+        title,
+        category: document.getElementById('category-cases').value,
+        description: document.getElementById('desc-cases').value,
+        images,
       });
       const d = await r.json();
       log.textContent = d.ok
@@ -244,16 +309,12 @@
       if (newsDrop.files.length === 0) { log.textContent = '请先拖入一张新闻封面图'; return; }
       log.textContent = '处理中：转换封面并写入网站数据…';
       const images = await newsDrop.toImages();
-      const r = await fetch('/api/add-content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          section: 'news',
-          title,
-          date: document.getElementById('date-news').value,
-          summary: document.getElementById('summary-news').value,
-          images,
-        }),
+      const r = await api('/api/add-content', {
+        section: 'news',
+        title,
+        date: document.getElementById('date-news').value,
+        summary: document.getElementById('summary-news').value,
+        images,
       });
       const d = await r.json();
       log.textContent = d.ok
@@ -267,14 +328,10 @@
       const title = document.getElementById('title-jobs').value.trim();
       if (!title) { log.textContent = '请先填写职位名称'; return; }
       log.textContent = '处理中：写入招聘信息…';
-      const r = await fetch('/api/add-content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          section: 'jobs',
-          title,
-          requirementsText: document.getElementById('req-jobs').value,
-        }),
+      const r = await api('/api/add-content', {
+        section: 'jobs',
+        title,
+        requirementsText: document.getElementById('req-jobs').value,
       });
       const d = await r.json();
       log.textContent = d.ok
@@ -290,18 +347,14 @@
       if (productsDrop.files.length === 0) { log.textContent = '请先拖入至少一张产品图片'; return; }
       log.textContent = '处理中：转换图片并写入产品数据…';
       const images = await productsDrop.toImages();
-      const r = await fetch('/api/add-content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          section: 'products',
-          titleZh,
-          titleEn: document.getElementById('title-en-products').value.trim(),
-          category: document.getElementById('category-products').value,
-          descriptionZh: document.getElementById('desc-zh-products').value,
-          descriptionEn: document.getElementById('desc-en-products').value,
-          images,
-        }),
+      const r = await api('/api/add-content', {
+        section: 'products',
+        titleZh,
+        titleEn: document.getElementById('title-en-products').value.trim(),
+        category: document.getElementById('category-products').value,
+        descriptionZh: document.getElementById('desc-zh-products').value,
+        descriptionEn: document.getElementById('desc-en-products').value,
+        images,
       });
       const d = await r.json();
       log.textContent = d.ok
@@ -312,7 +365,7 @@
     // 通用发布
     const log = document.getElementById('log');
     document.getElementById('check').onclick = async () => {
-      const r = await fetch('/api/status');
+      const r = await apiGet('/api/status');
       const d = await r.json();
       if (d.error) { log.textContent = '读取失败：' + d.error; return; }
       if (d.changed === 0) { log.textContent = '当前没有待发布的改动。'; return; }
@@ -320,7 +373,7 @@
     };
     document.getElementById('publish').onclick = async () => {
       log.textContent = '发布中，请稍候…';
-      const r = await fetch('/api/publish');
+      const r = await api('/api/publish');
       const t = await r.text();
       log.textContent = '发布结果：' + t;
     };
