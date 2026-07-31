@@ -58,7 +58,7 @@ const IdealYou: React.FC = () => {
       {/* Banner with Background Image */}
       <div className="h-[500px] bg-slate-900 relative overflow-hidden flex items-center justify-center text-center px-4">
          <div className="absolute inset-0 opacity-60">
-            <ParallaxImage src="https://picsum.photos/1920/800?random=idealyou_bg" alt="Ideal You Banner" className="w-full h-full" />
+            <ParallaxImage src="/images/cases/vanke-golden-home-1/cover.jpg" alt="Ideal You Banner" className="w-full h-full" />
          </div>
          <div className="relative z-10 max-w-4xl mx-auto text-white">
            <Reveal width="100%">
