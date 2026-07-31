@@ -5,7 +5,7 @@ import { addCase } from './case-lib.mjs';
 
 // 本地网站仓库根目录（与 Vercel 绑定的 GitHub repo 同步）
 const ROOT = 'E:/Next-main/Next-main';
-const PORT = 5188;
+const PORT = Number(process.env.PORT) || 5188;
 const MAX_BODY = 200 * 1024 * 1024; // 200MB 上限，足够甲方拖入一组案例图
 
 // 可选依赖：sharp 用于把甲方原图转成与全站一致的 webp；缺失时回退存原格式
