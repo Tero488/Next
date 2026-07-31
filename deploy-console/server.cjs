@@ -35,11 +35,11 @@ const PORT = Number(process.env.PORT) || Number(config.port) || 5188;
 const MAX_BODY = 200 * 1024 * 1024;
 
 const LIVE = {
-  cases: 'https://next001-dusky.vercel.app/#/cases',
-  'spacemagic-case': 'https://next001-dusky.vercel.app/#/cases',
-  news: 'https://next001-dusky.vercel.app/#/news',
-  jobs: 'https://next001-dusky.vercel.app/#/join',
-  products: 'https://next001-dusky.vercel.app/#/nexthome/space-magic/products',
+  cases: 'https://next-eosin-iota.vercel.app/#/cases',
+  'spacemagic-case': 'https://next-eosin-iota.vercel.app/#/cases',
+  news: 'https://next-eosin-iota.vercel.app/#/news',
+  jobs: 'https://next-eosin-iota.vercel.app/#/join',
+  products: 'https://next-eosin-iota.vercel.app/#/nexthome/space-magic/products',
 };
 
 // 登录态 token（内存态，12h 有效）
@@ -194,7 +194,7 @@ function handleAddContent(req, res) {
         section,
         id: result.id,
         count: result.imageBlobs.length,
-        live: LIVE[section] || 'https://next001-dusky.vercel.app/',
+        live: LIVE[section] || 'https://next-eosin-iota.vercel.app/',
         published,
       }));
     } catch (e) {
