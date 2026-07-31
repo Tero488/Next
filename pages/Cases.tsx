@@ -31,7 +31,7 @@ export const CaseDetail: React.FC = () => {
           {project.gallery && project.gallery.length > 0 ? (
              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
                 {project.gallery.map((imgUrl, index) => (
-                   <div key={index} className="w-full aspect-[4/3] overflow-hidden rounded shadow-md group">
+                   <div key={index} className="relative w-full aspect-[4/3] overflow-hidden rounded shadow-md group">
                       <SafeImage 
                          src={imgUrl} 
                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
@@ -42,8 +42,8 @@ export const CaseDetail: React.FC = () => {
              </div>
           ) : (
              <div className="grid grid-cols-2 gap-6 mt-16">
-                <SafeImage src={`https://picsum.photos/600/400?random=${id}1`} className="w-full rounded shadow-md" alt="Detail 1"/>
-                <SafeImage src={`https://picsum.photos/600/400?random=${id}2`} className="w-full rounded shadow-md" alt="Detail 2"/>
+                <SafeImage src={project.image} className="w-full rounded shadow-md" alt="Detail 1"/>
+                <SafeImage src={project.image} className="w-full rounded shadow-md" alt="Detail 2"/>
              </div>
           )}
        </div>
