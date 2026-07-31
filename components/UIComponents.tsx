@@ -82,20 +82,12 @@ export const SafeImage: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({
       setError(true);
       return;
     }
-    // Warm the browser cache so the real <img> below can load/decoded immediately.
-    const preload = new Image();
-    preload.src = src;
-
     // If the real DOM <img> is already complete (cached), mark it loaded now.
     // This handles the StrictMode double-mount + cached-image race.
     const img = imgRef.current;
     if (img && img.complete && img.naturalWidth > 0) {
       setLoaded(true);
     }
-
-    return () => {
-      preload.src = '';
-    };
   }, [src]);
 
   if (error) {
@@ -120,7 +112,8 @@ export const SafeImage: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({
       className={`${className} relative z-10`}
       onLoad={() => setLoaded(true)}
       onError={() => setError(true)}
-      loading="eager"
+      loading="lazy"
+      decoding="async"
       {...props}
     />
   );
