@@ -206,7 +206,7 @@ const NextHome: React.FC = () => {
                transition={{ duration: 1.2, ease: "easeOut" }}
                className="relative group overflow-hidden h-[600px] cursor-pointer"
              >
-                <img src="https://picsum.photos/800/600?random=110" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Space Magic"/>
+                <img src="/images/cases/xiangjiang-one/cover.jpg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Space Magic"/>
                 <div className="absolute inset-0 bg-slate-900/80 group-hover:bg-slate-900/60 transition-colors duration-500 flex flex-col justify-center p-20">
                    <span className="text-accent text-sm font-bold uppercase tracking-[0.2em] mb-6">Innovative</span>
                    <h3 className="text-5xl text-white font-serif font-bold mb-6">{t('nexthome.sm.title')}</h3>
@@ -225,7 +225,7 @@ const NextHome: React.FC = () => {
                transition={{ duration: 1.2, ease: "easeOut" }}
                className="relative group overflow-hidden h-[600px] cursor-pointer"
              >
-                <img src="https://picsum.photos/800/600?random=111" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Ideal You"/>
+                <img src="/images/cases/vanke-golden-home-1/cover.jpg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Ideal You"/>
                 <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/20 transition-colors duration-500 flex flex-col justify-center p-20 items-end text-right">
                    <span className="text-white text-sm font-bold uppercase tracking-[0.2em] mb-6">Premium</span>
                    <h3 className="text-5xl text-white font-serif font-bold mb-6">{t('nexthome.iy.title')}</h3>
