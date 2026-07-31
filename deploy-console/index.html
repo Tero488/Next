@@ -17,8 +17,8 @@
     button:hover { opacity: .88; }
     button.ghost { background: #eee; color: #333; }
     button:disabled { opacity: .5; cursor: not-allowed; }
-    .tabs { display: flex; gap: 8px; margin: 18px 0 8px; }
-    .tab { flex: 1; background: #f0f3f7; color: #444; border: 1px solid #e2e8f0; }
+    .tabs { display: flex; gap: 8px; margin: 18px 0 8px; flex-wrap: wrap; }
+    .tab { flex: 1; background: #f0f3f7; color: #444; border: 1px solid #e2e8f0; min-width: 110px; }
     .tab.active { background: #185FA5; color: #fff; border-color: #185FA5; }
     .card { border: 1px solid #eee; border-radius: 12px; padding: 16px 18px; margin-top: 8px; }
     .drop { border: 2px dashed #bbb; border-radius: 12px; padding: 24px; text-align: center; color: #888; cursor: pointer; transition: .15s; }
@@ -30,6 +30,11 @@
     .hint { font-size: 12px; color: #999; }
     a { color: #185FA5; }
     [hidden] { display: none; }
+    .sub { display: flex; gap: 8px; margin: 4px 0 4px; }
+    .sub button { flex: 1; background: #f0f3f7; color: #444; border: 1px solid #e2e8f0; font-size: 13px; padding: 8px; }
+    .sub button.active { background: #185FA5; color: #fff; border-color: #185FA5; }
+    .row2 { display: flex; gap: 12px; }
+    .row2 > div { flex: 1; }
   </style>
 </head>
 <body>
@@ -41,11 +46,17 @@
     <button class="tab active" data-sec="cases">① 案例</button>
     <button class="tab" data-sec="news">② 新闻</button>
     <button class="tab" data-sec="jobs">③ 加入我们</button>
+    <button class="tab" data-sec="products">④ 百变空间产品</button>
   </div>
 
   <!-- 案例表单 -->
   <div class="card" id="form-cases">
     <h2>发布新案例</h2>
+    <label>案例类型 *</label>
+    <div class="sub" id="type-cases-sub">
+      <button type="button" class="active" data-type="idealyou">享你所想（空间案例）</button>
+      <button type="button" data-type="spacemagic">百变空间（户型案例）</button>
+    </div>
     <div class="drop" id="drop-cases">把案例图片拖到这里，或点击选择（可多选，第一张为封面）</div>
     <input type="file" id="file-cases" accept="image/*" multiple hidden />
     <div class="thumbs" id="thumbs-cases"></div>
@@ -93,6 +104,32 @@
     <pre id="log-jobs">填写职位名称和任职要求后点击「发布职位」。</pre>
   </div>
 
+  <!-- 产品表单 -->
+  <div class="card" id="form-products" hidden>
+    <h2>发布百变空间新产品</h2>
+    <div class="drop" id="drop-products">把产品图片拖到这里，或点击选择（可多选，第一张为封面）</div>
+    <input type="file" id="file-products" accept="image/*" multiple hidden />
+    <div class="thumbs" id="thumbs-products"></div>
+    <label>产品名称（中文）*</label>
+    <input id="title-zh-products" placeholder="例如：香蕉船沙发 SF045-4" />
+    <label>产品名称（英文，留空则同中文）</label>
+    <input id="title-en-products" placeholder="Banana Boat Sofa SF045-4" />
+    <label>产品分类</label>
+    <select id="category-products">
+      <option>Soft Furnishings</option>
+      <option>Surface Materials</option>
+      <option>Wall Art</option>
+      <option>Woodwork Custom</option>
+      <option>Lighting</option>
+    </select>
+    <label>产品描述（中文，可选）</label>
+    <textarea id="desc-zh-products" placeholder="例如：尺寸: 283*103*66。高密度回弹海绵+高级布艺软包…"></textarea>
+    <label>产品描述（英文，留空则同中文）</label>
+    <textarea id="desc-en-products" placeholder="Size: 283*103*66. High-density rebound foam..."></textarea>
+    <div style="margin-top:16px"><button id="publish-products">发布产品</button></div>
+    <pre id="log-products">拖入产品图并填写名称后点击「发布产品」。</pre>
+  </div>
+
   <hr />
 
   <!-- 通用发布 -->
@@ -106,6 +143,7 @@
 
   <script>
     let current = 'cases';
+    let casesType = 'idealyou';
 
     // 板块切换
     document.querySelectorAll('.tab').forEach((t) => {
@@ -116,6 +154,16 @@
         document.getElementById('form-cases').hidden = current !== 'cases';
         document.getElementById('form-news').hidden = current !== 'news';
         document.getElementById('form-jobs').hidden = current !== 'jobs';
+        document.getElementById('form-products').hidden = current !== 'products';
+      };
+    });
+
+    // 案例类型切换
+    document.querySelectorAll('#type-cases-sub button').forEach((b) => {
+      b.onclick = () => {
+        document.querySelectorAll('#type-cases-sub button').forEach((x) => x.classList.remove('active'));
+        b.classList.add('active');
+        casesType = b.dataset.type;
       };
     });
 
@@ -160,6 +208,7 @@
 
     const casesDrop = makeDrop('drop-cases', 'file-cases', 'thumbs-cases');
     const newsDrop = makeDrop('drop-news', 'file-news', 'thumbs-news');
+    const productsDrop = makeDrop('drop-products', 'file-products', 'thumbs-products');
 
     // 案例发布
     document.getElementById('publish-cases').onclick = async () => {
@@ -174,6 +223,7 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           section: 'cases',
+          type: casesType,
           title,
           category: document.getElementById('category-cases').value,
           description: document.getElementById('desc-cases').value,
@@ -182,7 +232,7 @@
       });
       const d = await r.json();
       log.textContent = d.ok
-        ? '发布成功！\n案例 ID：' + d.id + '\n图片数：' + d.count + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）'
+        ? '发布成功！\n案例类型：' + (casesType === 'spacemagic' ? '百变空间（户型案例）' : '享你所想（空间案例）') + '\n案例 ID：' + d.id + '\n图片数：' + d.count + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）'
         : '发布失败：' + d.error;
     };
 
@@ -229,6 +279,33 @@
       const d = await r.json();
       log.textContent = d.ok
         ? '发布成功！\n职位 ID：' + d.id + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）'
+        : '发布失败：' + d.error;
+    };
+
+    // 产品发布
+    document.getElementById('publish-products').onclick = async () => {
+      const log = document.getElementById('log-products');
+      const titleZh = document.getElementById('title-zh-products').value.trim();
+      if (!titleZh) { log.textContent = '请先填写产品名称（中文）'; return; }
+      if (productsDrop.files.length === 0) { log.textContent = '请先拖入至少一张产品图片'; return; }
+      log.textContent = '处理中：转换图片并写入产品数据…';
+      const images = await productsDrop.toImages();
+      const r = await fetch('/api/add-content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          section: 'products',
+          titleZh,
+          titleEn: document.getElementById('title-en-products').value.trim(),
+          category: document.getElementById('category-products').value,
+          descriptionZh: document.getElementById('desc-zh-products').value,
+          descriptionEn: document.getElementById('desc-en-products').value,
+          images,
+        }),
+      });
+      const d = await r.json();
+      log.textContent = d.ok
+        ? '发布成功！\n产品 ID：' + d.id + '\n图片数：' + d.count + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）'
         : '发布失败：' + d.error;
     };
 

@@ -13,8 +13,10 @@ const API = 'https://api.github.com';
 // 各板块发布后的线上查看地址
 const LIVE = {
   cases: 'https://next001-dusky.vercel.app/#/cases',
+  'spacemagic-case': 'https://next001-dusky.vercel.app/#/cases',
   news: 'https://next001-dusky.vercel.app/#/news',
   jobs: 'https://next001-dusky.vercel.app/#/join',
+  products: 'https://next001-dusky.vercel.app/#/nexthome/space-magic/products',
 };
 
 // 可选依赖：sharp 用于把甲方原图转成与全站一致的 webp；缺失时回退存原格式

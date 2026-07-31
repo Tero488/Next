@@ -68,9 +68,30 @@ function insertInBlock(content, name, arrayKey, item, position) {
   return content.slice(0, b.s) + newBlock + content.slice(b.e);
 }
 
-// ---------------- 案例 ----------------
-export async function addCase({ title, category, description, images = [], sharp }) {
+// 定位某个 const X = [ ... ]; 单数组（productsData 这类，元素用 {zh,en} 对象，无 zh/en 双数组）
+function getSingleArrayBlock(content, name) {
+  const s = content.indexOf('const ' + name + ' = [');
+  if (s < 0) throw new Error('未找到 ' + name + ' 数组');
+  const sub = content.slice(s);
+  const end = sub.indexOf('\n];');
+  if (end < 0) throw new Error(name + ' 数组结束未找到');
+  return { s, e: s + end + 3 };
+}
+function insertInSingleArray(content, name, item) {
+  const b = getSingleArrayBlock(content, name);
+  const block = content.slice(b.s, b.e);
+  const closeMarker = '\n];';
+  const mi = block.indexOf(closeMarker);
+  if (mi < 0) throw new Error(name + ' 数组结尾锚点未找到');
+  // block.slice(0, mi) 末尾是最后一个元素的 "  }"，补逗号后再接新条目
+  const newBlock = block.slice(0, mi) + ',\n' + item + closeMarker + block.slice(mi + closeMarker.length);
+  return content.slice(0, b.s) + newBlock + content.slice(b.e);
+}
+
+// ---------------- 案例（含 享你所想 idealyou / 百变空间 spacemagic 两种类型） ----------------
+export async function addCase({ title, category, description, images = [], sharp, type }) {
   if (!title || !images.length) throw new Error('案例需要标题和至少一张图片');
+  const caseType = type === 'spacemagic' ? 'spacemagic' : 'idealyou';
   const id = genId('cs');
   const written = ['data/index.ts'];
   const galleryRel = [];
@@ -86,7 +107,7 @@ export async function addCase({ title, category, description, images = [], sharp
       id: "${esc(id)}",
       title: "${esc(title)}",
       category: "${esc(category || '')}",
-      type: "idealyou", // 享你所想-空间案例
+      type: "${caseType}", // ${caseType === 'spacemagic' ? '百变空间-户型案例' : '享你所想-空间案例'}
       image: "${esc(coverRel)}",
       description: "${esc(description || '（待补充）')}",
       gallery: [
@@ -97,7 +118,7 @@ export async function addCase({ title, category, description, images = [], sharp
       id: "${esc(id)}",
       title: "${esc(title)}",
       category: "${esc(category || '')}",
-      type: "idealyou", // Ideal You - Spatial Cases
+      type: "${caseType}", // ${caseType === 'spacemagic' ? 'Space Magic - Layout Case' : 'Ideal You - Spatial Cases'}
       image: "${esc(coverRel)}",
       description: "${esc(description || '(TBD)')}",
       gallery: [
@@ -107,7 +128,7 @@ export async function addCase({ title, category, description, images = [], sharp
   content = insertInBlock(content, 'casesData', 'zh', zhItem, 'start');
   content = insertInBlock(content, 'casesData', 'en', enItem, 'start');
   writeData(content);
-  return { id, galleryRel, section: 'cases', written };
+  return { id, galleryRel, section: caseType === 'spacemagic' ? 'spacemagic-case' : 'cases', type: caseType, written };
 }
 
 // ---------------- 新闻 ----------------
@@ -170,10 +191,44 @@ export async function addJob({ title, titleEn, requirementsText, requirementsEnT
   return { id, section: 'jobs', written };
 }
 
+// ---------------- 产品（百变空间产品，productsData 单数组，含 zh/en 双语文案） ----------------
+export async function addProduct({ titleZh, titleEn, category, descriptionZh, descriptionEn, images = [], sharp }) {
+  if (!titleZh || !images.length) throw new Error('产品需要标题和至少一张图片');
+  const id = genId('p');
+  const written = ['data/index.ts'];
+  const galleryRel = [];
+  for (let i = 0; i < images.length; i++) {
+    const suffix = i === 0 ? 'cover' : id + '-' + String(i + 1).padStart(2, '0');
+    const rel = '/images/products/' + id + '/' + suffix + '.webp';
+    await saveImage(images[i].dataUrl, rel, sharp, written);
+    galleryRel.push(rel);
+  }
+  const coverRel = galleryRel[0];
+  const cat = category || 'Soft Furnishings';
+  let content = readData();
+  const item = `  {
+    id: "${esc(id)}",
+    category: "${esc(cat)}",
+    image: "${esc(coverRel)}",
+    title: { zh: "${esc(titleZh)}", en: "${esc(titleEn || titleZh)}" },
+    description: { 
+      zh: "${esc(descriptionZh || '')}", 
+      en: "${esc(descriptionEn || descriptionZh || '')}" 
+    },
+    gallery: [
+      "${galleryRel.join('",\n      "')}"
+    ]
+  }`;
+  content = insertInSingleArray(content, 'productsData', item);
+  writeData(content);
+  return { id, galleryRel, section: 'products', written };
+}
+
 // ---------------- 派发 ----------------
 export async function addContent(section, payload) {
-  if (section === 'cases') return addCase(payload);
+  if (section === 'cases' || section === 'spacemagic-case') return addCase(payload);
   if (section === 'news') return addNews(payload);
   if (section === 'jobs') return addJob(payload);
+  if (section === 'products') return addProduct(payload);
   throw new Error('未知板块: ' + section);
 }
