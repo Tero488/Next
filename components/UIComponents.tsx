@@ -73,11 +73,29 @@ export const StaggerItem: React.FC<{ children: React.ReactNode; className?: stri
 export const SafeImage: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({ src, alt, className, ...props }) => {
   const [error, setError] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
 
-  // Reset error state if src changes
   useEffect(() => {
     setError(false);
     setLoaded(false);
+    if (!src) {
+      setError(true);
+      return;
+    }
+    // Warm the browser cache so the real <img> below can load/decoded immediately.
+    const preload = new Image();
+    preload.src = src;
+
+    // If the real DOM <img> is already complete (cached), mark it loaded now.
+    // This handles the StrictMode double-mount + cached-image race.
+    const img = imgRef.current;
+    if (img && img.complete && img.naturalWidth > 0) {
+      setLoaded(true);
+    }
+
+    return () => {
+      preload.src = '';
+    };
   }, [src]);
 
   if (error) {
@@ -92,15 +110,17 @@ export const SafeImage: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({
   // Check if className requires block-level or full-width/height (needs absolute positioning)
   const needsBlock = className?.includes('w-full') && className?.includes('h-full');
 
+  // Image is always rendered at full opacity; placeholder fades out once the real DOM img loads.
+  // This avoids the risk of images staying invisible if onLoad never fires.
   const imageElement = (
     <img
+      ref={imgRef}
       src={src}
       alt={alt}
-      className={`${className} ${loaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300 relative z-10`}
-      onError={() => setError(true)}
+      className={`${className} relative z-10`}
       onLoad={() => setLoaded(true)}
-      loading="lazy"
-      decoding="async"
+      onError={() => setError(true)}
+      loading="eager"
       {...props}
     />
   );
@@ -108,7 +128,7 @@ export const SafeImage: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({
   if (needsBlock) {
     return (
       <div className="absolute inset-0">
-        {!loaded && <div className="absolute inset-0 bg-slate-200 animate-pulse rounded" />}
+        <div className={`absolute inset-0 bg-slate-200 animate-pulse rounded transition-opacity duration-500 ${loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'}`} />
         {imageElement}
       </div>
     );
@@ -116,7 +136,7 @@ export const SafeImage: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({
 
   return (
     <span className="relative inline-block">
-      {!loaded && <span className="absolute inset-0 bg-slate-200 animate-pulse rounded" />}
+      <span className={`absolute inset-0 bg-slate-200 animate-pulse rounded transition-opacity duration-500 ${loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'}`} />
       {imageElement}
     </span>
   );
