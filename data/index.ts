@@ -192,6 +192,15 @@ export const casesData = {
       gallery: Array.from({ length: 4 }, (_, i) => `/images/cases/shaodong-yinxiang/shaodong-yinxiang-${String(i + 1).padStart(2, '0')}.webp`)
     },
     {
+      id: "真实拖拽测试案例",
+      title: "真实拖拽测试案例",
+      category: "测试",
+      type: "idealyou", // 享你所想-空间案例
+      image: "/images/cases/真实拖拽测试案例/cover.webp",
+      description: "通过 HTTP /api/add-case 发布",
+      gallery: ["/images/cases/真实拖拽测试案例/cover.webp", "/images/cases/真实拖拽测试案例/真实拖拽测试案例-02.webp"]
+    },
+    {
       id: "coming-soon",
       title: "案例更新中 敬请期待",
       category: "",
@@ -340,6 +349,15 @@ export const casesData = {
       image: "/images/cases/shaodong-yinxiang/cover.webp",
       description: "Flat residence project, interpreting urban living aesthetics with modern minimalist style, creating a warm and comfortable living space.",
       gallery: Array.from({ length: 4 }, (_, i) => `/images/cases/shaodong-yinxiang/shaodong-yinxiang-${String(i + 1).padStart(2, '0')}.webp`)
+    },
+    {
+      id: "真实拖拽测试案例",
+      title: "真实拖拽测试案例",
+      category: "测试",
+      type: "idealyou", // Ideal You - Spatial Cases
+      image: "/images/cases/真实拖拽测试案例/cover.webp",
+      description: "通过 HTTP /api/add-case 发布",
+      gallery: ["/images/cases/真实拖拽测试案例/cover.webp", "/images/cases/真实拖拽测试案例/真实拖拽测试案例-02.webp"]
     },
     {
       id: "coming-soon",

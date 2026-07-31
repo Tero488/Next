@@ -6,30 +6,134 @@
   <title>网站更新控制台</title>
   <style>
     * { box-sizing: border-box; }
-    body { font-family: system-ui, -apple-system, sans-serif; max-width: 640px; margin: 48px auto; padding: 0 16px; color: #1a1a1a; }
-    h1 { font-size: 22px; font-weight: 600; margin: 0 0 8px; }
-    p { line-height: 1.7; color: #444; }
-    .row { display: flex; gap: 12px; margin: 20px 0; flex-wrap: wrap; }
+    body { font-family: system-ui, -apple-system, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; color: #1a1a1a; }
+    h1 { font-size: 22px; font-weight: 600; margin: 0 0 4px; }
+    h2 { font-size: 16px; font-weight: 600; margin: 28px 0 10px; }
+    p { line-height: 1.7; color: #444; font-size: 14px; }
+    label { display: block; font-size: 13px; color: #555; margin: 12px 0 4px; }
+    input, select, textarea { width: 100%; padding: 10px 12px; font-size: 14px; border: 1px solid #ddd; border-radius: 8px; }
+    textarea { resize: vertical; min-height: 64px; }
     button { padding: 12px 20px; font-size: 15px; border: none; border-radius: 10px; cursor: pointer; background: #185FA5; color: #fff; transition: opacity .15s; }
     button:hover { opacity: .88; }
     button.ghost { background: #eee; color: #333; }
-    pre { background: #f6f6f6; padding: 16px; border-radius: 10px; white-space: pre-wrap; font-size: 13px; line-height: 1.5; min-height: 24px; }
-    .hint { font-size: 13px; color: #888; }
+    button:disabled { opacity: .5; cursor: not-allowed; }
+    .drop { border: 2px dashed #bbb; border-radius: 12px; padding: 28px; text-align: center; color: #888; cursor: pointer; transition: .15s; }
+    .drop.over { border-color: #185FA5; background: #f4f9ff; color: #185FA5; }
+    .thumbs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .thumbs img { width: 72px; height: 72px; object-fit: cover; border-radius: 8px; border: 1px solid #eee; }
+    pre { background: #f6f6f6; padding: 14px; border-radius: 10px; white-space: pre-wrap; font-size: 13px; line-height: 1.5; min-height: 20px; margin-top: 10px; }
+    hr { border: none; border-top: 1px solid #eee; margin: 28px 0; }
+    .hint { font-size: 12px; color: #999; }
+    a { color: #185FA5; }
   </style>
 </head>
 <body>
   <h1>网站更新控制台</h1>
-  <p>在本地改完网站文件后，点击下方按钮即可把改动推送到 GitHub，Vercel 会自动重新部署。整个过程无需碰命令行。</p>
+  <p>甲方专用：把案例图片拖进来、填个标题，点「发布案例」即可上线，全程无需改代码。</p>
 
-  <div class="row">
-    <button id="check">查看待发布改动</button>
+  <!-- 拖拽发布案例 -->
+  <h2>① 拖拽发布新案例</h2>
+  <div class="drop" id="drop">把案例图片拖到这里，或点击选择（可多选，第一张为封面）</div>
+  <input type="file" id="file" accept="image/*" multiple hidden />
+  <div class="thumbs" id="thumbs"></div>
+
+  <label>案例标题 *</label>
+  <input id="title" placeholder="例如：滨江壹号·现代轻奢平层" />
+
+  <label>分类</label>
+  <select id="category">
+    <option value="">（不填）</option>
+    <option>别墅洋房</option>
+    <option>平层</option>
+    <option>工装</option>
+    <option>精装</option>
+    <option>其他</option>
+  </select>
+
+  <label>案例描述（可选）</label>
+  <textarea id="desc" placeholder="留空将自动填充占位文字，可后续补充"></textarea>
+
+  <div style="margin-top:16px">
+    <button id="publishCase">发布案例</button>
+  </div>
+  <pre id="logCase">选择图片并填写标题后点击「发布案例」。</pre>
+
+  <hr />
+
+  <!-- 通用发布 -->
+  <h2>② 通用发布（改了其他文件时用）</h2>
+  <div class="row" style="display:flex;gap:12px;flex-wrap:wrap">
+    <button id="check" class="ghost">查看待发布改动</button>
     <button id="publish" class="ghost">一键发布</button>
   </div>
-
   <pre id="log">点击「查看待发布改动」开始。</pre>
-  <p class="hint">提示：首次运行需先启动后端（<code>node deploy-console/server.mjs</code>），再打开本页。</p>
+  <p class="hint">首次运行需先启动后端：<code>node deploy-console/server.mjs</code>，再打开本页。</p>
 
   <script>
+    const drop = document.getElementById('drop');
+    const fileInput = document.getElementById('file');
+    const thumbs = document.getElementById('thumbs');
+    const logCase = document.getElementById('logCase');
+    const files = [];
+
+    drop.onclick = () => fileInput.click();
+    drop.ondragover = (e) => { e.preventDefault(); drop.classList.add('over'); };
+    drop.ondragleave = () => drop.classList.remove('over');
+    drop.ondrop = (e) => { e.preventDefault(); drop.classList.remove('over'); addFiles(e.dataTransfer.files); };
+    fileInput.onchange = () => addFiles(fileInput.files);
+
+    function addFiles(list) {
+      for (const f of list) {
+        if (!f.type.startsWith('image/')) continue;
+        files.push(f);
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const img = document.createElement('img');
+          img.src = ev.target.result;
+          thumbs.appendChild(img);
+        };
+        reader.readAsDataURL(f);
+      }
+      drop.textContent = '已选择 ' + files.length + ' 张图片（点击可继续添加，第一张为封面）';
+    }
+
+    document.getElementById('publishCase').onclick = async () => {
+      const title = document.getElementById('title').value.trim();
+      if (!title) { logCase.textContent = '请先填写案例标题'; return; }
+      if (files.length === 0) { logCase.textContent = '请先拖入至少一张案例图片'; return; }
+
+      logCase.textContent = '处理中：转换图片并写入网站数据…';
+      const images = [];
+      for (const f of files) {
+        const dataUrl = await new Promise((r) => {
+          const rd = new FileReader();
+          rd.onload = (e) => r(e.target.result);
+          rd.readAsDataURL(f);
+        });
+        images.push({ name: f.name, dataUrl });
+      }
+
+      const payload = {
+        title,
+        category: document.getElementById('category').value,
+        description: document.getElementById('desc').value,
+        images,
+      };
+
+      logCase.textContent = '上传并发布中，请稍候…';
+      const r = await fetch('/api/add-case', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const d = await r.json();
+      if (d.ok) {
+        logCase.textContent = '发布成功！\n案例 ID：' + d.id + '\n图片数：' + d.count + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）';
+      } else {
+        logCase.textContent = '发布失败：' + d.error;
+      }
+    };
+
     const log = document.getElementById('log');
     document.getElementById('check').onclick = async () => {
       const r = await fetch('/api/status');

@@ -6,3 +6,6 @@ dist/
 # 编辑器 / 系统文件
 .DS_Store
 Thumbs.db
+
+# WorkBuddy 项目内存（不进仓库）
+.workbuddy/
