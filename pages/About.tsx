@@ -11,7 +11,7 @@ const About: React.FC = () => {
       {/* Banner */}
       <div className="h-[500px] relative bg-slate-900 flex items-center justify-center">
         <img
-           src="/images/cases/jiangshan-one/cover.jpg"
+           src="/images/cases/jiangshan-one/cover.webp"
            className="absolute inset-0 w-full h-full object-cover opacity-50"
            alt="About Banner"
         />
