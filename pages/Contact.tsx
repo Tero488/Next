@@ -17,7 +17,7 @@ const Contact: React.FC = () => {
          className="block w-full h-[500px] bg-slate-200 border-b border-slate-200 relative overflow-hidden group cursor-pointer"
        >
           <img 
-            src="/images/map/location.png"
+            src="/images/map/location.webp"
             alt="NEXT+ 总部位置地图 - 湖南省长沙市开福区五矿live33栋3层（NEXT+HOME）"
             className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
             onError={(e) => {
@@ -95,7 +95,7 @@ const Contact: React.FC = () => {
 
                 <div className="mt-10 pt-10 border-t border-slate-100">
                    <div className="bg-white p-2 border border-slate-200 inline-block rounded-sm">
-                      <img src="/images/qrcode.png" alt="NEXT+ 官方公众号" className="w-32 h-32" />
+                      <img src="/images/qrcode.webp" alt="NEXT+ 官方公众号" className="w-32 h-32" />
                    </div>
                    <p className="text-slate-400 text-sm mt-3">{t('contact.follow')}</p>
                 </div>
