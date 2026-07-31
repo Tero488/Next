@@ -114,7 +114,7 @@ const SpaceMagic: React.FC = () => {
     <div className="pt-20">
       <div className="h-[500px] bg-slate-900 relative overflow-hidden flex items-center justify-center text-center px-4">
          <div className="absolute inset-0 opacity-40">
-            <ParallaxImage src="/images/cases/xiangjiang-one/cover.jpg" alt="banner" className="w-full h-full" />
+            <ParallaxImage src="/images/cases/xiangjiang-one/cover.webp" alt="banner" className="w-full h-full" />
          </div>
          <div className="relative z-10 max-w-4xl mx-auto">
            <Reveal width="100%">
