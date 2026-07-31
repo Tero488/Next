@@ -7,10 +7,10 @@ import { SectionTitle, Button, CaseCard, Reveal, StaggerContainer, StaggerItem, 
 import { useLanguage } from '../context/LanguageContext';
 
 const HERO_SLIDES = [
-  '/images/cases/xiangjiang-one/cover.jpg',
-  '/images/cases/vanke-golden-home-1/cover.jpg',
-  '/images/cases/jiangshan-one/cover.jpg',
-  '/images/mealtime/dining/dining-01.jpg',
+  '/images/cases/xiangjiang-one/cover.webp',
+  '/images/cases/vanke-golden-home-1/cover.webp',
+  '/images/cases/jiangshan-one/cover.webp',
+  '/images/mealtime/dining/dining-01.webp',
 ];
 
 const Hero: React.FC = () => {
@@ -212,7 +212,7 @@ const SpaceMagicPreview: React.FC = () => {
         >
           <div className="relative h-[650px] w-full overflow-hidden rounded-sm shadow-2xl group">
             <img
-              src="/images/cases/xiangjiang-one/cover.jpg"
+              src="/images/cases/xiangjiang-one/cover.webp"
               alt="Space Magic"
               loading="lazy"
               decoding="async"
@@ -253,7 +253,7 @@ const IdealYouPreview: React.FC = () => {
         >
           <div className="relative h-[650px] w-full overflow-hidden rounded-sm shadow-2xl group">
             <img
-              src="/images/cases/vanke-golden-home-1/cover.jpg"
+              src="/images/cases/vanke-golden-home-1/cover.webp"
               alt="Ideal You"
               loading="lazy"
               decoding="async"
@@ -313,7 +313,7 @@ const MealTimeBanner: React.FC = () => {
   return (
     <section className="relative py-40 flex items-center overflow-hidden group">
       <div className="absolute inset-0 z-0">
-         <ParallaxImage src="/images/mealtime/dining/dining-01.jpg" alt="MealTime" className="w-full h-full" />
+         <ParallaxImage src="/images/mealtime/dining/dining-01.webp" alt="MealTime" className="w-full h-full" />
          <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors duration-700"></div>
       </div>
       
