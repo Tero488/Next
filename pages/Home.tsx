@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
@@ -6,23 +6,41 @@ import { getStats, getCases, getNews } from '../data';
 import { SectionTitle, Button, CaseCard, Reveal, StaggerContainer, StaggerItem, ParallaxImage, CountUp } from '../components/UIComponents';
 import { useLanguage } from '../context/LanguageContext';
 
+const HERO_SLIDES = [
+  '/images/cases/xiangjiang-one/cover.jpg',
+  '/images/cases/vanke-golden-home-1/cover.jpg',
+  '/images/cases/jiangshan-one/cover.jpg',
+  '/images/mealtime/dining/dining-01.jpg',
+];
+
 const Hero: React.FC = () => {
   const { t } = useLanguage();
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 200]);
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 5000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      <motion.div 
+      <motion.div
         style={{ y, willChange: "transform" }} // Keep willChange here as it is the main hero background
         className="absolute inset-0 z-0"
       >
-        <img 
-          src="https://picsum.photos/1920/1080?random=99" 
-          alt="Hero Background" 
-          decoding="async" 
-          className="w-full h-full object-cover transform-gpu" // Hardware acceleration for the image
-        />
+        {HERO_SLIDES.map((src, i) => (
+          <img
+            key={src}
+            src={src}
+            alt="Hero Background"
+            decoding="async"
+            className={`absolute inset-0 w-full h-full object-cover transform-gpu transition-opacity duration-1000 ${i === activeSlide ? 'opacity-100' : 'opacity-0'}`}
+          />
+        ))}
         <div className="absolute inset-0 bg-black/40"></div>
       </motion.div>
       
@@ -193,12 +211,12 @@ const SpaceMagicPreview: React.FC = () => {
           className="lg:w-1/2 w-full"
         >
           <div className="relative h-[650px] w-full overflow-hidden rounded-sm shadow-2xl group">
-            <img 
-              src="https://picsum.photos/800/1000?random=50" 
-              alt="Space Magic" 
+            <img
+              src="/images/cases/xiangjiang-one/cover.jpg"
+              alt="Space Magic"
               loading="lazy"
               decoding="async"
-              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 transform-gpu" 
+              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 transform-gpu"
             />
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-12">
                <span className="text-accent text-sm font-bold uppercase tracking-[0.2em] mb-3 block">{t('home.magic.subtitle')}</span>
@@ -234,12 +252,12 @@ const IdealYouPreview: React.FC = () => {
           className="lg:w-1/2 w-full"
         >
           <div className="relative h-[650px] w-full overflow-hidden rounded-sm shadow-2xl group">
-            <img 
-              src="https://picsum.photos/800/1000?random=51" 
-              alt="Ideal You" 
+            <img
+              src="/images/cases/vanke-golden-home-1/cover.jpg"
+              alt="Ideal You"
               loading="lazy"
               decoding="async"
-              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 transform-gpu" 
+              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 transform-gpu"
             />
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-12">
                <span className="text-accent text-sm font-bold uppercase tracking-[0.2em] mb-3 block">{t('home.idealyou.subtitle')}</span>
@@ -295,7 +313,7 @@ const MealTimeBanner: React.FC = () => {
   return (
     <section className="relative py-40 flex items-center overflow-hidden group">
       <div className="absolute inset-0 z-0">
-         <ParallaxImage src="https://picsum.photos/1920/800?random=60" alt="MealTime" className="w-full h-full" />
+         <ParallaxImage src="/images/mealtime/dining/dining-01.jpg" alt="MealTime" className="w-full h-full" />
          <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors duration-700"></div>
       </div>
       
