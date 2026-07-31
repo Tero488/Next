@@ -6,9 +6,9 @@
   <title>网站更新控制台</title>
   <style>
     * { box-sizing: border-box; }
-    body { font-family: system-ui, -apple-system, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; color: #1a1a1a; }
+    body { font-family: system-ui, -apple-system, sans-serif; max-width: 760px; margin: 40px auto; padding: 0 16px; color: #1a1a1a; }
     h1 { font-size: 22px; font-weight: 600; margin: 0 0 4px; }
-    h2 { font-size: 16px; font-weight: 600; margin: 28px 0 10px; }
+    h2 { font-size: 15px; font-weight: 600; margin: 22px 0 10px; }
     p { line-height: 1.7; color: #444; font-size: 14px; }
     label { display: block; font-size: 13px; color: #555; margin: 12px 0 4px; }
     input, select, textarea { width: 100%; padding: 10px 12px; font-size: 14px; border: 1px solid #ddd; border-radius: 8px; }
@@ -17,7 +17,11 @@
     button:hover { opacity: .88; }
     button.ghost { background: #eee; color: #333; }
     button:disabled { opacity: .5; cursor: not-allowed; }
-    .drop { border: 2px dashed #bbb; border-radius: 12px; padding: 28px; text-align: center; color: #888; cursor: pointer; transition: .15s; }
+    .tabs { display: flex; gap: 8px; margin: 18px 0 8px; }
+    .tab { flex: 1; background: #f0f3f7; color: #444; border: 1px solid #e2e8f0; }
+    .tab.active { background: #185FA5; color: #fff; border-color: #185FA5; }
+    .card { border: 1px solid #eee; border-radius: 12px; padding: 16px 18px; margin-top: 8px; }
+    .drop { border: 2px dashed #bbb; border-radius: 12px; padding: 24px; text-align: center; color: #888; cursor: pointer; transition: .15s; }
     .drop.over { border-color: #185FA5; background: #f4f9ff; color: #185FA5; }
     .thumbs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
     .thumbs img { width: 72px; height: 72px; object-fit: cover; border-radius: 8px; border: 1px solid #eee; }
@@ -25,43 +29,74 @@
     hr { border: none; border-top: 1px solid #eee; margin: 28px 0; }
     .hint { font-size: 12px; color: #999; }
     a { color: #185FA5; }
+    [hidden] { display: none; }
   </style>
 </head>
 <body>
   <h1>网站更新控制台</h1>
-  <p>甲方专用：把案例图片拖进来、填个标题，点「发布案例」即可上线，全程无需改代码。</p>
+  <p>甲方专用：选择板块、拖入素材、填好内容，点「发布」即可上线，全程无需改代码。</p>
 
-  <!-- 拖拽发布案例 -->
-  <h2>① 拖拽发布新案例</h2>
-  <div class="drop" id="drop">把案例图片拖到这里，或点击选择（可多选，第一张为封面）</div>
-  <input type="file" id="file" accept="image/*" multiple hidden />
-  <div class="thumbs" id="thumbs"></div>
-
-  <label>案例标题 *</label>
-  <input id="title" placeholder="例如：滨江壹号·现代轻奢平层" />
-
-  <label>分类</label>
-  <select id="category">
-    <option value="">（不填）</option>
-    <option>别墅洋房</option>
-    <option>平层</option>
-    <option>工装</option>
-    <option>精装</option>
-    <option>其他</option>
-  </select>
-
-  <label>案例描述（可选）</label>
-  <textarea id="desc" placeholder="留空将自动填充占位文字，可后续补充"></textarea>
-
-  <div style="margin-top:16px">
-    <button id="publishCase">发布案例</button>
+  <!-- 板块切换 -->
+  <div class="tabs">
+    <button class="tab active" data-sec="cases">① 案例</button>
+    <button class="tab" data-sec="news">② 新闻</button>
+    <button class="tab" data-sec="jobs">③ 加入我们</button>
   </div>
-  <pre id="logCase">选择图片并填写标题后点击「发布案例」。</pre>
+
+  <!-- 案例表单 -->
+  <div class="card" id="form-cases">
+    <h2>发布新案例</h2>
+    <div class="drop" id="drop-cases">把案例图片拖到这里，或点击选择（可多选，第一张为封面）</div>
+    <input type="file" id="file-cases" accept="image/*" multiple hidden />
+    <div class="thumbs" id="thumbs-cases"></div>
+    <label>案例标题 *</label>
+    <input id="title-cases" placeholder="例如：滨江壹号·现代轻奢平层" />
+    <label>分类</label>
+    <select id="category-cases">
+      <option value="">（不填）</option>
+      <option>别墅洋房</option>
+      <option>平层</option>
+      <option>工装</option>
+      <option>精装</option>
+      <option>其他</option>
+    </select>
+    <label>案例描述（可选）</label>
+    <textarea id="desc-cases" placeholder="留空将自动填充占位文字，可后续补充"></textarea>
+    <div style="margin-top:16px"><button id="publish-cases">发布案例</button></div>
+    <pre id="log-cases">选择图片并填写标题后点击「发布案例」。</pre>
+  </div>
+
+  <!-- 新闻表单 -->
+  <div class="card" id="form-news" hidden>
+    <h2>发布新新闻</h2>
+    <div class="drop" id="drop-news">把新闻封面图拖到这里，或点击选择（一张即可）</div>
+    <input type="file" id="file-news" accept="image/*" hidden />
+    <div class="thumbs" id="thumbs-news"></div>
+    <label>新闻标题 *</label>
+    <input id="title-news" placeholder="例如：NEXT+ 荣获2025年度设计大奖" />
+    <label>日期</label>
+    <input id="date-news" type="date" />
+    <label>新闻摘要（可选）</label>
+    <textarea id="summary-news" placeholder="一句话概括这条新闻"></textarea>
+    <div style="margin-top:16px"><button id="publish-news">发布新闻</button></div>
+    <pre id="log-news">拖入封面图并填写标题后点击「发布新闻」。</pre>
+  </div>
+
+  <!-- 招聘表单 -->
+  <div class="card" id="form-jobs" hidden>
+    <h2>发布新招聘职位</h2>
+    <label>职位名称 *</label>
+    <input id="title-jobs" placeholder="例如：资深室内设计师" />
+    <label>任职要求（每行一条）</label>
+    <textarea id="req-jobs" placeholder="室内设计相关专业大专及以上学历；&#10;2年以上同岗位工作经验；&#10;能独立完成家居空间设计"></textarea>
+    <div style="margin-top:16px"><button id="publish-jobs">发布职位</button></div>
+    <pre id="log-jobs">填写职位名称和任职要求后点击「发布职位」。</pre>
+  </div>
 
   <hr />
 
   <!-- 通用发布 -->
-  <h2>② 通用发布（改了其他文件时用）</h2>
+  <h2>通用发布（改了其他文件时用）</h2>
   <div class="row" style="display:flex;gap:12px;flex-wrap:wrap">
     <button id="check" class="ghost">查看待发布改动</button>
     <button id="publish" class="ghost">一键发布</button>
@@ -70,70 +105,134 @@
   <p class="hint">首次运行需先启动后端：<code>node deploy-console/server.mjs</code>，再打开本页。</p>
 
   <script>
-    const drop = document.getElementById('drop');
-    const fileInput = document.getElementById('file');
-    const thumbs = document.getElementById('thumbs');
-    const logCase = document.getElementById('logCase');
-    const files = [];
+    let current = 'cases';
 
-    drop.onclick = () => fileInput.click();
-    drop.ondragover = (e) => { e.preventDefault(); drop.classList.add('over'); };
-    drop.ondragleave = () => drop.classList.remove('over');
-    drop.ondrop = (e) => { e.preventDefault(); drop.classList.remove('over'); addFiles(e.dataTransfer.files); };
-    fileInput.onchange = () => addFiles(fileInput.files);
+    // 板块切换
+    document.querySelectorAll('.tab').forEach((t) => {
+      t.onclick = () => {
+        document.querySelectorAll('.tab').forEach((x) => x.classList.remove('active'));
+        t.classList.add('active');
+        current = t.dataset.sec;
+        document.getElementById('form-cases').hidden = current !== 'cases';
+        document.getElementById('form-news').hidden = current !== 'news';
+        document.getElementById('form-jobs').hidden = current !== 'jobs';
+      };
+    });
 
-    function addFiles(list) {
-      for (const f of list) {
-        if (!f.type.startsWith('image/')) continue;
-        files.push(f);
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-          const img = document.createElement('img');
-          img.src = ev.target.result;
-          thumbs.appendChild(img);
-        };
-        reader.readAsDataURL(f);
+    // 拖拽图区辅助：返回一个 { addFiles, files } 对象
+    function makeDrop(dropId, fileId, thumbsId) {
+      const drop = document.getElementById(dropId);
+      const input = document.getElementById(fileId);
+      const thumbs = document.getElementById(thumbsId);
+      const files = [];
+      drop.onclick = () => input.click();
+      drop.ondragover = (e) => { e.preventDefault(); drop.classList.add('over'); };
+      drop.ondragleave = () => drop.classList.remove('over');
+      drop.ondrop = (e) => { e.preventDefault(); drop.classList.remove('over'); addFiles(e.dataTransfer.files); };
+      input.onchange = () => addFiles(input.files);
+      function addFiles(list) {
+        for (const f of list) {
+          if (!f.type.startsWith('image/')) continue;
+          files.push(f);
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            const img = document.createElement('img');
+            img.src = ev.target.result;
+            thumbs.appendChild(img);
+          };
+          reader.readAsDataURL(f);
+        }
+        drop.textContent = '已选择 ' + files.length + ' 张图片';
       }
-      drop.textContent = '已选择 ' + files.length + ' 张图片（点击可继续添加，第一张为封面）';
+      return { files, toImages: async () => {
+        const out = [];
+        for (const f of files) {
+          const dataUrl = await new Promise((r) => {
+            const rd = new FileReader();
+            rd.onload = (e) => r(e.target.result);
+            rd.readAsDataURL(f);
+          });
+          out.push({ name: f.name, dataUrl });
+        }
+        return out;
+      } };
     }
 
-    document.getElementById('publishCase').onclick = async () => {
-      const title = document.getElementById('title').value.trim();
-      if (!title) { logCase.textContent = '请先填写案例标题'; return; }
-      if (files.length === 0) { logCase.textContent = '请先拖入至少一张案例图片'; return; }
+    const casesDrop = makeDrop('drop-cases', 'file-cases', 'thumbs-cases');
+    const newsDrop = makeDrop('drop-news', 'file-news', 'thumbs-news');
 
-      logCase.textContent = '处理中：转换图片并写入网站数据…';
-      const images = [];
-      for (const f of files) {
-        const dataUrl = await new Promise((r) => {
-          const rd = new FileReader();
-          rd.onload = (e) => r(e.target.result);
-          rd.readAsDataURL(f);
-        });
-        images.push({ name: f.name, dataUrl });
-      }
-
-      const payload = {
-        title,
-        category: document.getElementById('category').value,
-        description: document.getElementById('desc').value,
-        images,
-      };
-
-      logCase.textContent = '上传并发布中，请稍候…';
-      const r = await fetch('/api/add-case', {
+    // 案例发布
+    document.getElementById('publish-cases').onclick = async () => {
+      const log = document.getElementById('log-cases');
+      const title = document.getElementById('title-cases').value.trim();
+      if (!title) { log.textContent = '请先填写案例标题'; return; }
+      if (casesDrop.files.length === 0) { log.textContent = '请先拖入至少一张案例图片'; return; }
+      log.textContent = '处理中：转换图片并写入网站数据…';
+      const images = await casesDrop.toImages();
+      const r = await fetch('/api/add-content', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          section: 'cases',
+          title,
+          category: document.getElementById('category-cases').value,
+          description: document.getElementById('desc-cases').value,
+          images,
+        }),
       });
       const d = await r.json();
-      if (d.ok) {
-        logCase.textContent = '发布成功！\n案例 ID：' + d.id + '\n图片数：' + d.count + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）';
-      } else {
-        logCase.textContent = '发布失败：' + d.error;
-      }
+      log.textContent = d.ok
+        ? '发布成功！\n案例 ID：' + d.id + '\n图片数：' + d.count + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）'
+        : '发布失败：' + d.error;
     };
 
+    // 新闻发布
+    document.getElementById('publish-news').onclick = async () => {
+      const log = document.getElementById('log-news');
+      const title = document.getElementById('title-news').value.trim();
+      if (!title) { log.textContent = '请先填写新闻标题'; return; }
+      if (newsDrop.files.length === 0) { log.textContent = '请先拖入一张新闻封面图'; return; }
+      log.textContent = '处理中：转换封面并写入网站数据…';
+      const images = await newsDrop.toImages();
+      const r = await fetch('/api/add-content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          section: 'news',
+          title,
+          date: document.getElementById('date-news').value,
+          summary: document.getElementById('summary-news').value,
+          images,
+        }),
+      });
+      const d = await r.json();
+      log.textContent = d.ok
+        ? '发布成功！\n新闻 ID：' + d.id + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）'
+        : '发布失败：' + d.error;
+    };
+
+    // 招聘发布
+    document.getElementById('publish-jobs').onclick = async () => {
+      const log = document.getElementById('log-jobs');
+      const title = document.getElementById('title-jobs').value.trim();
+      if (!title) { log.textContent = '请先填写职位名称'; return; }
+      log.textContent = '处理中：写入招聘信息…';
+      const r = await fetch('/api/add-content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          section: 'jobs',
+          title,
+          requirementsText: document.getElementById('req-jobs').value,
+        }),
+      });
+      const d = await r.json();
+      log.textContent = d.ok
+        ? '发布成功！\n职位 ID：' + d.id + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）'
+        : '发布失败：' + d.error;
+    };
+
+    // 通用发布
     const log = document.getElementById('log');
     document.getElementById('check').onclick = async () => {
       const r = await fetch('/api/status');
@@ -148,6 +247,9 @@
       const t = await r.text();
       log.textContent = '发布结果：' + t;
     };
+
+    // 默认给新闻日期填上今天
+    document.getElementById('date-news').value = new Date().toISOString().slice(0, 10);
   </script>
 </body>
 </html>
