@@ -10,10 +10,10 @@ const About: React.FC = () => {
     <div className="pt-20">
       {/* Banner */}
       <div className="h-[500px] relative bg-slate-900 flex items-center justify-center">
-        <img 
-           src="https://picsum.photos/1920/800?random=100" 
-           className="absolute inset-0 w-full h-full object-cover opacity-50" 
-           alt="About Banner" 
+        <img
+           src="/images/cases/jiangshan-one/cover.jpg"
+           className="absolute inset-0 w-full h-full object-cover opacity-50"
+           alt="About Banner"
         />
         <div className="relative z-10 text-center text-white">
            <h1 className="text-6xl font-serif font-bold mb-6">{t('about.banner.title')}</h1>
