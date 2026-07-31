@@ -597,7 +597,7 @@ const productsData = [
     },
     gallery: [
       "/images/products/lc151-spanish-chair/cover.png",
-      "/images/products/lc151-spanish-chair/lc151-spanish-chair-01.png"
+      "/images/products/lc151-spanish-chair/lc151-spanish-chair.png"
     ]
   },
   {
