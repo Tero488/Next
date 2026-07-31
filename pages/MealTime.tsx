@@ -113,7 +113,7 @@ const MealTime: React.FC = () => {
             transition={{ duration: 1.5, ease: "easeOut" }}
             className="absolute inset-0"
           >
-             <img src="https://picsum.photos/1920/1080?random=88" className="w-full h-full object-cover opacity-50" alt="Lifestyle" />
+             <img src="/images/mealtime/lifestyle/lifestyle-01.jpg" className="w-full h-full object-cover opacity-50" alt="Lifestyle" />
              <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black"></div>
           </motion.div>
           
@@ -251,7 +251,7 @@ const MealTime: React.FC = () => {
        {/* CTA */}
        <section className="py-32 bg-slate-100 relative overflow-hidden">
           <div className="absolute inset-0 opacity-5">
-             <img src="https://picsum.photos/1920/600?random=pattern" className="w-full h-full object-cover grayscale" alt="bg" />
+             <img src="/images/mealtime/coffee/coffee-01.jpg" className="w-full h-full object-cover grayscale" alt="bg" />
           </div>
           <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
              <Reveal width="100%">
