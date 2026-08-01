@@ -3,12 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, proxy-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>网站更新控制台</title>
   <style>
     * { box-sizing: border-box; }
-    body { font-family: system-ui, -apple-system, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; color: #1a1a1a; }
+    body { font-family: system-ui, -apple-system, sans-serif; max-width: 760px; margin: 40px auto; padding: 0 16px; color: #1a1a1a; }
     h1 { font-size: 22px; font-weight: 600; margin: 0 0 4px; }
-    h2 { font-size: 16px; font-weight: 600; margin: 28px 0 10px; }
+    h2 { font-size: 15px; font-weight: 600; margin: 22px 0 10px; }
     p { line-height: 1.7; color: #444; font-size: 14px; }
     label { display: block; font-size: 13px; color: #555; margin: 12px 0 4px; }
     input, select, textarea { width: 100%; padding: 10px 12px; font-size: 14px; border: 1px solid #ddd; border-radius: 8px; }
@@ -17,7 +20,11 @@
     button:hover { opacity: .88; }
     button.ghost { background: #eee; color: #333; }
     button:disabled { opacity: .5; cursor: not-allowed; }
-    .drop { border: 2px dashed #bbb; border-radius: 12px; padding: 28px; text-align: center; color: #888; cursor: pointer; transition: .15s; }
+    .tabs { display: flex; gap: 8px; margin: 18px 0 8px; flex-wrap: wrap; }
+    .tab { flex: 1; background: #f0f3f7; color: #444; border: 1px solid #e2e8f0; min-width: 110px; }
+    .tab.active { background: #185FA5; color: #fff; border-color: #185FA5; }
+    .card { border: 1px solid #eee; border-radius: 12px; padding: 16px 18px; margin-top: 8px; }
+    .drop { border: 2px dashed #bbb; border-radius: 12px; padding: 24px; text-align: center; color: #888; cursor: pointer; transition: .15s; }
     .drop.over { border-color: #185FA5; background: #f4f9ff; color: #185FA5; }
     .thumbs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
     .thumbs img { width: 72px; height: 72px; object-fit: cover; border-radius: 8px; border: 1px solid #eee; }
@@ -25,129 +32,371 @@
     hr { border: none; border-top: 1px solid #eee; margin: 28px 0; }
     .hint { font-size: 12px; color: #999; }
     a { color: #185FA5; }
+    [hidden] { display: none; }
+    .sub { display: flex; gap: 8px; margin: 4px 0 4px; }
+    .sub button { flex: 1; background: #f0f3f7; color: #444; border: 1px solid #e2e8f0; font-size: 13px; padding: 8px; }
+    .sub button.active { background: #185FA5; color: #fff; border-color: #185FA5; }
+    .row2 { display: flex; gap: 12px; }
+    .row2 > div { flex: 1; }
+    /* 登录遮罩 */
+    body.locked > *:not(.overlay) { display: none !important; }
+    .overlay { position: fixed; inset: 0; background: #f7f9fc; display: flex; align-items: center; justify-content: center; z-index: 999; }
+    .overlay[hidden] { display: none !important; }
+    .overlay .box { width: 340px; max-width: 90%; border: 1px solid #e2e8f0; border-radius: 14px; padding: 30px; background: #fff; box-shadow: 0 12px 48px rgba(0,0,0,.08); }
+    .overlay h1 { font-size: 19px; margin-bottom: 6px; }
+    .overlay p { font-size: 13px; color: #888; margin-bottom: 18px; }
+    .overlay input { margin-bottom: 14px; }
+    .overlay button { width: 100%; }
+    .overlay .msg { font-size: 13px; color: #c0392b; min-height: 18px; margin-bottom: 10px; }
+    .warn { font-size: 13px; line-height: 1.7; color: #c0392b; background: #fff4f3; border: 1px solid #f3c9c5; border-radius: 10px; padding: 12px 14px; margin-bottom: 16px; }
+    .warn code { background: #fde8e6; padding: 1px 6px; border-radius: 5px; }
   </style>
 </head>
-<body>
+<body class="locked">
+  <!-- 登录遮罩 -->
+  <div class="overlay" id="login">
+    <div class="box">
+      <h1>网站更新控制台</h1>
+      <p>请输入访问密码以进入。</p>
+      <div id="backend-warn" class="warn" hidden></div>
+      <div class="msg" id="login-msg"></div>
+      <input id="login-pw" type="password" placeholder="访问密码" />
+      <button id="login-btn">进入控制台</button>
+    </div>
+  </div>
+
   <h1>网站更新控制台</h1>
-  <p>甲方专用：把案例图片拖进来、填个标题，点「发布案例」即可上线，全程无需改代码。</p>
+  <p>甲方专用：选择板块、拖入素材、填好内容，点「发布」即可上线，全程无需改代码。</p>
 
-  <!-- 拖拽发布案例 -->
-  <h2>① 拖拽发布新案例</h2>
-  <div class="drop" id="drop">把案例图片拖到这里，或点击选择（可多选，第一张为封面）</div>
-  <input type="file" id="file" accept="image/*" multiple hidden />
-  <div class="thumbs" id="thumbs"></div>
-
-  <label>案例标题 *</label>
-  <input id="title" placeholder="例如：滨江壹号·现代轻奢平层" />
-
-  <label>分类</label>
-  <select id="category">
-    <option value="">（不填）</option>
-    <option>别墅洋房</option>
-    <option>平层</option>
-    <option>工装</option>
-    <option>精装</option>
-    <option>其他</option>
-  </select>
-
-  <label>案例描述（可选）</label>
-  <textarea id="desc" placeholder="留空将自动填充占位文字，可后续补充"></textarea>
-
-  <div style="margin-top:16px">
-    <button id="publishCase">发布案例</button>
+  <!-- 板块切换 -->
+  <div class="tabs">
+    <button class="tab active" data-sec="cases">① 案例</button>
+    <button class="tab" data-sec="news">② 新闻</button>
+    <button class="tab" data-sec="jobs">③ 加入我们</button>
+    <button class="tab" data-sec="products">④ 百变空间产品</button>
   </div>
-  <pre id="logCase">选择图片并填写标题后点击「发布案例」。</pre>
 
-  <hr />
-
-  <!-- 通用发布 -->
-  <h2>② 通用发布（改了其他文件时用）</h2>
-  <div class="row" style="display:flex;gap:12px;flex-wrap:wrap">
-    <button id="check" class="ghost">查看待发布改动</button>
-    <button id="publish" class="ghost">一键发布</button>
+  <!-- 案例表单 -->
+  <div class="card" id="form-cases">
+    <h2>发布新案例</h2>
+    <label>案例类型 *</label>
+    <div class="sub" id="type-cases-sub">
+      <button type="button" class="active" data-type="idealyou">享你所想（空间案例）</button>
+      <button type="button" data-type="spacemagic">百变空间（户型案例）</button>
+    </div>
+    <div class="drop" id="drop-cases">把案例图片拖到这里，或点击选择（可多选，第一张为封面）</div>
+    <input type="file" id="file-cases" accept="image/*" multiple hidden />
+    <div class="thumbs" id="thumbs-cases"></div>
+    <label>案例标题 *</label>
+    <input id="title-cases" placeholder="例如：滨江壹号·现代轻奢平层" />
+    <label>分类</label>
+    <select id="category-cases">
+      <option value="">（不填）</option>
+      <option>别墅洋房</option>
+      <option>平层</option>
+      <option>工装</option>
+      <option>精装</option>
+      <option>其他</option>
+    </select>
+    <label>案例描述（可选）</label>
+    <textarea id="desc-cases" placeholder="留空将自动填充占位文字，可后续补充"></textarea>
+    <div style="margin-top:16px"><button id="publish-cases">发布案例</button></div>
+    <pre id="log-cases">选择图片并填写标题后点击「发布案例」。</pre>
   </div>
-  <pre id="log">点击「查看待发布改动」开始。</pre>
-  <p class="hint">首次运行需先启动后端：<code>node deploy-console/server.mjs</code>，再打开本页。</p>
+
+  <!-- 新闻表单 -->
+  <div class="card" id="form-news" hidden>
+    <h2>发布新新闻</h2>
+    <div class="drop" id="drop-news">把新闻封面图拖到这里，或点击选择（一张即可）</div>
+    <input type="file" id="file-news" accept="image/*" hidden />
+    <div class="thumbs" id="thumbs-news"></div>
+    <label>新闻标题 *</label>
+    <input id="title-news" placeholder="例如：NEXT+ 荣获2025年度设计大奖" />
+    <label>日期</label>
+    <input id="date-news" type="date" />
+    <label>新闻摘要（可选）</label>
+    <textarea id="summary-news" placeholder="一句话概括这条新闻"></textarea>
+    <div style="margin-top:16px"><button id="publish-news">发布新闻</button></div>
+    <pre id="log-news">拖入封面图并填写标题后点击「发布新闻」。</pre>
+  </div>
+
+  <!-- 招聘表单 -->
+  <div class="card" id="form-jobs" hidden>
+    <h2>发布新招聘职位</h2>
+    <label>职位名称 *</label>
+    <input id="title-jobs" placeholder="例如：资深室内设计师" />
+    <label>任职要求（每行一条）</label>
+    <textarea id="req-jobs" placeholder="室内设计相关专业大专及以上学历；&#10;2年以上同岗位工作经验；&#10;能独立完成家居空间设计"></textarea>
+    <div style="margin-top:16px"><button id="publish-jobs">发布职位</button></div>
+    <pre id="log-jobs">填写职位名称和任职要求后点击「发布职位」。</pre>
+  </div>
+
+  <!-- 产品表单 -->
+  <div class="card" id="form-products" hidden>
+    <h2>发布百变空间新产品</h2>
+    <div class="drop" id="drop-products">把产品图片拖到这里，或点击选择（可多选，第一张为封面）</div>
+    <input type="file" id="file-products" accept="image/*" multiple hidden />
+    <div class="thumbs" id="thumbs-products"></div>
+    <label>产品名称（中文）*</label>
+    <input id="title-zh-products" placeholder="例如：香蕉船沙发 SF045-4" />
+    <label>产品名称（英文，留空则同中文）</label>
+    <input id="title-en-products" placeholder="Banana Boat Sofa SF045-4" />
+    <label>产品分类</label>
+    <select id="category-products">
+      <option>Soft Furnishings</option>
+      <option>Surface Materials</option>
+      <option>Wall Art</option>
+      <option>Woodwork Custom</option>
+      <option>Lighting</option>
+    </select>
+    <label>产品描述（中文，可选）</label>
+    <textarea id="desc-zh-products" placeholder="例如：尺寸: 283*103*66。高密度回弹海绵+高级布艺软包…"></textarea>
+    <label>产品描述（英文，留空则同中文）</label>
+    <textarea id="desc-en-products" placeholder="Size: 283*103*66. High-density rebound foam..."></textarea>
+    <div style="margin-top:16px"><button id="publish-products">发布产品</button></div>
+    <pre id="log-products">拖入产品图并填写名称后点击「发布产品」。</pre>
+  </div>
 
   <script>
-    const drop = document.getElementById('drop');
-    const fileInput = document.getElementById('file');
-    const thumbs = document.getElementById('thumbs');
-    const logCase = document.getElementById('logCase');
-    const files = [];
+    const TOKEN_KEY = 'console_token';
+    function getToken() { return sessionStorage.getItem(TOKEN_KEY) || ''; }
+    function setToken(t) { if (t) sessionStorage.setItem(TOKEN_KEY, t); else sessionStorage.removeItem(TOKEN_KEY); }
 
-    drop.onclick = () => fileInput.click();
-    drop.ondragover = (e) => { e.preventDefault(); drop.classList.add('over'); };
-    drop.ondragleave = () => drop.classList.remove('over');
-    drop.ondrop = (e) => { e.preventDefault(); drop.classList.remove('over'); addFiles(e.dataTransfer.files); };
-    fileInput.onchange = () => addFiles(fileInput.files);
-
-    function addFiles(list) {
-      for (const f of list) {
-        if (!f.type.startsWith('image/')) continue;
-        files.push(f);
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-          const img = document.createElement('img');
-          img.src = ev.target.result;
-          thumbs.appendChild(img);
-        };
-        reader.readAsDataURL(f);
-      }
-      drop.textContent = '已选择 ' + files.length + ' 张图片（点击可继续添加，第一张为封面）';
+    // 统一请求封装：自动带 token；401 时退回登录页
+    function api(path, body) {
+      const headers = { 'Content-Type': 'application/json' };
+      const tk = getToken();
+      if (tk) headers['Authorization'] = 'Bearer ' + tk;
+      return fetch(path, { method: 'POST', headers, body: body ? JSON.stringify(body) : undefined })
+        .then(async (r) => {
+          if (r.status === 401) { showLogin('登录已失效，请重新输入密码'); throw new Error('unauthorized'); }
+          return r;
+        });
+    }
+    function apiGet(path) {
+      const headers = {};
+      const tk = getToken();
+      if (tk) headers['Authorization'] = 'Bearer ' + tk;
+      return fetch(path, { headers })
+        .then(async (r) => {
+          if (r.status === 401) { showLogin('登录已失效，请重新输入密码'); throw new Error('unauthorized'); }
+          return r;
+        });
     }
 
-    document.getElementById('publishCase').onclick = async () => {
-      const title = document.getElementById('title').value.trim();
-      if (!title) { logCase.textContent = '请先填写案例标题'; return; }
-      if (files.length === 0) { logCase.textContent = '请先拖入至少一张案例图片'; return; }
+    // 登录逻辑
+    const overlay = document.getElementById('login');
+    function showLogin(msg) {
+      if (msg) document.getElementById('login-msg').textContent = msg;
+      const o = document.getElementById('login');
+      if (o) o.style.display = '';
+      document.body.classList.add('locked');
+      setToken('');
+      document.getElementById('login-pw').value = '';
+      document.getElementById('login-pw').focus();
+    }
+    function hideLogin() {
+      document.body.classList.remove('locked');
+      const o = document.getElementById('login');
+      if (o) o.style.display = 'none';
+    }
 
-      logCase.textContent = '处理中：转换图片并写入网站数据…';
-      const images = [];
-      for (const f of files) {
-        const dataUrl = await new Promise((r) => {
-          const rd = new FileReader();
-          rd.onload = (e) => r(e.target.result);
-          rd.readAsDataURL(f);
-        });
-        images.push({ name: f.name, dataUrl });
+    if (getToken()) hideLogin();
+
+    // 打开即自检：后端是否在线（file:// 直接双击本文件，或没启动 启动.bat 都会失败）
+    (async () => {
+      try {
+        // 能收到任何 HTTP 响应（含 401）都说明后端在线；只有网络错误才是真的没连上
+        await fetch('/api/status', { method: 'GET', cache: 'no-store' });
+      } catch {
+        const w = document.getElementById('backend-warn');
+        w.hidden = false;
+        w.innerHTML = '⚠️ <b>无法连接控制台后端</b><br>请关闭本页面，回到控制台文件夹，<b>双击 <code>启动.bat</code></b>（不是 index.html）打开。<br>若已双击仍出现此提示，说明 5188 端口被占用，请关闭其他控制台窗口后重试。';
       }
+    })();
 
-      const payload = {
-        title,
-        category: document.getElementById('category').value,
-        description: document.getElementById('desc').value,
-        images,
+    document.getElementById('login-btn').onclick = async () => {
+      const pw = document.getElementById('login-pw').value;
+      try {
+        const r = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: pw }) });
+        const d = await r.json();
+        if (d.ok) { setToken(d.token); hideLogin(); }
+        else document.getElementById('login-msg').textContent = d.error || '登录失败';
+      } catch { document.getElementById('login-msg').textContent = '无法连接后端。请确认已运行 node deploy-console/server.mjs，并用 http://localhost:5188 打开本页。'; }
+    };
+    document.getElementById('login-pw').addEventListener('keydown', (e) => { if (e.key === 'Enter') document.getElementById('login-btn').click(); });
+
+    let current = 'cases';
+    let casesType = 'idealyou';
+
+    // 板块切换
+    document.querySelectorAll('.tab').forEach((t) => {
+      t.onclick = () => {
+        document.querySelectorAll('.tab').forEach((x) => x.classList.remove('active'));
+        t.classList.add('active');
+        current = t.dataset.sec;
+        document.getElementById('form-cases').hidden = current !== 'cases';
+        document.getElementById('form-news').hidden = current !== 'news';
+        document.getElementById('form-jobs').hidden = current !== 'jobs';
+        document.getElementById('form-products').hidden = current !== 'products';
       };
+    });
 
-      logCase.textContent = '上传并发布中，请稍候…';
-      const r = await fetch('/api/add-case', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+    // 案例类型切换
+    document.querySelectorAll('#type-cases-sub button').forEach((b) => {
+      b.onclick = () => {
+        document.querySelectorAll('#type-cases-sub button').forEach((x) => x.classList.remove('active'));
+        b.classList.add('active');
+        casesType = b.dataset.type;
+      };
+    });
+
+    // 浏览器端把图片转成 webp（质量 0.85），避免后端依赖 sharp，便于打包成 exe
+    function fileToWebpDataUrl(file) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+          canvas.toBlob((blob) => {
+            if (!blob) return reject(new Error('图片转换失败'));
+            const rd = new FileReader();
+            rd.onload = () => resolve({ name: file.name.replace(/\.[^.]+$/, '.webp'), dataUrl: rd.result });
+            rd.onerror = reject;
+            rd.readAsDataURL(blob);
+          }, 'image/webp', 0.85);
+        };
+        img.onerror = () => reject(new Error('无法读取图片'));
+        img.src = URL.createObjectURL(file);
+      });
+    }
+
+    // 拖拽图区辅助：返回一个 { addFiles, files } 对象
+    function makeDrop(dropId, fileId, thumbsId) {
+      const drop = document.getElementById(dropId);
+      const input = document.getElementById(fileId);
+      const thumbs = document.getElementById(thumbsId);
+      const files = [];
+      drop.onclick = () => input.click();
+      drop.ondragover = (e) => { e.preventDefault(); drop.classList.add('over'); };
+      drop.ondragleave = () => drop.classList.remove('over');
+      drop.ondrop = (e) => { e.preventDefault(); drop.classList.remove('over'); addFiles(e.dataTransfer.files); };
+      input.onchange = () => addFiles(input.files);
+      function addFiles(list) {
+        for (const f of list) {
+          if (!f.type.startsWith('image/')) continue;
+          files.push(f);
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            const img = document.createElement('img');
+            img.src = ev.target.result;
+            thumbs.appendChild(img);
+          };
+          reader.readAsDataURL(f);
+        }
+        drop.textContent = '已选择 ' + files.length + ' 张图片';
+      }
+      return { files, toImages: async () => {
+        const out = [];
+        for (const f of files) {
+          out.push(await fileToWebpDataUrl(f));
+        }
+        return out;
+      } };
+    }
+
+    const casesDrop = makeDrop('drop-cases', 'file-cases', 'thumbs-cases');
+    const newsDrop = makeDrop('drop-news', 'file-news', 'thumbs-news');
+    const productsDrop = makeDrop('drop-products', 'file-products', 'thumbs-products');
+
+    // 案例发布
+    document.getElementById('publish-cases').onclick = async () => {
+      const log = document.getElementById('log-cases');
+      const title = document.getElementById('title-cases').value.trim();
+      if (!title) { log.textContent = '请先填写案例标题'; return; }
+      if (casesDrop.files.length === 0) { log.textContent = '请先拖入至少一张案例图片'; return; }
+      log.textContent = '处理中：转换图片并写入网站数据…';
+      const images = await casesDrop.toImages();
+      const r = await api('/api/add-content', {
+        section: 'cases',
+        type: casesType,
+        title,
+        category: document.getElementById('category-cases').value,
+        description: document.getElementById('desc-cases').value,
+        images,
       });
       const d = await r.json();
-      if (d.ok) {
-        logCase.textContent = '发布成功！\n案例 ID：' + d.id + '\n图片数：' + d.count + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）';
-      } else {
-        logCase.textContent = '发布失败：' + d.error;
-      }
+      log.textContent = d.ok
+        ? '发布成功！\n案例类型：' + (casesType === 'spacemagic' ? '百变空间（户型案例）' : '享你所想（空间案例）') + '\n案例 ID：' + d.id + '\n图片数：' + d.count + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）'
+        : '发布失败：' + d.error;
     };
 
-    const log = document.getElementById('log');
-    document.getElementById('check').onclick = async () => {
-      const r = await fetch('/api/status');
+    // 新闻发布
+    document.getElementById('publish-news').onclick = async () => {
+      const log = document.getElementById('log-news');
+      const title = document.getElementById('title-news').value.trim();
+      if (!title) { log.textContent = '请先填写新闻标题'; return; }
+      if (newsDrop.files.length === 0) { log.textContent = '请先拖入一张新闻封面图'; return; }
+      log.textContent = '处理中：转换封面并写入网站数据…';
+      const images = await newsDrop.toImages();
+      const r = await api('/api/add-content', {
+        section: 'news',
+        title,
+        date: document.getElementById('date-news').value,
+        summary: document.getElementById('summary-news').value,
+        images,
+      });
       const d = await r.json();
-      if (d.error) { log.textContent = '读取失败：' + d.error; return; }
-      if (d.changed === 0) { log.textContent = '当前没有待发布的改动。'; return; }
-      log.textContent = '待发布文件数：' + d.changed + '\n\n' + d.detail.join('\n');
+      log.textContent = d.ok
+        ? '发布成功！\n新闻 ID：' + d.id + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）'
+        : '发布失败：' + d.error;
     };
-    document.getElementById('publish').onclick = async () => {
-      log.textContent = '发布中，请稍候…';
-      const r = await fetch('/api/publish');
-      const t = await r.text();
-      log.textContent = '发布结果：' + t;
+
+    // 招聘发布
+    document.getElementById('publish-jobs').onclick = async () => {
+      const log = document.getElementById('log-jobs');
+      const title = document.getElementById('title-jobs').value.trim();
+      if (!title) { log.textContent = '请先填写职位名称'; return; }
+      log.textContent = '处理中：写入招聘信息…';
+      const r = await api('/api/add-content', {
+        section: 'jobs',
+        title,
+        requirementsText: document.getElementById('req-jobs').value,
+      });
+      const d = await r.json();
+      log.textContent = d.ok
+        ? '发布成功！\n职位 ID：' + d.id + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）'
+        : '发布失败：' + d.error;
     };
+
+    // 产品发布
+    document.getElementById('publish-products').onclick = async () => {
+      const log = document.getElementById('log-products');
+      const titleZh = document.getElementById('title-zh-products').value.trim();
+      if (!titleZh) { log.textContent = '请先填写产品名称（中文）'; return; }
+      if (productsDrop.files.length === 0) { log.textContent = '请先拖入至少一张产品图片'; return; }
+      log.textContent = '处理中：转换图片并写入产品数据…';
+      const images = await productsDrop.toImages();
+      const r = await api('/api/add-content', {
+        section: 'products',
+        titleZh,
+        titleEn: document.getElementById('title-en-products').value.trim(),
+        category: document.getElementById('category-products').value,
+        descriptionZh: document.getElementById('desc-zh-products').value,
+        descriptionEn: document.getElementById('desc-en-products').value,
+        images,
+      });
+      const d = await r.json();
+      log.textContent = d.ok
+        ? '发布成功！\n产品 ID：' + d.id + '\n图片数：' + d.count + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）'
+        : '发布失败：' + d.error;
+    };
+
+    // 默认给新闻日期填上今天
+    document.getElementById('date-news').value = new Date().toISOString().slice(0, 10);
   </script>
 </body>
 </html>
