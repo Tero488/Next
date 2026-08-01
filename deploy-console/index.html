@@ -44,6 +44,8 @@
     .overlay input { margin-bottom: 14px; }
     .overlay button { width: 100%; }
     .overlay .msg { font-size: 13px; color: #c0392b; min-height: 18px; margin-bottom: 10px; }
+    .warn { font-size: 13px; line-height: 1.7; color: #c0392b; background: #fff4f3; border: 1px solid #f3c9c5; border-radius: 10px; padding: 12px 14px; margin-bottom: 16px; }
+    .warn code { background: #fde8e6; padding: 1px 6px; border-radius: 5px; }
   </style>
 </head>
 <body class="locked">
@@ -51,7 +53,8 @@
   <div class="overlay" id="login">
     <div class="box">
       <h1>网站更新控制台</h1>
-      <p>请输入访问密码以进入。<br><span style="color:#888">需配合本地后端使用：先运行 <code>node deploy-console/server.mjs</code>，再访问 <code>http://localhost:5188</code>。</span></p>
+      <p>请输入访问密码以进入。</p>
+      <div id="backend-warn" class="warn" hidden></div>
       <div class="msg" id="login-msg"></div>
       <input id="login-pw" type="password" placeholder="访问密码" />
       <button id="login-btn">进入控制台</button>
@@ -200,6 +203,19 @@
     function hideLogin() { document.body.classList.remove('locked'); }
 
     if (getToken()) hideLogin();
+
+    // 打开即自检：后端是否在线（file:// 直接双击本文件，或没启动 启动.bat 都会失败）
+    (async () => {
+      try {
+        // 能收到任何 HTTP 响应（含 401）都说明后端在线；只有网络错误才是真的没连上
+        await fetch('/api/status', { method: 'GET', cache: 'no-store' });
+      } catch {
+        const w = document.getElementById('backend-warn');
+        w.hidden = false;
+        w.innerHTML = '⚠️ <b>无法连接控制台后端</b><br>请关闭本页面，回到控制台文件夹，<b>双击 <code>启动.bat</code></b>（不是 index.html）打开。<br>若已双击仍出现此提示，说明 5188 端口被占用，请关闭其他控制台窗口后重试。';
+      }
+    })();
+
     document.getElementById('login-btn').onclick = async () => {
       const pw = document.getElementById('login-pw').value;
       try {
