@@ -54,6 +54,20 @@ const CONFIG_IMAGES = {
 export const casesData = {
   zh: [
     {
+      id: "cs1792574128231418",
+      title: "保利和光尘樾",
+      category: "平层",
+      type: "idealyou", // 享你所想-空间案例
+      image: "/images/cases/cs1792574128231418/cover.webp",
+      description: "坐落于长沙保利和光尘樾，设计跳出常规家装范式，融合复古趣味与松弛的当代居住感。柔和的奶油基底承载高饱和撞色，以随性自由的软装搭配消解空间刻板感。通透的大面采光引入充足自然光，木色肌理与艺术构件穿插其间，兼顾灵动氛围感与日常实用性，在开放流畅的格局里，构筑兼具审美表达与生活温度的趣味居所。",
+      gallery: [
+        "/images/cases/cs1792574128231418/cover.webp",
+        "/images/cases/cs1792574128231418/cs1792574128231418-02.webp",
+        "/images/cases/cs1792574128231418/cs1792574128231418-03.webp",
+        "/images/cases/cs1792574128231418/cs1792574128231418-04.webp"
+      ]
+    },
+    {
       id: "xiangjiang-one",
       title: "湘江壹号·天际私宅",
       category: "别墅洋房",
@@ -203,6 +217,20 @@ export const casesData = {
     }
   ],
   en: [
+    {
+      id: "cs1792574128231418",
+      title: "保利和光尘樾",
+      category: "平层",
+      type: "idealyou", // Ideal You - Spatial Cases
+      image: "/images/cases/cs1792574128231418/cover.webp",
+      description: "坐落于长沙保利和光尘樾，设计跳出常规家装范式，融合复古趣味与松弛的当代居住感。柔和的奶油基底承载高饱和撞色，以随性自由的软装搭配消解空间刻板感。通透的大面采光引入充足自然光，木色肌理与艺术构件穿插其间，兼顾灵动氛围感与日常实用性，在开放流畅的格局里，构筑兼具审美表达与生活温度的趣味居所。",
+      gallery: [
+        "/images/cases/cs1792574128231418/cover.webp",
+        "/images/cases/cs1792574128231418/cs1792574128231418-02.webp",
+        "/images/cases/cs1792574128231418/cs1792574128231418-03.webp",
+        "/images/cases/cs1792574128231418/cs1792574128231418-04.webp"
+      ]
+    },
     {
       id: "xiangjiang-one",
       title: "Xiangjiang One Residence",
