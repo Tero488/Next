@@ -54,6 +54,22 @@ const CONFIG_IMAGES = {
 export const casesData = {
   zh: [
     {
+      id: "cs1792592778292343",
+      title: "益阳梓山府",
+      category: "平层",
+      type: "idealyou", // 享你所想-空间案例
+      image: "/images/cases/cs1792592778292343/cover.webp",
+      description: "坐落于梓山湖板块的品质大平层项目。设计团队打破传统界限，以现代东方的设计语言重构空间秩序。全景落地窗将园景与自然光影引入室内，温润木色基底辅以柔和漫射灯光，营造出安静治愈、从容雅致的居住氛围。空间流动性与私密性完美平衡，重新定义了当代精英的生活方式。",
+      gallery: [
+        "/images/cases/cs1792592778292343/cover.webp",
+        "/images/cases/cs1792592778292343/cs1792592778292343-02.webp",
+        "/images/cases/cs1792592778292343/cs1792592778292343-03.webp",
+        "/images/cases/cs1792592778292343/cs1792592778292343-04.webp",
+        "/images/cases/cs1792592778292343/cs1792592778292343-05.webp",
+        "/images/cases/cs1792592778292343/cs1792592778292343-06.webp"
+      ]
+    },
+    {
       id: "cs1792591590100804",
       title: "长沙瑞府",
       category: "平层",
@@ -231,6 +247,22 @@ export const casesData = {
     }
   ],
   en: [
+    {
+      id: "cs1792592778292343",
+      title: "益阳梓山府",
+      category: "平层",
+      type: "idealyou", // Ideal You - Spatial Cases
+      image: "/images/cases/cs1792592778292343/cover.webp",
+      description: "坐落于梓山湖板块的品质大平层项目。设计团队打破传统界限，以现代东方的设计语言重构空间秩序。全景落地窗将园景与自然光影引入室内，温润木色基底辅以柔和漫射灯光，营造出安静治愈、从容雅致的居住氛围。空间流动性与私密性完美平衡，重新定义了当代精英的生活方式。",
+      gallery: [
+        "/images/cases/cs1792592778292343/cover.webp",
+        "/images/cases/cs1792592778292343/cs1792592778292343-02.webp",
+        "/images/cases/cs1792592778292343/cs1792592778292343-03.webp",
+        "/images/cases/cs1792592778292343/cs1792592778292343-04.webp",
+        "/images/cases/cs1792592778292343/cs1792592778292343-05.webp",
+        "/images/cases/cs1792592778292343/cs1792592778292343-06.webp"
+      ]
+    },
     {
       id: "cs1792591590100804",
       title: "长沙瑞府",
