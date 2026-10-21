@@ -14,7 +14,6 @@ const { execFileSync } = require('child_process');
 const { addContent, toCRLF } = require('./case-lib.cjs');
 
 const REPO = process.env.REPO || 'Tero488/Next';
-const API = 'https://api.github.com';
 // 本地回退用的仓库根（仅开发模式、无 token 时用到）；不再硬编码绝对路径，避免泄露机器目录结构
 const ROOT = process.env.REPO_ROOT || process.cwd();
 const CASES_FILE = path.join(ROOT, 'data/index.ts');
@@ -25,12 +24,21 @@ function loadConfig() {
   for (const dir of dirs) {
     try {
       const p = path.join(dir, 'config.json');
-      if (fs.existsSync(p)) return JSON.parse(fs.readFileSync(p, 'utf8'));
+      if (!fs.existsSync(p)) continue;
+      const raw = fs.readFileSync(p, 'utf8').replace(/^\uFEFF/, '');
+      try {
+        return JSON.parse(raw);
+      } catch (e) {
+        console.error('[警告] ' + p + ' 不是有效的 JSON（常见原因：用记事本编辑后保存格式出错），该配置已被忽略');
+        return {};
+      }
     } catch {}
   }
   return {};
 }
 const config = loadConfig();
+// GitHub API 地址：默认官方；甲方网络无法直连 GitHub 时，可在 config.json 加 "apiBase" 指向中转地址
+const API = process.env.GH_API_BASE || config.apiBase || 'https://api.github.com';
 
 // 不再设置弱默认密码：必须显式配置（环境变量或 config.json 的 consolePassword），否则拒绝登录
 const CONSOLE_PASSWORD = process.env.CONSOLE_PASSWORD || config.consolePassword || '';
@@ -78,13 +86,24 @@ function requireAuth(req, res) {
 
 async function gh(method, p, body) {
   const token = getToken();
+  if (!token) throw new Error('未配置 GitHub Token（config.json 的 ghToken），无法访问仓库');
   const headers = { Authorization: 'Bearer ' + token, 'User-Agent': 'deploy-console', Accept: 'application/vnd.github+json' };
   const opts = { method, headers };
   if (body !== undefined) { headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
-  const r = await fetch(API + p, opts);
+  let r;
+  try {
+    r = await fetch(API + p, { ...opts, signal: AbortSignal.timeout(25000) });
+  } catch (e) {
+    const code = (e && e.cause && e.cause.code) || e.name || 'NETWORK_ERROR';
+    throw new Error('无法连接 GitHub API（' + API + '，错误码 ' + code + '）。通常是当前网络无法直连 GitHub（国内网络常见），请检查网络或代理后重试。');
+  }
   const text = await r.text();
   let json; try { json = JSON.parse(text); } catch { json = text; }
-  if (!r.ok) throw new Error('GitHub API ' + method + ' ' + p + ' -> ' + r.status + ' ' + ((json && json.message) || text.slice(0, 200)));
+  if (!r.ok) {
+    if (r.status === 401) throw new Error('GitHub Token 无效或已过期（401），请在 config.json 更新 ghToken');
+    if (r.status === 403) throw new Error('GitHub 拒绝访问（403）：Token 权限不足或触发限流');
+    throw new Error('GitHub API ' + method + ' ' + p + ' -> ' + r.status + ' ' + ((json && json.message) || text.slice(0, 200)));
+  }
   return json;
 }
 
@@ -92,12 +111,10 @@ async function gh(method, p, body) {
 async function getDataTs() {
   const token = getToken();
   if (token) {
-    try {
-      const r = await gh('GET', `/repos/${REPO}/git/contents/data/index.ts?ref=main`);
-      return Buffer.from(r.content, 'base64').toString('utf8');
-    } catch (e) {
-      // 回退到本地（开发用）
-    }
+    // 有 Token 时必须走 GitHub；失败就把真实原因抛给界面，绝不静默回退本地文件（否则报 ENOENT 误导排查）
+    // 注意：读文件内容用 /contents/ 接口；/git/contents/ 是不存在的路径（会 404）
+    const r = await gh('GET', `/repos/${REPO}/contents/data/index.ts?ref=main`);
+    return Buffer.from(r.content, 'base64').toString('utf8');
   }
   return fs.readFileSync(CASES_FILE, 'utf8');
 }
@@ -328,4 +345,10 @@ function listen(port) {
     else throw e;
   });
 }
+// 启动自检：黑窗口里明确显示当前模式，便于远程排障（甲方只需截图黑窗口）
+(function announce() {
+  const t = getToken();
+  if (t) console.log('[启动自检] GitHub 模式：Token 已加载，目标仓库 ' + REPO + '，API 地址 ' + API);
+  else console.log('[启动自检] 本地模式：未配置 ghToken，仅能读写本地文件（甲方机器必须配置 Token 才能发布）');
+})();
 listen(PORT);
