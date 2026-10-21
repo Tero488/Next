@@ -54,6 +54,20 @@ const CONFIG_IMAGES = {
 export const casesData = {
   zh: [
     {
+      id: "cs1792591590100804",
+      title: "长沙瑞府",
+      category: "平层",
+      type: "idealyou", // 享你所想-空间案例
+      image: "/images/cases/cs1792591590100804/cover.webp",
+      description: "长沙瑞府大平层项目。设计团队打破传统界限，以温润现代的美学语言重构空间秩序。全景落地窗将城市景致引入室内，柔和大地色系搭配流动曲线造型，辅以层次细腻的氛围灯光，营造出沉稳雅致、内敛高级的居住氛围。空间流动性与私密性完美平衡，重新定义了当代精英的生活方式。",
+      gallery: [
+        "/images/cases/cs1792591590100804/cover.webp",
+        "/images/cases/cs1792591590100804/cs1792591590100804-02.webp",
+        "/images/cases/cs1792591590100804/cs1792591590100804-03.webp",
+        "/images/cases/cs1792591590100804/cs1792591590100804-04.webp"
+      ]
+    },
+    {
       id: "cs1792574128231418",
       title: "保利和光尘樾",
       category: "平层",
@@ -217,6 +231,20 @@ export const casesData = {
     }
   ],
   en: [
+    {
+      id: "cs1792591590100804",
+      title: "长沙瑞府",
+      category: "平层",
+      type: "idealyou", // Ideal You - Spatial Cases
+      image: "/images/cases/cs1792591590100804/cover.webp",
+      description: "长沙瑞府大平层项目。设计团队打破传统界限，以温润现代的美学语言重构空间秩序。全景落地窗将城市景致引入室内，柔和大地色系搭配流动曲线造型，辅以层次细腻的氛围灯光，营造出沉稳雅致、内敛高级的居住氛围。空间流动性与私密性完美平衡，重新定义了当代精英的生活方式。",
+      gallery: [
+        "/images/cases/cs1792591590100804/cover.webp",
+        "/images/cases/cs1792591590100804/cs1792591590100804-02.webp",
+        "/images/cases/cs1792591590100804/cs1792591590100804-03.webp",
+        "/images/cases/cs1792591590100804/cs1792591590100804-04.webp"
+      ]
+    },
     {
       id: "cs1792574128231418",
       title: "保利和光尘樾",
