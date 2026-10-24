@@ -15,7 +15,7 @@ export const CaseDetail: React.FC = () => {
   return (
     <div className="pt-20">
        <div className="h-[70vh] relative">
-          <SafeImage src={project.image} alt={project.title} className="w-full h-full object-cover" />
+          <SafeImage src={project.image} alt={project.title} className="w-full h-full object-cover" style={project.position ? { objectPosition: project.position } : undefined} />
           <div className="absolute inset-0 bg-black/30 flex items-end">
              <div className="max-w-7xl mx-auto px-4 pb-16 w-full text-white">
                 <span className="bg-accent text-white px-4 py-2 text-sm font-bold uppercase mb-6 inline-block tracking-wider">{project.category}</span>

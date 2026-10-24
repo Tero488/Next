@@ -225,7 +225,7 @@ export const Button: React.FC<{ children: React.ReactNode; to?: string; variant?
   );
 };
 
-export const CaseCard: React.FC<{ id: string; image: string; title: string; category: string; isPlaceholder?: boolean }> = ({ id, image, title, category, isPlaceholder }) => {
+export const CaseCard: React.FC<{ id: string; image: string; title: string; category: string; position?: string; isPlaceholder?: boolean }> = ({ id, image, title, category, position, isPlaceholder }) => {
   if (isPlaceholder) {
     return (
       <StaggerItem className="block h-full">
@@ -255,6 +255,7 @@ export const CaseCard: React.FC<{ id: string; image: string; title: string; cate
             src={image} 
             alt={title} 
             className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 transform-gpu" 
+            style={position ? { objectPosition: position } : undefined}
           />
         </div>
         <div className="flex flex-col">

@@ -12,7 +12,7 @@
 // 4. 在下方引用路径: "/images/cases/my-new-case.webp"
 // ==========================================
 
-import type { Designer } from '../types';
+import type { Designer, Case, NewsItem } from '../types';
 
 // ------------------------------------------
 // 1. 图片资源库 (Image Library)
@@ -1391,8 +1391,8 @@ export const jobsData = {
 };
 
 export const getStats = (lang: 'zh' | 'en') => statsData[lang];
-export const getCases = (lang: 'zh' | 'en') => casesData[lang];
-export const getNews = (lang: 'zh' | 'en') => newsData[lang];
+export const getCases = (lang: 'zh' | 'en'): Case[] => casesData[lang] as Case[];
+export const getNews = (lang: 'zh' | 'en'): NewsItem[] => newsData[lang] as NewsItem[];
 export const getDesigners = (lang: 'zh' | 'en') => designersData[lang];
 export const getConstructionTeam = (lang: 'zh' | 'en') => constructionData[lang];
 export const getJobs = (lang: 'zh' | 'en') => jobsData[lang];

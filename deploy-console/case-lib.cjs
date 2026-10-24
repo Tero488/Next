@@ -64,7 +64,7 @@ function insertInSingleArray(content, name, item) {
 }
 
 // ---------------- 案例（含 享你所想 idealyou / 百变空间 spacemagic） ----------------
-function addCase(content, { title, category, description, images = [], type }) {
+function addCase(content, { title, category, description, images = [], type, position }) {
   if (!title || !images.length) throw new Error('案例需要标题和至少一张图片');
   const caseType = type === 'spacemagic' ? 'spacemagic' : 'idealyou';
   const id = genId('cs');
@@ -83,6 +83,7 @@ function addCase(content, { title, category, description, images = [], type }) {
       category: "${esc(category || '')}",
       type: "${caseType}", // ${caseType === 'spacemagic' ? '百变空间-户型案例' : '享你所想-空间案例'}
       image: "${esc(coverRel)}",
+      position: "${esc(position || '50% 50%')}",
       description: "${esc(description || '（待补充）')}",
       gallery: [
         "${galleryRel.join('",\n        "')}"
@@ -94,6 +95,7 @@ function addCase(content, { title, category, description, images = [], type }) {
       category: "${esc(category || '')}",
       type: "${caseType}", // ${caseType === 'spacemagic' ? 'Space Magic - Layout Case' : 'Ideal You - Spatial Cases'}
       image: "${esc(coverRel)}",
+      position: "${esc(position || '50% 50%')}",
       description: "${esc(description || '(TBD)')}",
       gallery: [
         "${galleryRel.join('",\n        "')}"
@@ -105,7 +107,7 @@ function addCase(content, { title, category, description, images = [], type }) {
 }
 
 // ---------------- 新闻 ----------------
-function addNews(content, { title, titleEn, date, summary, summaryEn, images = [] }) {
+function addNews(content, { title, titleEn, date, summary, summaryEn, images = [], position }) {
   if (!title) throw new Error('新闻需要标题');
   if (!images.length) throw new Error('新闻需要至少一张封面图');
   const id = genId('n');
@@ -117,14 +119,16 @@ function addNews(content, { title, titleEn, date, summary, summaryEn, images = [
       title: "${esc(title)}",
       date: "${esc(d)}",
       summary: "${esc(summary || '')}",
-      image: "${esc(imgRel)}"
+      image: "${esc(imgRel)}",
+      position: "${esc(position || '50% 50%')}"
     }`;
   const enItem = `    {
       id: "${esc(id)}",
       title: "${esc(titleEn || title)}",
       date: "${esc(d)}",
       summary: "${esc(summaryEn || summary || '')}",
-      image: "${esc(imgRel)}"
+      image: "${esc(imgRel)}",
+      position: "${esc(position || '50% 50%')}"
     }`;
   content = insertInBlock(content, 'newsData', 'zh', zhItem, 'start');
   content = insertInBlock(content, 'newsData', 'en', enItem, 'start');

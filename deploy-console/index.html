@@ -50,6 +50,16 @@
     .overlay .msg { font-size: 13px; color: #c0392b; min-height: 18px; margin-bottom: 10px; }
     .warn { font-size: 13px; line-height: 1.7; color: #c0392b; background: #fff4f3; border: 1px solid #f3c9c5; border-radius: 10px; padding: 12px 14px; margin-bottom: 16px; }
     .warn code { background: #fde8e6; padding: 1px 6px; border-radius: 5px; }
+    /* 拖拽区清空按钮 + 文案 */
+    .droptext { display: inline; }
+    .clearbtn { margin-top: 10px; background: #fff; color: #c0392b; border: 1px solid #f3c9c5; font-size: 12px; padding: 6px 12px; border-radius: 8px; cursor: pointer; }
+    .clearbtn:hover { background: #fff4f3; }
+    /* 封面构图预览（只调位置不改尺寸） */
+    .posbox { position: relative; width: 100%; aspect-ratio: 4 / 3; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; margin-top: 10px; background: #f6f6f6; cursor: crosshair; touch-action: none; }
+    .posbox img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .poshandle { position: absolute; width: 28px; height: 28px; border-radius: 50%; border: 2px solid #fff; background: rgba(24,95,165,.35); box-shadow: 0 0 0 1px rgba(0,0,0,.45), 0 2px 6px rgba(0,0,0,.35); transform: translate(-50%, -50%); pointer-events: none; }
+    .poshint { font-size: 12px; color: #888; margin-top: 6px; }
+    .posbox[hidden], .poshint[hidden] { display: none; }
   </style>
 </head>
 <body class="locked">
@@ -84,9 +94,11 @@
       <button type="button" class="active" data-type="idealyou">享你所想（空间案例）</button>
       <button type="button" data-type="spacemagic">百变空间（户型案例）</button>
     </div>
-    <div class="drop" id="drop-cases">把案例图片拖到这里，或点击选择（可多选，第一张为封面）</div>
+    <div class="drop" id="drop-cases"><span class="droptext">把案例图片拖到这里，或点击选择（可多选，第一张为封面）</span><br><button type="button" class="clearbtn" id="clear-cases" hidden>清空重选</button></div>
     <input type="file" id="file-cases" accept="image/*" multiple hidden />
     <div class="thumbs" id="thumbs-cases"></div>
+    <div class="posbox" id="pos-cases" hidden><img id="posimg-cases" alt=""><div class="poshandle" id="poshandle-cases"></div></div>
+    <div class="poshint" id="poshint-cases" hidden></div>
     <label>案例标题 *</label>
     <input id="title-cases" placeholder="例如：滨江壹号·现代轻奢平层" />
     <label>分类</label>
@@ -107,9 +119,11 @@
   <!-- 新闻表单 -->
   <div class="card" id="form-news" hidden>
     <h2>发布新新闻</h2>
-    <div class="drop" id="drop-news">把新闻封面图拖到这里，或点击选择（一张即可）</div>
+    <div class="drop" id="drop-news"><span class="droptext">把新闻封面图拖到这里，或点击选择（一张即可）</span><br><button type="button" class="clearbtn" id="clear-news" hidden>清空重选</button></div>
     <input type="file" id="file-news" accept="image/*" hidden />
     <div class="thumbs" id="thumbs-news"></div>
+    <div class="posbox" id="pos-news" hidden><img id="posimg-news" alt=""><div class="poshandle" id="poshandle-news"></div></div>
+    <div class="poshint" id="poshint-news" hidden></div>
     <label>新闻标题 *</label>
     <input id="title-news" placeholder="例如：NEXT+ 荣获2025年度设计大奖" />
     <label>日期</label>
@@ -134,7 +148,7 @@
   <!-- 产品表单 -->
   <div class="card" id="form-products" hidden>
     <h2>发布百变空间新产品</h2>
-    <div class="drop" id="drop-products">把产品图片拖到这里，或点击选择（可多选，第一张为封面）</div>
+    <div class="drop" id="drop-products"><span class="droptext">把产品图片拖到这里，或点击选择（可多选，第一张为封面）</span><br><button type="button" class="clearbtn" id="clear-products" hidden>清空重选</button></div>
     <input type="file" id="file-products" accept="image/*" multiple hidden />
     <div class="thumbs" id="thumbs-products"></div>
     <label>产品名称（中文）*</label>
@@ -274,43 +288,104 @@
       });
     }
 
-    // 拖拽图区辅助：返回一个 { addFiles, files } 对象
-    function makeDrop(dropId, fileId, thumbsId) {
-      const drop = document.getElementById(dropId);
+    // 拖拽图区：返回 { files, dataUrls, coverPosition, clear, toImages }
+    function makeDrop(dropId, fileId, thumbsId, clearBtnId) {
+      const dropEl = document.getElementById(dropId);
       const input = document.getElementById(fileId);
       const thumbs = document.getElementById(thumbsId);
-      const files = [];
-      drop.onclick = () => input.click();
-      drop.ondragover = (e) => { e.preventDefault(); drop.classList.add('over'); };
-      drop.ondragleave = () => drop.classList.remove('over');
-      drop.ondrop = (e) => { e.preventDefault(); drop.classList.remove('over'); addFiles(e.dataTransfer.files); };
+      const clearBtn = document.getElementById(clearBtnId);
+      const textEl = dropEl.querySelector('.droptext');
+      const api = { files: [], dataUrls: [], coverPosition: '50% 50%' };
+      dropEl.onclick = (e) => { if (e.target === clearBtn) return; input.click(); };
+      dropEl.ondragover = (e) => { e.preventDefault(); dropEl.classList.add('over'); };
+      dropEl.ondragleave = () => dropEl.classList.remove('over');
+      dropEl.ondrop = (e) => { e.preventDefault(); dropEl.classList.remove('over'); addFiles(e.dataTransfer.files); };
       input.onchange = () => addFiles(input.files);
       function addFiles(list) {
         for (const f of list) {
           if (!f.type.startsWith('image/')) continue;
-          files.push(f);
+          api.files.push(f);
           const reader = new FileReader();
           reader.onload = (ev) => {
+            const du = ev.target.result;
+            api.dataUrls.push(du);
             const img = document.createElement('img');
-            img.src = ev.target.result;
+            img.src = du;
             thumbs.appendChild(img);
+            if (api.refreshPos) api.refreshPos();
           };
           reader.readAsDataURL(f);
         }
-        drop.textContent = '已选择 ' + files.length + ' 张图片';
+        updateLabel();
       }
-      return { files, toImages: async () => {
+      function updateLabel() {
+        if (textEl) textEl.textContent = api.files.length ? ('已选择 ' + api.files.length + ' 张图片') : '把图片拖到这里，或点击选择';
+        if (clearBtn) clearBtn.hidden = api.files.length === 0;
+      }
+      api.clear = () => {
+        api.files.length = 0;
+        api.dataUrls.length = 0;
+        thumbs.innerHTML = '';
+        if (api.resetPos) api.resetPos();
+        updateLabel();
+        if (api.refreshPos) api.refreshPos();
+      };
+      if (clearBtn) clearBtn.onclick = (e) => { e.stopPropagation(); api.clear(); };
+      api.toImages = async () => {
         const out = [];
-        for (const f of files) {
-          out.push(await fileToWebpDataUrl(f));
-        }
+        for (const f of api.files) out.push(await fileToWebpDataUrl(f));
         return out;
-      } };
+      };
+      updateLabel();
+      return api;
     }
 
-    const casesDrop = makeDrop('drop-cases', 'file-cases', 'thumbs-cases');
-    const newsDrop = makeDrop('drop-news', 'file-news', 'thumbs-news');
-    const productsDrop = makeDrop('drop-products', 'file-products', 'thumbs-products');
+    // 封面构图预览：拖动白点调整 object-position（只调位置，不改尺寸）
+    function setupPosEditor(api, boxId, imgId, handleId, hintId) {
+      const box = document.getElementById(boxId);
+      const img = document.getElementById(imgId);
+      const handle = document.getElementById(handleId);
+      const hint = document.getElementById(hintId);
+      let pos = { x: 50, y: 50 };
+      function apply() {
+        const px = Math.round(pos.x), py = Math.round(pos.y);
+        img.style.objectPosition = px + '% ' + py + '%';
+        handle.style.left = px + '%';
+        handle.style.top = py + '%';
+        hint.textContent = '封面焦点：' + px + '% ' + py + '%（拖动白点调整，不改尺寸）';
+        api.coverPosition = px + '% ' + py + '%';
+      }
+      function setFromEvent(e) {
+        const rect = box.getBoundingClientRect();
+        const cx = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+        const cy = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+        pos.x = Math.max(0, Math.min(100, cx / rect.width * 100));
+        pos.y = Math.max(0, Math.min(100, cy / rect.height * 100));
+        apply();
+      }
+      let dragging = false;
+      box.addEventListener('pointerdown', (e) => { dragging = true; try { box.setPointerCapture(e.pointerId); } catch {} setFromEvent(e); });
+      box.addEventListener('pointermove', (e) => { if (dragging) setFromEvent(e); });
+      box.addEventListener('pointerup', () => { dragging = false; });
+      box.addEventListener('pointercancel', () => { dragging = false; });
+      api.resetPos = () => { pos = { x: 50, y: 50 }; apply(); };
+      api.refreshPos = () => {
+        if (api.dataUrls && api.dataUrls.length) {
+          img.src = api.dataUrls[0];
+          box.hidden = false; hint.hidden = false;
+          apply();
+        } else {
+          box.hidden = true; hint.hidden = true;
+        }
+      };
+      apply();
+    }
+
+    const casesDrop = makeDrop('drop-cases', 'file-cases', 'thumbs-cases', 'clear-cases');
+    const newsDrop = makeDrop('drop-news', 'file-news', 'thumbs-news', 'clear-news');
+    const productsDrop = makeDrop('drop-products', 'file-products', 'thumbs-products', 'clear-products');
+    setupPosEditor(casesDrop, 'pos-cases', 'posimg-cases', 'poshandle-cases', 'poshint-cases');
+    setupPosEditor(newsDrop, 'pos-news', 'posimg-news', 'poshandle-news', 'poshint-news');
 
     // 案例发布
     document.getElementById('publish-cases').onclick = async () => {
@@ -326,12 +401,19 @@
         title,
         category: document.getElementById('category-cases').value,
         description: document.getElementById('desc-cases').value,
+        position: casesDrop.coverPosition,
         images,
       });
       const d = await r.json();
-      log.textContent = d.ok
-        ? '发布成功！\n案例类型：' + (casesType === 'spacemagic' ? '百变空间（户型案例）' : '享你所想（空间案例）') + '\n案例 ID：' + d.id + '\n图片数：' + d.count + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）'
-        : '发布失败：' + d.error;
+      if (d.ok) {
+        log.textContent = '发布成功！\n案例类型：' + (casesType === 'spacemagic' ? '百变空间（户型案例）' : '享你所想（空间案例）') + '\n案例 ID：' + d.id + '\n图片数：' + d.count + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）\n\n已为您清空表单，可直接发布下一条。';
+        casesDrop.clear();
+        document.getElementById('title-cases').value = '';
+        document.getElementById('desc-cases').value = '';
+        document.getElementById('category-cases').selectedIndex = 0;
+      } else {
+        log.textContent = '发布失败：' + d.error;
+      }
     };
 
     // 新闻发布
@@ -347,12 +429,19 @@
         title,
         date: document.getElementById('date-news').value,
         summary: document.getElementById('summary-news').value,
+        position: newsDrop.coverPosition,
         images,
       });
       const d = await r.json();
-      log.textContent = d.ok
-        ? '发布成功！\n新闻 ID：' + d.id + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）'
-        : '发布失败：' + d.error;
+      if (d.ok) {
+        log.textContent = '发布成功！\n新闻 ID：' + d.id + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）\n\n已为您清空表单，可直接发布下一条。';
+        newsDrop.clear();
+        document.getElementById('title-news').value = '';
+        document.getElementById('summary-news').value = '';
+        document.getElementById('date-news').value = new Date().toISOString().slice(0, 10);
+      } else {
+        log.textContent = '发布失败：' + d.error;
+      }
     };
 
     // 招聘发布
@@ -367,9 +456,12 @@
         requirementsText: document.getElementById('req-jobs').value,
       });
       const d = await r.json();
-      log.textContent = d.ok
-        ? '发布成功！\n职位 ID：' + d.id + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）'
-        : '发布失败：' + d.error;
+      if (d.ok) {
+        log.textContent = '发布成功！\n职位 ID：' + d.id + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）\n\n已为您清空表单，可直接发布下一条。';
+        document.getElementById('title-jobs').value = '';
+      } else {
+        log.textContent = '发布失败：' + d.error;
+      }
     };
 
     // 产品发布
@@ -390,9 +482,16 @@
         images,
       });
       const d = await r.json();
-      log.textContent = d.ok
-        ? '发布成功！\n产品 ID：' + d.id + '\n图片数：' + d.count + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）'
-        : '发布失败：' + d.error;
+      if (d.ok) {
+        log.textContent = '发布成功！\n产品 ID：' + d.id + '\n图片数：' + d.count + '\n线上地址：' + d.live + '\n（Vercel 通常 1 分钟内自动完成部署）\n\n已为您清空表单，可直接发布下一条。';
+        productsDrop.clear();
+        document.getElementById('title-zh-products').value = '';
+        document.getElementById('title-en-products').value = '';
+        document.getElementById('desc-zh-products').value = '';
+        document.getElementById('desc-en-products').value = '';
+      } else {
+        log.textContent = '发布失败：' + d.error;
+      }
     };
 
     // 默认给新闻日期填上今天

@@ -5,6 +5,7 @@ export interface Case {
   category: string;
   type?: 'idealyou' | 'spacemagic'; // 享你所想(空间案例) 或 百变空间(户型案例)
   image: string;
+  position?: string; // 封面焦点位置，如 "50% 30%"，用于 object-position 构图
   description: string;
   gallery?: string[];
   isPlaceholder?: boolean; // 标记是否为占位符
@@ -25,6 +26,7 @@ export interface NewsItem {
   date: string;
   summary: string;
   image: string;
+  position?: string; // 封面焦点位置，如 "50% 30%"，用于 object-position 构图
 }
 
 export interface Stat {

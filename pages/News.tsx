@@ -25,7 +25,7 @@ const News: React.FC = () => {
                   className="flex flex-col md:flex-row gap-10 border-b border-slate-100 pb-16 group cursor-pointer"
                 >
                    <div className="w-full md:w-1/3 aspect-video overflow-hidden shadow-sm group-hover:shadow-md transition-shadow">
-                      <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                      <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" style={item.position ? { objectPosition: item.position } : undefined} />
                    </div>
                    <div className="w-full md:w-2/3 flex flex-col justify-center">
                       <span className="text-base text-slate-400 mb-3 font-medium">{item.date}</span>

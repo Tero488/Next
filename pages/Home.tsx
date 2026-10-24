@@ -353,6 +353,7 @@ const NewsPreview: React.FC = () => {
                     loading="lazy"
                     decoding="async"
                     className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 transform-gpu"
+                    style={item.position ? { objectPosition: item.position } : undefined}
                   />
                 </div>
                 <div className="flex items-center gap-4 mb-4">
