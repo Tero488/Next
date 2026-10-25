@@ -54,6 +54,50 @@ const CONFIG_IMAGES = {
 export const casesData = {
   zh: [
     {
+      id: "cs1792592778292343",
+      title: "益阳梓山府",
+      category: "平层",
+      type: "idealyou", // 享你所想-空间案例
+      image: "/images/cases/cs1792592778292343/cover.webp",
+      description: "坐落于梓山湖板块的品质大平层项目。设计团队打破传统界限，以现代东方的设计语言重构空间秩序。全景落地窗将园景与自然光影引入室内，温润木色基底辅以柔和漫射灯光，营造出安静治愈、从容雅致的居住氛围。空间流动性与私密性完美平衡，重新定义了当代精英的生活方式。",
+      gallery: [
+        "/images/cases/cs1792592778292343/cover.webp",
+        "/images/cases/cs1792592778292343/cs1792592778292343-02.webp",
+        "/images/cases/cs1792592778292343/cs1792592778292343-03.webp",
+        "/images/cases/cs1792592778292343/cs1792592778292343-04.webp",
+        "/images/cases/cs1792592778292343/cs1792592778292343-05.webp",
+        "/images/cases/cs1792592778292343/cs1792592778292343-06.webp"
+      ]
+    },
+    {
+      id: "cs1792591590100804",
+      title: "长沙瑞府",
+      category: "平层",
+      type: "idealyou", // 享你所想-空间案例
+      image: "/images/cases/cs1792591590100804/cover.webp",
+      description: "长沙瑞府大平层项目。设计团队打破传统界限，以温润现代的美学语言重构空间秩序。全景落地窗将城市景致引入室内，柔和大地色系搭配流动曲线造型，辅以层次细腻的氛围灯光，营造出沉稳雅致、内敛高级的居住氛围。空间流动性与私密性完美平衡，重新定义了当代精英的生活方式。",
+      gallery: [
+        "/images/cases/cs1792591590100804/cover.webp",
+        "/images/cases/cs1792591590100804/cs1792591590100804-02.webp",
+        "/images/cases/cs1792591590100804/cs1792591590100804-03.webp",
+        "/images/cases/cs1792591590100804/cs1792591590100804-04.webp"
+      ]
+    },
+    {
+      id: "cs1792574128231418",
+      title: "保利和光尘樾",
+      category: "平层",
+      type: "idealyou", // 享你所想-空间案例
+      image: "/images/cases/cs1792574128231418/cover.webp",
+      description: "坐落于长沙保利和光尘樾，设计跳出常规家装范式，融合复古趣味与松弛的当代居住感。柔和的奶油基底承载高饱和撞色，以随性自由的软装搭配消解空间刻板感。通透的大面采光引入充足自然光，木色肌理与艺术构件穿插其间，兼顾灵动氛围感与日常实用性，在开放流畅的格局里，构筑兼具审美表达与生活温度的趣味居所。",
+      gallery: [
+        "/images/cases/cs1792574128231418/cover.webp",
+        "/images/cases/cs1792574128231418/cs1792574128231418-02.webp",
+        "/images/cases/cs1792574128231418/cs1792574128231418-03.webp",
+        "/images/cases/cs1792574128231418/cs1792574128231418-04.webp"
+      ]
+    },
+    {
       id: "xiangjiang-one",
       title: "湘江壹号·天际私宅",
       category: "别墅洋房",
@@ -203,6 +247,50 @@ export const casesData = {
     }
   ],
   en: [
+    {
+      id: "cs1792592778292343",
+      title: "益阳梓山府",
+      category: "平层",
+      type: "idealyou", // Ideal You - Spatial Cases
+      image: "/images/cases/cs1792592778292343/cover.webp",
+      description: "坐落于梓山湖板块的品质大平层项目。设计团队打破传统界限，以现代东方的设计语言重构空间秩序。全景落地窗将园景与自然光影引入室内，温润木色基底辅以柔和漫射灯光，营造出安静治愈、从容雅致的居住氛围。空间流动性与私密性完美平衡，重新定义了当代精英的生活方式。",
+      gallery: [
+        "/images/cases/cs1792592778292343/cover.webp",
+        "/images/cases/cs1792592778292343/cs1792592778292343-02.webp",
+        "/images/cases/cs1792592778292343/cs1792592778292343-03.webp",
+        "/images/cases/cs1792592778292343/cs1792592778292343-04.webp",
+        "/images/cases/cs1792592778292343/cs1792592778292343-05.webp",
+        "/images/cases/cs1792592778292343/cs1792592778292343-06.webp"
+      ]
+    },
+    {
+      id: "cs1792591590100804",
+      title: "长沙瑞府",
+      category: "平层",
+      type: "idealyou", // Ideal You - Spatial Cases
+      image: "/images/cases/cs1792591590100804/cover.webp",
+      description: "长沙瑞府大平层项目。设计团队打破传统界限，以温润现代的美学语言重构空间秩序。全景落地窗将城市景致引入室内，柔和大地色系搭配流动曲线造型，辅以层次细腻的氛围灯光，营造出沉稳雅致、内敛高级的居住氛围。空间流动性与私密性完美平衡，重新定义了当代精英的生活方式。",
+      gallery: [
+        "/images/cases/cs1792591590100804/cover.webp",
+        "/images/cases/cs1792591590100804/cs1792591590100804-02.webp",
+        "/images/cases/cs1792591590100804/cs1792591590100804-03.webp",
+        "/images/cases/cs1792591590100804/cs1792591590100804-04.webp"
+      ]
+    },
+    {
+      id: "cs1792574128231418",
+      title: "保利和光尘樾",
+      category: "平层",
+      type: "idealyou", // Ideal You - Spatial Cases
+      image: "/images/cases/cs1792574128231418/cover.webp",
+      description: "坐落于长沙保利和光尘樾，设计跳出常规家装范式，融合复古趣味与松弛的当代居住感。柔和的奶油基底承载高饱和撞色，以随性自由的软装搭配消解空间刻板感。通透的大面采光引入充足自然光，木色肌理与艺术构件穿插其间，兼顾灵动氛围感与日常实用性，在开放流畅的格局里，构筑兼具审美表达与生活温度的趣味居所。",
+      gallery: [
+        "/images/cases/cs1792574128231418/cover.webp",
+        "/images/cases/cs1792574128231418/cs1792574128231418-02.webp",
+        "/images/cases/cs1792574128231418/cs1792574128231418-03.webp",
+        "/images/cases/cs1792574128231418/cs1792574128231418-04.webp"
+      ]
+    },
     {
       id: "xiangjiang-one",
       title: "Xiangjiang One Residence",
