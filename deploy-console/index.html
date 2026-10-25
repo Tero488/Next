@@ -54,12 +54,59 @@
     .droptext { display: inline; }
     .clearbtn { margin-top: 10px; background: #fff; color: #c0392b; border: 1px solid #f3c9c5; font-size: 12px; padding: 6px 12px; border-radius: 8px; cursor: pointer; }
     .clearbtn:hover { background: #fff4f3; }
-    /* 封面构图预览（只调位置不改尺寸） */
-    .posbox { position: relative; width: 100%; aspect-ratio: 4 / 3; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; margin-top: 10px; background: #f6f6f6; cursor: crosshair; touch-action: none; }
-    .posbox img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .poshandle { position: absolute; width: 28px; height: 28px; border-radius: 50%; border: 2px solid #fff; background: rgba(24,95,165,.35); box-shadow: 0 0 0 1px rgba(0,0,0,.45), 0 2px 6px rgba(0,0,0,.35); transform: translate(-50%, -50%); pointer-events: none; }
-    .poshint { font-size: 12px; color: #888; margin-top: 6px; }
-    .posbox[hidden], .poshint[hidden] { display: none; }
+    /* 封面构图预览（只调位置不改尺寸，所见即所得） */
+    .posbox { position: relative; width: 100%; max-width: 440px; aspect-ratio: 4 / 3; border: 1px solid #cbd5e1; border-radius: 10px; overflow: hidden; margin-top: 10px; background: #eef2f7; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+    .posbox:active { cursor: grabbing; }
+    .posbox.news { aspect-ratio: 16 / 9; }
+    .posbox img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+    /* 三分构图参考线 */
+    .posgrid { position: absolute; inset: 0; pointer-events: none; }
+    .posgrid::before { content: ''; position: absolute; left: 33.34%; top: 0; bottom: 0; width: 0; border-left: 1px solid rgba(255,255,255,.6); box-shadow: 1px 0 0 rgba(0,0,0,.25); }
+    .posgrid::after { content: ''; position: absolute; top: 33.34%; left: 0; right: 0; height: 0; border-top: 1px solid rgba(255,255,255,.6); box-shadow: 0 1px 0 rgba(0,0,0,.25); }
+    /* 焦点准星 */
+    .poshandle { position: absolute; width: 40px; height: 40px; transform: translate(-50%, -50%); pointer-events: none; }
+    .poshandle::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; transform: translateX(-50%); background: rgba(255,255,255,.95); box-shadow: 0 0 0 1px rgba(0,0,0,.55); }
+    .poshandle::after { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 2px; transform: translateY(-50%); background: rgba(255,255,255,.95); box-shadow: 0 0 0 1px rgba(0,0,0,.55); }
+    .poshandle .ring { position: absolute; inset: 7px; border: 2px solid rgba(255,255,255,.95); border-radius: 50%; box-shadow: 0 0 0 1px rgba(0,0,0,.55); }
+    .poshint { font-size: 12px; color: #64748b; margin-top: 6px; }
+    .posctrl { display: flex; gap: 6px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
+    .posctrl button { font-size: 13px; line-height: 1; padding: 7px 10px; border-radius: 7px; border: 1px solid #cbd5e1; background: #fff; cursor: pointer; color: #334155; min-width: 34px; }
+    .posctrl button:hover { background: #f1f5f9; }
+    .posctrl .reset { color: #c0392b; border-color: #f3c9c5; min-width: 0; }
+    .posctrl .note { font-size: 12px; color: #94a3b8; }
+    .posbox[hidden], .poshint[hidden], .posctrl[hidden] { display: none; }
+    /* 发布前预览弹窗 */
+    .pv-overlay { position: fixed; inset: 0; background: rgba(15,23,42,.6); display: flex; align-items: center; justify-content: center; z-index: 998; padding: 20px; }
+    .pv-overlay[hidden] { display: none; }
+    .pv-dialog { background: #fff; border-radius: 16px; width: 100%; max-width: 720px; max-height: 92vh; overflow: auto; box-shadow: 0 24px 80px rgba(0,0,0,.3); }
+    .pv-head { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #eee; }
+    .pv-head h3 { margin: 0; font-size: 16px; }
+    .pv-close { background: none; border: none; font-size: 24px; color: #999; cursor: pointer; padding: 0 6px; line-height: 1; }
+    .pv-body { padding: 20px; }
+    .pv-section-label { font-size: 12px; color: #94a3b8; margin: 20px 0 8px; }
+    .pv-section-label:first-child { margin-top: 0; }
+    .pv-card, .pv-hero { position: relative; width: 100%; border-radius: 12px; overflow: hidden; background: #000; }
+    .pv-card { aspect-ratio: 4 / 3; }
+    .pv-hero { aspect-ratio: 16 / 9; margin-top: 8px; }
+    .pv-card img, .pv-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pv-ov { position: absolute; left: 0; right: 0; bottom: 0; padding: 16px 18px; background: linear-gradient(transparent, rgba(0,0,0,.78)); color: #fff; }
+    .pv-cat { display: inline-block; font-size: 11px; background: rgba(255,255,255,.22); padding: 2px 9px; border-radius: 99px; margin-bottom: 6px; }
+    .pv-t { font-size: 17px; font-weight: 600; line-height: 1.4; }
+    .pv-hero .pv-t { font-size: 22px; font-weight: 700; }
+    .pv-meta { font-size: 12px; color: #cbd5e1; margin-top: 6px; }
+    .pv-desc { font-size: 13px; color: #475569; margin-top: 10px; line-height: 1.7; background: #f8fafc; border-radius: 10px; padding: 12px 14px; white-space: pre-wrap; }
+    .pv-thumbs { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+    .pv-thumbs img { width: 88px; height: 88px; object-fit: cover; border-radius: 8px; border: 1px solid #eee; }
+    .pv-empty { color: #94a3b8; font-size: 13px; }
+    .pv-foot { padding: 14px 20px; border-top: 1px solid #eee; display: flex; gap: 10px; justify-content: flex-end; }
+    .pv-prod { display: flex; gap: 14px; background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 14px; }
+    .pv-prod .pimg { width: 120px; height: 120px; flex: none; background: #f6f6f6; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .pv-prod .pimg img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .pv-prod .pinfo { flex: 1; }
+    .pv-prod .pt { font-size: 16px; font-weight: 600; }
+    .pv-prod .pen { font-size: 12px; color: #94a3b8; margin-top: 2px; }
+    .pv-prod .pcat { display: inline-block; font-size: 11px; background: #eef2f7; color: #475569; padding: 2px 9px; border-radius: 99px; margin-top: 8px; }
+    .pv-prod .pd { font-size: 13px; color: #475569; margin-top: 8px; line-height: 1.6; white-space: pre-wrap; }
   </style>
 </head>
 <body class="locked">
@@ -97,8 +144,16 @@
     <div class="drop" id="drop-cases"><span class="droptext">把案例图片拖到这里，或点击选择（可多选，第一张为封面）</span><br><button type="button" class="clearbtn" id="clear-cases" hidden>清空重选</button></div>
     <input type="file" id="file-cases" accept="image/*" multiple hidden />
     <div class="thumbs" id="thumbs-cases"></div>
-    <div class="posbox" id="pos-cases" hidden><img id="posimg-cases" alt=""><div class="poshandle" id="poshandle-cases"></div></div>
+    <div class="posbox" id="pos-cases" hidden><img id="posimg-cases" alt=""><div class="posgrid"></div><div class="poshandle" id="poshandle-cases"><span class="ring"></span></div></div>
     <div class="poshint" id="poshint-cases" hidden></div>
+    <div class="posctrl" id="posctrl-cases" hidden>
+      <button type="button" data-dir="up" title="上移焦点">↑</button>
+      <button type="button" data-dir="left" title="左移焦点">←</button>
+      <button type="button" data-dir="down" title="下移焦点">↓</button>
+      <button type="button" data-dir="right" title="右移焦点">→</button>
+      <button type="button" class="reset" data-dir="reset">重置居中</button>
+      <span class="note">直接用鼠标拖图片调焦点（比例与案例卡片一致 4:3）</span>
+    </div>
     <label>案例标题 *</label>
     <input id="title-cases" placeholder="例如：滨江壹号·现代轻奢平层" />
     <label>分类</label>
@@ -112,7 +167,7 @@
     </select>
     <label>案例描述（可选）</label>
     <textarea id="desc-cases" placeholder="留空将自动填充占位文字，可后续补充"></textarea>
-    <div style="margin-top:16px"><button id="publish-cases">发布案例</button></div>
+    <div style="margin-top:16px; display:flex; gap:10px;"><button id="publish-cases">发布案例</button><button type="button" class="ghost" id="preview-cases">预览效果</button></div>
     <pre id="log-cases">选择图片并填写标题后点击「发布案例」。</pre>
   </div>
 
@@ -122,15 +177,23 @@
     <div class="drop" id="drop-news"><span class="droptext">把新闻封面图拖到这里，或点击选择（一张即可）</span><br><button type="button" class="clearbtn" id="clear-news" hidden>清空重选</button></div>
     <input type="file" id="file-news" accept="image/*" hidden />
     <div class="thumbs" id="thumbs-news"></div>
-    <div class="posbox" id="pos-news" hidden><img id="posimg-news" alt=""><div class="poshandle" id="poshandle-news"></div></div>
+    <div class="posbox news" id="pos-news" hidden><img id="posimg-news" alt=""><div class="posgrid"></div><div class="poshandle" id="poshandle-news"><span class="ring"></span></div></div>
     <div class="poshint" id="poshint-news" hidden></div>
+    <div class="posctrl" id="posctrl-news" hidden>
+      <button type="button" data-dir="up" title="上移焦点">↑</button>
+      <button type="button" data-dir="left" title="左移焦点">←</button>
+      <button type="button" data-dir="down" title="下移焦点">↓</button>
+      <button type="button" data-dir="right" title="右移焦点">→</button>
+      <button type="button" class="reset" data-dir="reset">重置居中</button>
+      <span class="note">直接用鼠标拖图片调焦点（比例与新闻列表一致 16:9）</span>
+    </div>
     <label>新闻标题 *</label>
     <input id="title-news" placeholder="例如：NEXT+ 荣获2025年度设计大奖" />
     <label>日期</label>
     <input id="date-news" type="date" />
     <label>新闻摘要（可选）</label>
     <textarea id="summary-news" placeholder="一句话概括这条新闻"></textarea>
-    <div style="margin-top:16px"><button id="publish-news">发布新闻</button></div>
+    <div style="margin-top:16px; display:flex; gap:10px;"><button id="publish-news">发布新闻</button><button type="button" class="ghost" id="preview-news">预览效果</button></div>
     <pre id="log-news">拖入封面图并填写标题后点击「发布新闻」。</pre>
   </div>
 
@@ -167,8 +230,17 @@
     <textarea id="desc-zh-products" placeholder="例如：尺寸: 283*103*66。高密度回弹海绵+高级布艺软包…"></textarea>
     <label>产品描述（英文，留空则同中文）</label>
     <textarea id="desc-en-products" placeholder="Size: 283*103*66. High-density rebound foam..."></textarea>
-    <div style="margin-top:16px"><button id="publish-products">发布产品</button></div>
+    <div style="margin-top:16px; display:flex; gap:10px;"><button id="publish-products">发布产品</button><button type="button" class="ghost" id="preview-products">预览效果</button></div>
     <pre id="log-products">拖入产品图并填写名称后点击「发布产品」。</pre>
+  </div>
+
+  <!-- 发布前预览 -->
+  <div class="pv-overlay" id="pv-overlay" hidden>
+    <div class="pv-dialog">
+      <div class="pv-head"><h3 id="pv-title">发布前预览</h3><button class="pv-close" id="pv-close" type="button">×</button></div>
+      <div class="pv-body" id="pv-body"></div>
+      <div class="pv-foot"><button type="button" class="ghost" id="pv-close2">关闭并检查</button></div>
+    </div>
   </div>
 
   <script>
@@ -340,42 +412,62 @@
       return api;
     }
 
-    // 封面构图预览：拖动白点调整 object-position（只调位置，不改尺寸）
-    function setupPosEditor(api, boxId, imgId, handleId, hintId) {
+    // 封面构图预览：直接拖动图片调整 object-position（只调位置，不改尺寸，所见即所得）
+    function setupPosEditor(api, boxId, imgId, handleId, hintId, ctrlId) {
       const box = document.getElementById(boxId);
       const img = document.getElementById(imgId);
       const handle = document.getElementById(handleId);
       const hint = document.getElementById(hintId);
+      const ctrl = document.getElementById(ctrlId);
       let pos = { x: 50, y: 50 };
+      const clamp = (v) => Math.max(0, Math.min(100, v));
       function apply() {
         const px = Math.round(pos.x), py = Math.round(pos.y);
         img.style.objectPosition = px + '% ' + py + '%';
         handle.style.left = px + '%';
         handle.style.top = py + '%';
-        hint.textContent = '封面焦点：' + px + '% ' + py + '%（拖动白点调整，不改尺寸）';
+        hint.textContent = '封面焦点：横向 ' + px + '%　纵向 ' + py + '%';
         api.coverPosition = px + '% ' + py + '%';
       }
-      function setFromEvent(e) {
-        const rect = box.getBoundingClientRect();
-        const cx = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-        const cy = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-        pos.x = Math.max(0, Math.min(100, cx / rect.width * 100));
-        pos.y = Math.max(0, Math.min(100, cy / rect.height * 100));
+      // 直接拖动图片：抓住画面平移，焦点随手指走
+      let dragging = false, last = null;
+      box.addEventListener('pointerdown', (e) => {
+        dragging = true;
+        try { box.setPointerCapture(e.pointerId); } catch {}
+        last = { x: e.clientX, y: e.clientY };
+      });
+      box.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        const r = box.getBoundingClientRect();
+        const dx = (e.clientX - last.x) / r.width * 100;
+        const dy = (e.clientY - last.y) / r.height * 100;
+        pos.x = clamp(pos.x - dx);   // 向右拖图 → 看左侧内容 → 焦点左移
+        pos.y = clamp(pos.y - dy);
+        last = { x: e.clientX, y: e.clientY };
         apply();
-      }
-      let dragging = false;
-      box.addEventListener('pointerdown', (e) => { dragging = true; try { box.setPointerCapture(e.pointerId); } catch {} setFromEvent(e); });
-      box.addEventListener('pointermove', (e) => { if (dragging) setFromEvent(e); });
-      box.addEventListener('pointerup', () => { dragging = false; });
-      box.addEventListener('pointercancel', () => { dragging = false; });
+      });
+      const stop = () => { dragging = false; };
+      box.addEventListener('pointerup', stop);
+      box.addEventListener('pointercancel', stop);
+      // 方向微调 + 重置
+      ctrl.addEventListener('click', (e) => {
+        const b = e.target.closest('button'); if (!b) return;
+        const d = b.dataset.dir, step = 3;
+        if (d === 'left') pos.x = clamp(pos.x + step);
+        else if (d === 'right') pos.x = clamp(pos.x - step);
+        else if (d === 'up') pos.y = clamp(pos.y + step);
+        else if (d === 'down') pos.y = clamp(pos.y - step);
+        else if (d === 'reset') pos = { x: 50, y: 50 };
+        apply();
+      });
       api.resetPos = () => { pos = { x: 50, y: 50 }; apply(); };
       api.refreshPos = () => {
         if (api.dataUrls && api.dataUrls.length) {
           img.src = api.dataUrls[0];
-          box.hidden = false; hint.hidden = false;
+          box.hidden = false; hint.hidden = false; ctrl.hidden = false;
           apply();
         } else {
-          box.hidden = true; hint.hidden = true;
+          box.hidden = true; hint.hidden = true; ctrl.hidden = true;
         }
       };
       apply();
@@ -384,8 +476,8 @@
     const casesDrop = makeDrop('drop-cases', 'file-cases', 'thumbs-cases', 'clear-cases');
     const newsDrop = makeDrop('drop-news', 'file-news', 'thumbs-news', 'clear-news');
     const productsDrop = makeDrop('drop-products', 'file-products', 'thumbs-products', 'clear-products');
-    setupPosEditor(casesDrop, 'pos-cases', 'posimg-cases', 'poshandle-cases', 'poshint-cases');
-    setupPosEditor(newsDrop, 'pos-news', 'posimg-news', 'poshandle-news', 'poshint-news');
+    setupPosEditor(casesDrop, 'pos-cases', 'posimg-cases', 'poshandle-cases', 'poshint-cases', 'posctrl-cases');
+    setupPosEditor(newsDrop, 'pos-news', 'posimg-news', 'poshandle-news', 'poshint-news', 'posctrl-news');
 
     // 案例发布
     document.getElementById('publish-cases').onclick = async () => {
@@ -493,6 +585,61 @@
         log.textContent = '发布失败：' + d.error;
       }
     };
+
+    // 发布前预览：用当前表单数据渲染"上线后长啥样"
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+    const pvOverlay = document.getElementById('pv-overlay');
+    const pvBody = document.getElementById('pv-body');
+    function closePreview() { pvOverlay.hidden = true; }
+    document.getElementById('pv-close').onclick = closePreview;
+    document.getElementById('pv-close2').onclick = closePreview;
+    pvOverlay.addEventListener('click', (e) => { if (e.target === pvOverlay) closePreview(); });
+
+    function showPreview(section) {
+      let html = '';
+      if (section === 'cases') {
+        const cover = casesDrop.dataUrls[0];
+        const title = document.getElementById('title-cases').value.trim() || '（未填写标题）';
+        const cat = document.getElementById('category-cases').value || '未分类';
+        const desc = document.getElementById('desc-cases').value.trim() || '（未填写描述）';
+        const pos = casesDrop.coverPosition;
+        const imgs = casesDrop.dataUrls;
+        html += '<div class="pv-section-label">① 案例列表卡片（4:3，与案例页一致）</div>';
+        html += cover
+          ? '<div class="pv-card"><img src="' + cover + '" style="object-position:' + pos + '"><div class="pv-ov"><span class="pv-cat">' + esc(cat) + '</span><div class="pv-t">' + esc(title) + '</div></div></div>'
+          : '<div class="pv-card"><div class="pv-ov"><div class="pv-t pv-empty">请先拖入封面图</div></div></div>';
+        html += '<div class="pv-section-label">② 案例详情大图（16:9，焦点与列表同步）</div>';
+        if (cover) html += '<div class="pv-hero"><img src="' + cover + '" style="object-position:' + pos + '"><div class="pv-ov"><div class="pv-t">' + esc(title) + '</div><div class="pv-meta">' + esc(cat) + '</div></div></div>';
+        html += '<div class="pv-section-label">③ 案例描述文本</div><div class="pv-desc">' + esc(desc) + '</div>';
+        if (imgs.length > 1) html += '<div class="pv-section-label">④ 图集（' + imgs.length + ' 张）</div><div class="pv-thumbs">' + imgs.map((s) => '<img src="' + s + '">').join('') + '</div>';
+      } else if (section === 'news') {
+        const cover = newsDrop.dataUrls[0];
+        const title = document.getElementById('title-news').value.trim() || '（未填写标题）';
+        const date = document.getElementById('date-news').value || '（未填日期）';
+        const summary = document.getElementById('summary-news').value.trim() || '（未填写摘要）';
+        const pos = newsDrop.coverPosition;
+        html += '<div class="pv-section-label">① 新闻列表卡片（16:9，与首页/新闻页一致）</div>';
+        html += cover
+          ? '<div class="pv-hero"><img src="' + cover + '" style="object-position:' + pos + '"><div class="pv-ov"><div class="pv-t">' + esc(title) + '</div><div class="pv-meta">' + esc(date) + '</div></div></div>'
+          : '<div class="pv-hero"><div class="pv-ov"><div class="pv-t pv-empty">请先拖入封面图</div></div></div>';
+        html += '<div class="pv-section-label">② 新闻摘要文本</div><div class="pv-desc">' + esc(summary) + '</div>';
+      } else if (section === 'products') {
+        const cover = productsDrop.dataUrls[0];
+        const tZh = document.getElementById('title-zh-products').value.trim() || '（未填写名称）';
+        const tEn = document.getElementById('title-en-products').value.trim();
+        const cat = document.getElementById('category-products').value;
+        const dZh = document.getElementById('desc-zh-products').value.trim();
+        html += '<div class="pv-section-label">① 产品卡片预览（完整显示，不裁剪）</div>';
+        html += '<div class="pv-prod"><div class="pimg">' + (cover ? '<img src="' + cover + '">' : '<span class="pv-empty">未选图</span>') + '</div><div class="pinfo"><div class="pt">' + esc(tZh) + '</div>' + (tEn ? '<div class="pen">' + esc(tEn) + '</div>' : '') + '<span class="pcat">' + esc(cat) + '</span>' + (dZh ? '<div class="pd">' + esc(dZh) + '</div>' : '') + '</div></div>';
+      }
+      pvBody.innerHTML = html;
+      pvOverlay.hidden = false;
+    }
+
+    document.getElementById('preview-cases').onclick = () => showPreview('cases');
+    document.getElementById('preview-news').onclick = () => showPreview('news');
+    document.getElementById('preview-products').onclick = () => showPreview('products');
 
     // 默认给新闻日期填上今天
     document.getElementById('date-news').value = new Date().toISOString().slice(0, 10);

@@ -104,7 +104,8 @@ export const casesData = {
       type: "idealyou", // 享你所想-空间案例
       image: "/images/cases/xiangjiang-one/cover.webp",
       description: "位于湘江之畔的顶级豪宅项目。设计团队打破传统界限，以现代极简语言重构空间秩序。全景落地窗将一线江景引入室内，黑白灰的主色调点缀暖色灯光，配合B&B Italia、Poliform等国际一线品牌家居，营造出静谧而极致奢华的居住氛围。空间流动性与私密性完美平衡，重新定义了当代精英的生活方式。",
-      gallery: Array.from({ length: 24 }, (_, i) => `/images/cases/gallery/xiangjiang-one/xiangjiang-one-${String(i + 1).padStart(2, '0')}.webp`)
+      gallery: Array.from({ length: 24 }, (_, i) => `/images/cases/gallery/xiangjiang-one/xiangjiang-one-${String(i + 1).padStart(2, '0')}.webp`),
+      position: "25% 75%"
     },
     {
       id: "c2",
@@ -298,7 +299,8 @@ export const casesData = {
       type: "idealyou", // Ideal You - Spatial Cases
       image: "/images/cases/xiangjiang-one/cover.webp",
       description: "A top-tier private residence located by the Xiangjiang River. The design team breaks away from traditional boundaries, reconstructing spatial order with modern minimalist language. Panoramic glazing brings the river panorama indoors, while the monochrome palette and warm lighting create a calm yet ultra-luxurious ambience.",
-      gallery: Array.from({ length: 24 }, (_, i) => `/images/cases/gallery/xiangjiang-one/xiangjiang-one-${String(i + 1).padStart(2, '0')}.webp`)
+      gallery: Array.from({ length: 24 }, (_, i) => `/images/cases/gallery/xiangjiang-one/xiangjiang-one-${String(i + 1).padStart(2, '0')}.webp`),
+      position: "25% 75%"
     },
     {
       id: "c2",
